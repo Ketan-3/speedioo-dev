@@ -1508,3 +1508,28 @@ footer{background:var(--wine)}
 .langs button.on{color:var(--red)}
 .msg.me{background:var(--red)}
 .bnav a.active{color:var(--red)}
+
+/* v6.1 · SPEEDIOO wordmark with tyre O's */
+.sg-logo{display:block;height:28px;width:auto;overflow:visible}
+.sg-logo .ch,.sg-logo .tyre{fill:currentColor}
+.sg-logo .tread{fill:none;stroke:var(--logo-tread,#FFFFFF);stroke-width:2.4;stroke-dasharray:1.3 4.7;opacity:.55}
+.sg-logo .spin{fill:currentColor}
+.sg-logo .plug{fill:var(--logo-tread,#FFFFFF)}
+.sg-logo .arc{fill:none;stroke:#cfe8ff;stroke-width:.8;stroke-linecap:round}
+.sg-logo .glow{fill:#cfe8ff}
+.logo{color:var(--red)}
+.logo:hover .sg-logo .spin{animation:wheelSpin .9s cubic-bezier(.2,.8,.3,1)}
+@keyframes wheelSpin{to{transform:rotate(360deg)}}
+@media (max-width:900px){.sg-logo{height:22px}}
+@media (max-width:380px){.sg-logo{height:19px}}
+.logo-foot{color:#FFFFFF;--logo-tread:var(--wine)}
+.logo-foot .sg-logo{height:30px}
+.drawer-top .logo{color:var(--red)}
+/* splash (brand wall from the animated logo) */
+.splash{background:#7d050b}
+.sp-wall{position:absolute;inset:0;background:radial-gradient(ellipse 22% 55% at 30% -8%,rgba(255,170,150,.45),transparent 70%),radial-gradient(ellipse 22% 55% at 72% -8%,rgba(255,170,150,.45),transparent 70%),radial-gradient(ellipse 80% 70% at 50% 45%,#ee2a2a,#c8101a 55%,#7d050b 100%)}
+.sp-stage{position:relative;z-index:1;width:min(92vw,1000px);transform:none;filter:drop-shadow(0 4px 5px rgba(60,0,0,.55))}
+.sp-logo{width:100%;height:auto;display:block;overflow:visible;color:#FFFFFF;--logo-tread:#b30d16}
+.sp-logo .tread{opacity:1}
+.sp-fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}
+.sp-skip{z-index:3}

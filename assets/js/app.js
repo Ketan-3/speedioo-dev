@@ -43,11 +43,7 @@ const I = {
   camera: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 7h4l2-3h4l2 3h4v13H4z"/><circle cx="12" cy="13" r="4"/></svg>',
   star: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.7 5.8 6.3.7-4.7 4.3 1.3 6.2L12 17l-5.6 3 1.3-6.2L3 9.5l6.3-.7z"/></svg>'
 };
-const LOGO = (() => {
-  const L = window.SPEEDIOO_LOGO;
-  if (!L) return '<span class="logo-txt">speedioo</span>';
-  return `<svg class="logo-svg" viewBox="0 0 850 253" role="img" aria-label="Speedioo"><path class="lb" d="${L.badgeOuter}"/><path class="ls" fill-rule="evenodd" d="${L.badgeInner}"/>${L.word.map(d => `<path class="lw" d="${d}"/>`).join('')}</svg>`;
-})();
+const logoSVG = () => window.buildLogo ? buildLogo({ cls: 'site-logo' }) : '<span class="logo-txt">SPEEDIOO</span>';
 const ico = (n, s = 18) => I[n].replace('<svg', `<svg width="${s}" height="${s}" aria-hidden="true"`);
 
 /* ---------- state ---------- */
@@ -772,7 +768,7 @@ const mhead = t => `<div class="m-head"><h2>${t}</h2><button class="close" data-
 const okBox = (title, msg, extra = '') => `<div class="ok-box"><span class="big">✓</span><strong style="font-size:var(--fs-lg)">${title}</strong><p class="muted">${msg}</p>${extra}</div>`;
 
 function openDrawer() {
-  layer(`<div class="drawer-top"><a href="#home" class="logo" aria-label="Speedioo home">${LOGO}</a><button class="icon-btn dark close" data-act="closeL" aria-label="Close menu">${I.x}</button></div>
+  layer(`<div class="drawer-top"><a href="#home" class="logo" aria-label="Speedioo home">${logoSVG()}</a><button class="icon-btn dark close" data-act="closeL" aria-label="Close menu">${I.x}</button></div>
    <button class="login-card" data-act="account"><span class="av">${S.user ? esc(S.user.name[0]) : ico('user', 22)}</span><span style="flex:1">${S.user ? `<strong>Hi, ${esc(S.user.name)}</strong><small>My account</small>` : '<strong style="font-size:20px">Log in / Sign up</strong><small>Mobile OTP · 10 seconds</small>'}</span>›</button>
    <nav class="dnav"><a href="#buy" data-act="reset-buy">${I.bike}${t('buy')} now</a><a href="#sell">${I.tag}${t('sell')} now</a><a href="#about">${I.user}${t('about')}</a><a href="#contact">${I.phone}Contact us</a><a href="#blog">${I.guide}${t('blog')}</a><a class="small" href="#" data-act="shortlist">${I.heart}My shortlist · My test rides</a></nav>
    <div class="drow"><span class="eyebrow">Language</span><div class="chips">${[['en', 'EN'], ['hi', 'हिंदी'], ['mr', 'मराठी']].map(([k, l]) => `<button class="chip ${S.lang === k ? 'on' : ''}" data-act="lang" data-v="${k}">${l}</button>`).join('')}</div></div>
@@ -1238,7 +1234,7 @@ function drawAcc() { $('#accBtn').innerHTML = S.user ? `<span class="acc-i">${es
 $('#burger').innerHTML = I.menu; $$('.sIcon').forEach(s => s.outerHTML = I.search); $$('.mic').forEach(m => m.outerHTML = `<span class="mic-i">${I.mic}</span>`);
 $('#bn1').innerHTML = I.home + 'Home'; $('#bn2').innerHTML = I.bike + 'Buy'; $('#bn3').innerHTML = I.tag + 'Sell'; $('#bn4').innerHTML = I.phone + 'Call'; $('#bn5').innerHTML = I.wa + 'WhatsApp';
 $('#chatFab').innerHTML = I.chat + '<span>Ask Speedioo</span>'; $('#waFab').innerHTML = I.wa;
-$$('.logo').forEach(l => l.innerHTML = LOGO);
+$$('.logo').forEach(l => l.innerHTML = logoSVG());
 SpeediooCity.apply(S.city);
 if (S.fromQR) track('qr_landing', { medium: (location.search.match(/utm_medium=([^&]+)/) || [])[1] || '' });
 $$('.cityName').forEach(e => e.textContent = S.city);

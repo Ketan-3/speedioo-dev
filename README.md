@@ -4,8 +4,8 @@ Static, framework-free front end for the Speedioo used two-wheeler marketplace (
 Every flow works in the browser today; data is kept in `localStorage` until the backend is connected.
 
 ## v0.6 — brand theme, intro, Delhi
-- Real Speedioo logo (from `speedioo-editable.ai`) in header, footer, favicon and `assets/img/speedioo-logo*.svg`; brand red #DE2227.
-- Opening animation (`assets/js/intro.js`): badge rolls in, wordmark sweeps in, tagline. Once per session, skippable, `?intro` replays.
+- SPEEDIOO wordmark with tyre O's (from `speedioo-logo.html`) in header, footer, favicon and `assets/img/speedioo-logo*.svg`; drawn by `buildLogo()` in `assets/js/logo.js`. Brand red #DE2227.
+- Opening animation (`assets/js/intro.js`), ported from the animated logo: tyres roll in with brake sparks, letters slam in, spark plugs fire. Once per session, skippable, `?intro` replays.
 - Less black: white header, red-duotone hero video, light sections, brand-red closing band, deep wine footer.
 - Cities are now Pune, Delhi, Bangalore. Each scene shows its ride road (Sinhagad hairpins + Lavasa lake, Delhi highway past India Gate and Qutub Minar, Nandi Hills hairpins); riders stay upright.
 
