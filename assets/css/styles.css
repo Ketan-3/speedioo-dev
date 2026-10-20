@@ -1330,3 +1330,181 @@ a.fin:hover{border-color:var(--red);background:rgba(215,20,26,.08)}
 .city-meta>div{display:grid;gap:4px;align-content:start}
 .city-meta .link-arrow{white-space:normal}
 .city-meta .chip{justify-self:start}
+
+/* =========================================================
+   v6 · brand theme: Speedioo red #DE2227 + warm whites.
+   Black is reserved for body text and small details.
+   ========================================================= */
+:root{
+  --red:#DE2227;--red-deep:#A8141B;--red-tint:#FDECEA;--wine:#3B0F12;
+  --black:#2A1517;--ink:#221C1C;--white:#FFFFFF;--page:#FFFAF7;--surface:#F8EFEB;--line:#EBDDD8;--muted:#6E6363;
+  --on-black-muted:#F6C9C6;--brand:var(--red);--shadow:0 12px 32px rgba(120,20,24,.14);
+  --cpx-metal:#A79B98;--cpx-chrome:#CFC4C1;--cpx-disc:#7B6F6C;--cpx-engine:#4A3B3B;--cpx-panel:#7B6F6C;--cpx-shadow:#EBDDD8;
+}
+body{background:var(--page)}
+body::before{background:var(--white)}
+::selection{background:var(--red);color:#fff}
+
+/* header: white with the red logo */
+.hdr{background:rgba(255,255,255,.94);color:var(--ink);border-bottom:1px solid var(--line);backdrop-filter:saturate(1.4) blur(10px);-webkit-backdrop-filter:saturate(1.4) blur(10px)}
+.hdr .icon-btn{border-color:var(--line);color:var(--ink)}
+.hdr .icon-btn:hover{border-color:var(--red);color:var(--red)}
+.hdr .city-btn{border-color:var(--line);color:var(--ink)}
+.hdr .city-btn:hover{border-color:var(--red)}
+.hdr .cityIcon{color:var(--red)}
+.hdr .search-trigger{background:var(--surface);border:1.5px solid transparent}
+.hdr .search-trigger:hover{border-color:var(--line)}
+.hdr-nav a{color:var(--ink)}
+.helpline{color:var(--muted)}.helpline strong{color:var(--ink)}
+.count{background:var(--red)}
+.logo{color:var(--red);gap:0}
+.logo .mark,.logo>span:not(.logo-svg){display:none}
+.logo-svg{height:34px;width:auto;display:block}
+.logo-svg .lb,.logo-svg .lw{fill:currentColor}
+.logo-svg .ls{fill:var(--logo-s,#FFFFFF)}
+@media (max-width:900px){.logo-svg{height:30px}}
+.drawer-top .logo{color:var(--red)}
+.logo-foot{color:#FFFFFF;--logo-s:var(--wine)}
+.logo:hover .logo-svg .lb{animation:badgeSpin .8s cubic-bezier(.2,.8,.3,1);transform-box:fill-box;transform-origin:center}
+.logo:hover .logo-svg .ls{animation:badgeSpin .8s cubic-bezier(.2,.8,.3,1);transform-box:view-box;transform-origin:121px 131px}
+@keyframes badgeSpin{to{transform:rotate(-360deg)}}
+
+/* opening animation */
+html.splash-on body{overflow:hidden}
+html.splash-on #app,html.splash-on .hdr,html.splash-on footer,html.splash-on .fabs,html.splash-on .bnav{visibility:hidden}
+.splash{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;background:radial-gradient(120% 90% at 30% 30%,#E8343A 0%,var(--red) 45%,var(--red-deep) 100%);cursor:pointer;transition:transform .7s cubic-bezier(.7,0,.2,1),opacity .7s;perspective:900px;padding:24px}
+.splash.out{transform:translateY(-100%);opacity:.6}
+.sp-stage{position:relative;width:min(720px,88vw);transform:rotateX(var(--rx,0)) rotateY(var(--ry,0));transition:transform .25s ease-out}
+.sp-logo{width:100%;height:auto;display:block;overflow:visible}
+.sp-badge{transform-box:fill-box;transform-origin:center;animation:spRoll 1.05s cubic-bezier(.2,.75,.25,1) both}
+@keyframes spRoll{from{transform:translateX(900px) rotate(1080deg)}to{transform:none}}
+.sp-l{opacity:0;animation:spLetter .55s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(.75s + var(--i) * .07s)}
+@keyframes spLetter{from{opacity:0;transform:translateX(160px) skewX(-25deg)}to{opacity:1;transform:none}}
+.sp-tag{opacity:0;animation:spTag .5s 1.55s ease-out both}
+@keyframes spTag{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.sp-road{position:absolute;left:0;right:0;bottom:-26px;height:3px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.8) 0 26px,transparent 26px 46px);animation:spRoad 1.2s linear infinite;opacity:.6}
+@keyframes spRoad{to{background-position:-92px 0}}
+.sp-lines i{position:absolute;right:-30%;height:2px;width:30%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.75));animation:spLine 1.1s cubic-bezier(.3,.6,.4,1) both}
+.sp-lines i:nth-child(1){top:22%;animation-delay:.05s}.sp-lines i:nth-child(2){top:34%;animation-delay:.25s;width:20%}.sp-lines i:nth-child(3){top:46%;animation-delay:.1s}.sp-lines i:nth-child(4){top:58%;animation-delay:.35s;width:24%}.sp-lines i:nth-child(5){top:70%;animation-delay:.2s}.sp-lines i:nth-child(6){top:80%;animation-delay:.45s;width:16%}.sp-lines i:nth-child(7){top:14%;animation-delay:.5s;width:18%}
+@keyframes spLine{from{transform:translateX(0);opacity:0}20%{opacity:1}to{transform:translateX(-480%);opacity:0}}
+.sp-skip{position:absolute;right:max(20px,env(safe-area-inset-right,0px));top:calc(18px + env(safe-area-inset-top,0px));background:rgba(255,255,255,.16);color:#fff;border:1.5px solid rgba(255,255,255,.5);border-radius:999px;padding:8px 16px;font-weight:600}
+@media (prefers-reduced-motion:reduce){.sp-badge,.sp-l,.sp-tag,.sp-lines i,.sp-road{animation:none;opacity:1}.splash{transition:opacity .4s}.splash.out{transform:none;opacity:0}}
+
+/* hero: red-duotone video with the city's ride road melting into the page */
+.hero.hero-v5{background:var(--red-deep);color:#fff}
+.hero-v5 .hero-media{background:var(--red)}
+.hero-v5 .hero-media video{filter:grayscale(1) contrast(1.15);mix-blend-mode:multiply;opacity:.85}
+.hero-v5 .hero-shade{background:linear-gradient(95deg,rgba(120,10,16,.92) 0%,rgba(150,12,18,.70) 45%,rgba(160,14,20,.25) 100%)}
+.hero-v5 .eyebrow.on-dark{color:#FFE1DE}
+.hero-v5 .live{background:#fff;box-shadow:0 0 0 0 rgba(255,255,255,.6)}
+.hero-v5 h1 em{color:#FFE1DE}
+.hero-v5 .sub{color:#FFE9E6}
+.hero-local::before{background:#fff}
+.hero-ctas .btn-red{background:#fff;color:var(--red)}
+.hero-ctas .btn-red:hover{background:var(--red-tint)}
+.hero-v5 .finder{box-shadow:0 30px 60px rgba(90,6,10,.35)}
+.chip-dark{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.35)}
+.chip-dark svg{color:#fff}
+.chip-dark:hover{background:#fff;color:var(--red);border-color:#fff}
+.chip-dark:hover svg{color:var(--red)}
+.hero-city{height:min(42%,320px)}
+.vid-ctl{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.5)}
+.hero-v5 .wrap.hero-in{padding-block:48px 150px}
+
+/* selected states in brand red instead of black */
+.chip.on,.seg button.on,.chip-red.on{background:var(--red);border-color:var(--red);color:#fff}
+.seg{border-color:var(--red)}
+.tabs button.on{border-color:var(--red)}
+.btn-black{background:var(--ink)}
+.btn-black:hover{background:var(--red-deep)}
+.pillar .pi{background:var(--red)}
+
+/* sections */
+.sec-alt{background:var(--surface)}
+.why{background-color:var(--page)}
+.jr-sec{background:linear-gradient(180deg,var(--red-tint) 0%,var(--page) 100%);background-image:var(--city-pat-light),linear-gradient(180deg,var(--red-tint) 0%,var(--page) 100%);color:var(--ink)}
+.jr-sec .sec-head h2{color:var(--ink)}
+.jr-sec .eyebrow.on-dark{color:var(--red)}
+.jr-watch{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;max-width:960px;margin:40px auto 0}
+.jr-watch h3{color:var(--ink)}
+.jr-watch p{color:var(--muted)}
+.jr-watch .sx-cap p{color:var(--ink)}
+.jr-watch .sx-time{color:var(--muted)}
+.jr-watch .sx-steps li.on span{color:var(--ink)}
+.jr-watch .sx-btn{border-color:var(--ink);background:#fff;color:var(--ink)}
+.jr-watch .sx-steps li.done i{background:var(--ink)}
+.marquee{background:var(--red);border:0}
+.marquee button{-webkit-text-stroke:1.2px rgba(255,255,255,.75)}
+.marquee button:hover,.marquee button:focus-visible{color:#fff}
+.marquee i{color:#fff}
+.how-sec{background:#fff;background-image:var(--city-pat-light);color:var(--ink)}
+.how-sec .sec-head h2{color:var(--ink)}
+.how-sec .eyebrow.on-dark{color:var(--red)}
+.seg-dark{border-color:var(--red)}
+.seg-dark button{color:var(--ink)}
+.seg-dark button.on{background:var(--red);color:#fff}
+.g-track{stroke:#F2E2DE}.g-maj{stroke:var(--ink)}.g-min{stroke:#CDBDB9}
+.g-stop circle{fill:#fff;stroke:#CDBDB9}.g-stop text{fill:var(--muted)}
+.g-hub{fill:var(--ink)}.g-hub-in{fill:#fff}.g-num{fill:var(--ink)}.g-lab{fill:var(--muted)}
+.how-steps button{border-color:var(--line);color:var(--ink);background:#fff}
+.how-steps button:hover{border-color:var(--red)}
+.how-steps span span{color:var(--muted)}
+.how-steps .n{border-color:#CDBDB9;color:var(--ink)}
+.how-steps li.on button{border-color:var(--red);background:var(--red-tint)}
+.how-steps li.on .n,.how-steps li.done .n{color:#fff}
+.final-sec{background:linear-gradient(135deg,var(--red) 0%,var(--red-deep) 100%);background-image:var(--city-pat-dark),linear-gradient(135deg,var(--red) 0%,var(--red-deep) 100%)}
+.final-sec .eyebrow.on-dark{color:#FFE1DE}
+.fin{border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.08)}
+.fin>svg{color:#fff}
+.fin span{color:#FFE1DE}
+a.fin:hover{border-color:#fff;background:rgba(255,255,255,.16)}
+.fin-form{background:#fff;border-color:#fff}
+.fin-form span{color:var(--muted)}
+.wa-band{background:var(--surface);background-image:var(--city-pat-light);color:var(--ink)}
+.wa-band h2{color:var(--ink)}
+.wa-band .fmuted{color:var(--muted)}
+.wa-band .wa-form .input{border-color:var(--ink)}
+.opt-ok{color:var(--ink)}
+.rs-out,.est{background:linear-gradient(135deg,var(--red) 0%,var(--red-deep) 100%)}
+.rs-out small,.rs-out span,.est .fine,.est .eyebrow.on-dark{color:#FFE1DE}
+.stats div:first-child{background:var(--red)}
+.city-sec{background-color:var(--page)}
+.city-art{border-color:var(--line);background:#FFF4EF}
+
+/* footer: deep brand wine instead of black */
+footer{background:var(--wine)}
+.fcol h4{color:#fff}
+.fbase{border-color:rgba(255,255,255,.12);color:#F2C6C3}
+.secure span{border-color:rgba(255,255,255,.2)}
+.fmuted{color:#F2C6C3}
+.fcol a:hover{color:#FFB3B0}
+@media (max-width:900px){footer details{border-color:rgba(255,255,255,.12)}}
+
+/* sell page hero matches the home hero */
+.sell-top{background:var(--red-deep)}
+.sell-bg{background:var(--red)}
+.sell-bg .scene{filter:grayscale(1) contrast(1.1);mix-blend-mode:multiply;opacity:.8}
+.sell-bg::after{background:linear-gradient(90deg,rgba(120,10,16,.92) 30%,rgba(150,12,18,.5))}
+.sell-top .btn-ghost-w:hover{background:#fff;color:var(--red)}
+
+/* floating buttons: compact so they never cover section buttons */
+.fabs{gap:8px}
+.fab{height:48px;min-width:48px}
+.fab-chat{width:48px;padding:0;border-radius:50%}
+.fab-chat span{display:none}
+.fab-wa{width:48px;background:#25D366;color:#fff}
+.fab-qr{height:48px;padding:4px;border-radius:12px;gap:0}
+.fab-qr img{height:40px}
+.fab-qr span{display:none}
+.fab[data-tip]{position:relative}
+@media (hover:hover){.fab-chat:hover::after,.fab-qr:hover::after{content:attr(data-tip);position:absolute;right:calc(100% + 10px);top:50%;transform:translateY(-50%);background:var(--ink);color:#fff;font-size:12px;font-weight:500;padding:5px 10px;border-radius:6px;white-space:nowrap}}
+.qr-pop{bottom:calc(196px + env(safe-area-inset-bottom,0px))}
+@media (max-width:900px){.qr-pop{bottom:calc(196px + env(safe-area-inset-bottom,0px))}}
+.chat-h{background:var(--red)}
+.chat-h .av{background:#fff;color:var(--red)}
+.chat-h small{color:#FFE1DE}
+.chat-h .close{border-color:rgba(255,255,255,.4)}
+.langs button{border-color:rgba(255,255,255,.4)}
+.langs button.on{color:var(--red)}
+.msg.me{background:var(--red)}
+.bnav a.active{color:var(--red)}

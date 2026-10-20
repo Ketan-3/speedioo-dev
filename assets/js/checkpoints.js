@@ -97,7 +97,7 @@
        ${r.s === 'none' ? '<div class="cpx-rate na">Not rated</div>' : `<div class="cpx-rate" aria-label="Rating ${r.rate} out of 10"><span class="bars">${[...Array(10)].map((_, k) => `<i class="${k < r.rate ? 'f' : ''}"></i>`).join('')}</span><b>${r.rate}/10</b></div>`}
        <div class="cpx-cols"><div><h4>What we checked</h4><ul>${p.checks.map(c => `<li>${c}</li>`).join('')}</ul></div>
         <div><h4>What we found</h4><p>${r.find}</p>${r.fix ? `<p class="cpx-fix"><b>Recommended:</b> ${r.fix}</p>` : '<p class="cpx-ok">No action needed.</p>'}</div></div>
-       ${!p.paper && typeof photo === 'function' && b.photo ? `<div class="cpx-ev"><span class="cpx-ev-ph">${photo(b, { view: p.view, sizes: '160px' })}</span><span><b>Inspection photo</b><small>${p.label}, ${b.name}</small></span></div>` : ''}`;
+       ${!p.paper && typeof photo === 'function' && b.photo ? `<div class="cpx-ev"><span class="cpx-ev-ph">${photo(b, { sizes: '160px' })}</span><span><b>Photo of this bike</b><small>${b.name}, ${b.year} · inspector close-ups on request</small></span></div>` : ''}`;
       if (user && typeof track === 'function') track('checkpoint_view', { checkpoint: id, item_id: b.id });
     }
     root.addEventListener('click', e => { const el = e.target.closest('[data-cp]'); if (el) show(el.dataset.cp, true); });

@@ -43,8 +43,11 @@ const I = {
   camera: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 7h4l2-3h4l2 3h4v13H4z"/><circle cx="12" cy="13" r="4"/></svg>',
   star: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.7 5.8 6.3.7-4.7 4.3 1.3 6.2L12 17l-5.6 3 1.3-6.2L3 9.5l6.3-.7z"/></svg>'
 };
-const TYRE = '<svg class="tyre" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.6" fill="none" stroke="currentColor" stroke-width="3.6" stroke-dasharray="5.4 1.1"/><path d="M12 6.2V17.8M7 9.1l10 5.8M17 9.1l-10 5.8" stroke="currentColor" stroke-width="1.2"/><circle cx="12" cy="12" r="2.4" fill="currentColor"/></svg>';
-const LOGO = `<span class="mark">S</span><span class="wm">speed<b>i</b><span class="tyres">${TYRE}${TYRE}</span></span>`;
+const LOGO = (() => {
+  const L = window.SPEEDIOO_LOGO;
+  if (!L) return '<span class="logo-txt">speedioo</span>';
+  return `<svg class="logo-svg" viewBox="0 0 850 253" role="img" aria-label="Speedioo"><path class="lb" d="${L.badgeOuter}"/><path class="ls" fill-rule="evenodd" d="${L.badgeInner}"/>${L.word.map(d => `<path class="lw" d="${d}"/>`).join('')}</svg>`;
+})();
 const ico = (n, s = 18) => I[n].replace('<svg', `<svg width="${s}" height="${s}" aria-hidden="true"`);
 
 /* ---------- state ---------- */
@@ -151,7 +154,7 @@ function setupVideo(v, media, { autoplay = true } = {}) {
 /* ---------- HOME ---------- */
 const GOALS = [['sell', 'Sell my bike', 'tag'], ['buy', 'Buy a bike', 'bike'], ['worth', 'What’s my bike worth?', 'rupee'], ['compare', 'Compare bikes', 'eye'], ['condition', 'Check a bike’s condition', 'shield'], ['finance', 'Finance, insurance & warranty', 'card'], ['why', 'Why Speedioo?', 'star'], ['explore', 'Just exploring', 'route']];
 const COLLECTIONS = [['new', 'Just in'], ['under1l', 'Under ₹1 lakh'], ['re', 'Royal Enfield'], ['scoot', 'Scooters & EVs']];
-const CITY_SAMPLE = { Pune: 1, Mumbai: 9, Bangalore: 14 };
+const CITY_SAMPLE = { Pune: 1, Delhi: 9, Bangalore: 14 };
 const BRAND_REF = { 'Royal Enfield': 200000, 'Harley-Davidson': 280000, Honda: 95000, Bajaj: 110000, TVS: 120000, Yamaha: 160000, Ather: 150000, Hero: 75000, Suzuki: 90000, KTM: 200000, Jawa: 200000, Triumph: 300000 };
 const phTxt = s => s.startsWith('[') ? `<span class="ph">${esc(s)}</span>` : esc(s);
 function scrollToId(id, focusSel) {
@@ -185,7 +188,7 @@ function renderHome() {
   $('#app').innerHTML = `
   <section class="hero hero-v5${swap}">
    <div class="hero-media" aria-hidden="true"><video id="heroVid" muted loop playsinline preload="none"></video><div class="hero-shade"></div></div>
-   <div class="hero-city" aria-hidden="true">${SpeediooCity.scene(S.city, 'dark')}</div>
+   <div class="hero-city" aria-hidden="true">${SpeediooCity.scene(S.city, 'hero')}</div>
    <div class="wrap hero-in">
     <div class="hero-copy">
      <span class="eyebrow on-dark"><span class="live"></span>Speedioo ${S.city} · ${C.short}</span>
@@ -220,7 +223,7 @@ function renderHome() {
 
   <section class="sec jr-sec" id="sell28"><div class="wrap">
    <div class="sec-head rv"><div><span class="eyebrow on-dark">Sell your bike in 28 minutes</span><h2>From a QR scan to SOLD</h2></div><a class="btn btn-red" href="#sell">Sell my bike</a></div>
-   <div id="journey" class="rv"></div>
+   <div id="journey" class="rv jr-light"></div>
    <div class="jr-watch rv"><div><h3>Watch a 28-minute sale</h3><p>Twenty seconds, from the QR scan to SOLD.</p></div><div id="storyAnim"></div></div>
   </div></section>
 
@@ -274,7 +277,7 @@ function renderHome() {
      <div class="city-meta">
       <div><span class="eyebrow">Your hub</span><p>${phTxt(C.hub)}</p></div>
       <div><span class="eyebrow">Local guide</span><a class="link-arrow" href="#blog">${C.guide} →</a></div>
-      ${C.lang !== 'en' && S.lang !== C.lang ? `<div><span class="eyebrow">Language</span><button class="chip" data-act="langpick" data-v="${C.lang}">मराठीत वाचा</button></div>` : ''}
+      ${C.lang !== 'en' && S.lang !== C.lang ? `<div><span class="eyebrow">Language</span><button class="chip" data-act="langpick" data-v="${C.lang}">${C.lang === 'mr' ? 'मराठीत वाचा' : 'हिंदी में पढ़ें'}</button></div>` : ''}
      </div>
     </div>
    </div>
@@ -344,6 +347,7 @@ function renderHome() {
   SpeediooStory.mount($('#storyAnim'));
   SpeediooCheckpoints.mount($('#cpxHome'), byId(CITY_SAMPLE[S.city]) || inCity[0] || BIKES[0], { sample: true });
   resaleCalc();
+  SpeediooCity.animate($('#app'));
   drawHow();
   const box = $('.gauge-box');
   if (box && 'IntersectionObserver' in window && !reduceMotion) {
@@ -1235,7 +1239,6 @@ $('#burger').innerHTML = I.menu; $$('.sIcon').forEach(s => s.outerHTML = I.searc
 $('#bn1').innerHTML = I.home + 'Home'; $('#bn2').innerHTML = I.bike + 'Buy'; $('#bn3').innerHTML = I.tag + 'Sell'; $('#bn4').innerHTML = I.phone + 'Call'; $('#bn5').innerHTML = I.wa + 'WhatsApp';
 $('#chatFab').innerHTML = I.chat + '<span>Ask Speedioo</span>'; $('#waFab').innerHTML = I.wa;
 $$('.logo').forEach(l => l.innerHTML = LOGO);
-(() => { const force = /[?&]intro\b/.test(location.search); if ((force || !DB.get('logoIntro', 0)) && !reduceMotion) { const l = $('#hdr .logo'); l.classList.add('intro'); setTimeout(() => l.classList.remove('intro'), 2200); DB.set('logoIntro', 1); } })();
 SpeediooCity.apply(S.city);
 if (S.fromQR) track('qr_landing', { medium: (location.search.match(/utm_medium=([^&]+)/) || [])[1] || '' });
 $$('.cityName').forEach(e => e.textContent = S.city);

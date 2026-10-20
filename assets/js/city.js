@@ -1,9 +1,9 @@
-/* City experiences: landscape illustrations, local copy and texture per city.
-   Content here is editorial (routes, riding conditions); inventory-based parts are computed from BIKES at render time. */
+/* City experiences: landscape illustrations with the city's own ride roads, local copy and texture.
+   Riders are moved along each road by JS (not SMIL) so they stay upright on hairpins in both directions. */
 (function () {
   const ICONS = {
     Pune: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M2 19 8.5 8l4 6 3-4L22 19z"/><path d="M8.5 8V5h2"/></svg>',
-    Mumbai: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M2 18c2 0 2-1.5 4-1.5S8 18 10 18s2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5"/><path d="M6 14V5M18 14V5M6 6l-3 8M6 6l3 8M18 6l-3 8M18 6l3 8"/></svg>',
+    Delhi: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V9h16v12M4 9l1-3h14l1 3M9 21v-6a3 3 0 0 1 6 0v6"/></svg>',
     Bangalore: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 21v-6"/><path d="M5 14c-2.5-1-2.5-5 .5-5.5C5 5 9 3.5 11 6c2-3 7-2 7 2 3 .5 3 5 .5 6z"/></svg>'
   };
 
@@ -12,31 +12,31 @@
       short: 'Sahyadri foothills', greet: 'नमस्कार, पुणे', lang: 'mr',
       heroLine: 'From Hinjewadi commutes to Sinhagad sunrises.',
       title: 'Pune rides two ways',
-      intro: 'Weekdays are stop-start runs to Hinjewadi, Kharadi and Magarpatta. Weekends climb into the Sahyadri ghats. Every Speedioo bike in Pune is checked for both.',
+      intro: 'Weekdays are stop-start runs to Hinjewadi, Kharadi and Magarpatta. Weekends climb the Sahyadri ghats. Every Speedioo bike in Pune is checked for both.',
       rides: [
-        ['Sinhagad Fort', 'An early-morning climb up the ghat road to the hill fort, with breakfast at the top.'],
-        ['Tamhini Ghat', 'Waterfalls and wet curves in the monsoon. Good tyres matter here.'],
-        ['Mulshi and Lavasa', 'Lake views and a smooth half-day loop west of the city.']
+        ['Sinhagad Fort', 'Hairpin bends up the ghat road to the hill fort, with breakfast at the top.'],
+        ['Lavasa via Temghar', 'Curving lakeside roads and misty valleys west of the city.'],
+        ['Lonavala and Khandala', 'Ghat views on the old Mumbai–Pune highway. The Expressway is closed to two-wheelers.']
       ],
       everyday: 'Short city trips suit light commuters and scooters. Ghat weekends reward 350cc torque and strong brakes.',
       picks: [['Scooter', 'City scooters'], ['Commuter', 'Daily commuters'], ['Cruiser', 'Ghat-ready cruisers']],
       hub: 'Baner hub · Office No. 404, Icon Tower, Baner Road (opp. KFC), Pune 411045',
-      guide: 'Monsoon riding checklist for Pune and Mumbai'
+      guide: 'Monsoon ghat riding checklist for Pune'
     },
-    Mumbai: {
-      short: 'City by the sea', greet: 'नमस्कार, मुंबई', lang: 'mr',
-      heroLine: 'From Western Express Highway crawls to Marine Drive nights.',
-      title: 'Mumbai rides on mileage and monsoons',
-      intro: 'Long traffic crawls, sea air and monsoon water-logging are part of the daily ride. On weekends the old highway opens up towards the ghats.',
+    Delhi: {
+      short: 'Capital city', greet: 'नमस्ते, दिल्ली', lang: 'hi',
+      heroLine: 'From Ring Road commutes to Murthal paratha runs.',
+      title: 'Delhi rides long and wide',
+      intro: 'Daily rides are long flyover commutes across the city, through summer heat and winter fog. Weekends head out on the highways for food and forts.',
       rides: [
-        ['Marine Drive', 'A late-night cruise along the Queen’s Necklace.'],
-        ['Lonavala via the old highway', 'The Mumbai–Pune Expressway is closed to two-wheelers, so take the old NH 48 through Khandala.'],
-        ['Malshej Ghat', 'Mist, waterfalls and green cliffs in the monsoon.']
+        ['Murthal', 'The classic early-morning run up the GT Karnal Road for dhaba parathas.'],
+        ['Damdama Lake', 'Aravalli views and an easy half-day loop past Gurugram.'],
+        ['Neemrana Fort', 'A longer highway ride to a 15th-century hill fort.']
       ],
-      everyday: 'Look for a light clutch, good mileage and sealed electricals. Our report shows rust and electrical checks for every bike.',
-      picks: [['Scooter', 'Traffic-friendly scooters'], ['Commuter', 'High-mileage commuters'], ['Sports', 'Weekend sport bikes']],
-      hub: '[Mumbai hub address]',
-      guide: 'Monsoon riding checklist for Pune and Mumbai'
+      everyday: 'Long distances reward a comfortable seat and good mileage. In winter fog, bright lights matter: our report checks every bulb.',
+      picks: [['Commuter', 'High-mileage commuters'], ['Sports', 'Highway-ready sport bikes'], ['Cruiser', 'Long-ride cruisers']],
+      hub: '[Delhi hub address]',
+      guide: 'Riding in Delhi’s winter fog: a safety checklist'
     },
     Bangalore: {
       short: 'Garden city', greet: 'ನಮಸ್ಕಾರ, ಬೆಂಗಳೂರು', lang: 'en',
@@ -44,7 +44,7 @@
       title: 'Bangalore rides long and early',
       intro: 'Commutes are long and slow, which is why EVs and automatic scooters make sense here. Weekend rides start before dawn.',
       rides: [
-        ['Nandi Hills', 'The classic pre-dawn ride for a sunrise above the clouds.'],
+        ['Nandi Hills', 'Hairpin bends to the top for a sunrise above the clouds.'],
         ['Kanakapura Road', 'River views towards Sangama on an easy half-day loop.'],
         ['Coorg', 'Coffee estates and twisting roads for a long weekend.']
       ],
@@ -55,100 +55,117 @@
     }
   };
 
-  /* palette: dark = hero overlay, light = content panels */
+  /* hero = over the red hero; light = content panels */
   const PAL = {
-    dark: { far: '#262222', mid: '#1E1B1B', near: '#121010', line: '#3A3535', sun: '#D7141A', glow: 'rgba(215,20,26,.18)', light: '#FFD9DA', road: '#4A4545', water: '#1A1717', cloud: 'rgba(255,255,255,.05)' },
-    light: { far: '#E3DCDC', mid: '#CEC5C5', near: '#9F9595', line: '#B3A9A9', sun: '#D7141A', glow: 'rgba(215,20,26,.12)', light: '#0F0E0E', road: '#5F5858', water: '#DCD5D5', cloud: '#FFFFFF' }
+    hero: { sky: 'none', far: 'rgba(255,255,255,.10)', mid: 'rgba(255,255,255,.16)', hill: 'rgba(255,255,255,.22)', near: '#FFFAF7', line: 'rgba(255,255,255,.35)', sun: '#FFE7DF', glow: 'rgba(255,231,223,.22)', rider: '#FFFFFF', helmet: '#FFFFFF', road: 'rgba(255,255,255,.28)', mark: 'rgba(255,255,255,.75)', water: 'rgba(255,255,255,.14)', cloud: 'rgba(255,255,255,.14)', accent: '#FFFFFF' },
+    light: { sky: '#FFF4EF', far: '#F3DCD6', mid: '#E8C5BD', hill: '#DDB0A6', near: '#C98E82', line: '#C98E82', sun: '#DE2227', glow: 'rgba(222,34,39,.14)', rider: '#221C1C', helmet: '#DE2227', road: '#FFFFFF', mark: '#C98E82', water: '#F6D8D0', cloud: '#FFFFFF', accent: '#DE2227' }
   };
 
-  const rider = (p, path, dur, id) => `<g class="cs-rider"><g transform="translate(-14 -22)"><circle cx="5" cy="18" r="4.5" fill="none" stroke="${p.light}" stroke-width="2"/><circle cx="23" cy="18" r="4.5" fill="none" stroke="${p.light}" stroke-width="2"/><path d="M5 18 L11 11 L19 11 L23 18 M11 11 L14 6 M19 11 L21 7" stroke="${p.light}" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="15" cy="3" r="3" fill="${p.sun}"/></g>
-    <animateMotion dur="${dur}s" repeatCount="indefinite" rotate="auto"><mpath href="#${id}"/></animateMotion></g>`;
+  const riderG = p => `<g class="cs-rider" transform="translate(-100 -100)"><g transform="translate(-14 -24)">
+    <circle cx="5" cy="19" r="4.6" fill="none" stroke="${p.rider}" stroke-width="2.2"/><circle cx="24" cy="19" r="4.6" fill="none" stroke="${p.rider}" stroke-width="2.2"/>
+    <path d="M5 19 L11 12 L20 12 L24 19 M11 12 L15 6 M20 12 L22 8" stroke="${p.rider}" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="16" cy="3.5" r="3.4" fill="${p.helmet}"/></g></g>`;
+  const road = (p, id, d, w = 12) => `<path d="${d}" fill="none" stroke="${p.road}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/><path id="${id}" class="cs-road" d="${d}" fill="none" stroke="${p.mark}" stroke-width="1.6" stroke-dasharray="7 7"/>`;
+  const clouds = p => `<g class="cs-clouds" fill="${p.cloud}"><ellipse cx="240" cy="70" rx="90" ry="13"/><ellipse cx="300" cy="60" rx="56" ry="11"/><ellipse cx="1320" cy="80" rx="100" ry="12"/></g>`;
 
-  function clouds(p) {
-    return `<g class="cs-clouds" fill="${p.cloud}"><ellipse cx="260" cy="70" rx="90" ry="14"/><ellipse cx="320" cy="60" rx="60" ry="12"/><ellipse cx="1180" cy="96" rx="110" ry="14"/><ellipse cx="1250" cy="86" rx="60" ry="11"/></g>`;
-  }
-
-  function pune(p, uid) {
-    const road = `M1640 352 C1500 350 1420 318 1330 300 C1240 282 1230 250 1150 246 C1070 242 1040 268 960 262 C880 256 860 228 790 226`;
+  function pune(p, id) {
+    /* Sinhagad: ghat road with hairpins up to the hill fort; Lavasa-style lake on the left */
+    const r = 'M-30 368 C120 366 260 356 400 344 C540 332 700 340 860 322 C960 310 1010 300 960 286 C900 270 860 262 940 248 C1020 234 1080 238 1040 220 C990 200 980 192 1050 180 C1110 170 1150 168 1120 152 C1100 142 1110 132 1160 124';
+    let ripples = '';
+    for (let i = 0; i < 7; i++) ripples += `<path d="M${40 + i * 52} ${318 + (i % 3) * 8} h${26 + (i % 2) * 14}" stroke="${p.line}" stroke-width="2" stroke-linecap="round"/>`;
     return `
-    <circle cx="1210" cy="150" r="70" fill="${p.sun}" opacity=".9"/><circle cx="1210" cy="150" r="120" fill="${p.glow}"/>
+    ${p.sky !== 'none' ? `<rect width="1600" height="400" fill="${p.sky}"/>` : ''}
+    <circle cx="1380" cy="120" r="56" fill="${p.sun}"/><circle cx="1380" cy="120" r="100" fill="${p.glow}"/>
     ${clouds(p)}
-    <path d="M0 250 L90 210 L170 228 L260 170 L330 196 L420 140 L500 170 L560 150 L650 190 L740 160 L830 196 L930 150 L1010 176 L1100 132 L1180 170 L1280 150 L1370 186 L1460 156 L1600 200 L1600 400 L0 400Z" fill="${p.far}"/>
-    <path d="M0 300 L120 250 L210 268 L300 230 L380 248 L470 214 L520 214 L540 200 L700 200 L720 214 L800 222 L900 260 L1010 236 L1120 270 L1230 246 L1360 282 L1480 258 L1600 290 L1600 400 L0 400Z" fill="${p.mid}"/>
-    <g fill="${p.mid}" stroke="${p.line}" stroke-width="2">
-      <path d="M540 200 v-26 h10 v8 h10 v-8 h10 v8 h10 v-8 h10 v8 h10 v-8 h10 v8 h10 v-8 h10 v8 h10 v-8 h10 v8 h10 v-8 h10 v8 h10 v-8 h10 v26"/>
-      <path d="M548 200 a22 22 0 0 1 0 -40 v40z M692 200 a22 22 0 0 0 0 -40 v40z"/>
-      <path d="M612 200 v-18 a8 8 0 0 1 16 0 v18"/>
-    </g>
-    <path id="${uid}" d="${road}" fill="none" stroke="${p.road}" stroke-width="3" stroke-dasharray="10 9" stroke-linecap="round"/>
-    <path d="M0 360 L80 330 L170 344 L260 316 L340 330 L460 300 L560 326 L640 312 L760 340 L860 322 L980 346 L1100 330 L1220 352 L1340 334 L1460 356 L1600 340 L1600 400 L0 400Z" fill="${p.near}"/>
-    <g fill="${p.near}"><path d="M120 330 v-26 l14 -14 l14 14 v26z"/><path d="M128 290 l6 -18 l6 18z"/><rect x="250" y="300" width="34" height="30"/><rect x="290" y="292" width="22" height="38"/><rect x="380" y="306" width="30" height="24"/></g>
-    ${rider(p, road, 16, uid)}`;
+    <path d="M0 250 L120 205 L220 228 L330 170 L420 196 L520 150 L620 186 L720 160 L820 200 L920 150 L1040 120 L1200 160 L1320 140 L1460 180 L1600 160 L1600 400 L0 400Z" fill="${p.far}"/>
+    <path d="M620 400 L760 300 L900 260 L1010 190 L1100 128 L1150 108 L1210 112 L1290 160 L1400 210 L1500 250 L1600 270 L1600 400Z" fill="${p.hill}"/>
+    <g fill="${p.hill}" stroke="${p.line}" stroke-width="1.6"><path d="M1118 112 v-18 h8 v6 h8 v-6 h8 v6 h8 v-6 h8 v6 h8 v-6 h8 v6 h8 v-6 h8 v18"/><path d="M1124 112 a14 14 0 0 1 0 -26 v26z M1200 112 a14 14 0 0 0 0 -26 v26z"/></g>
+    <path d="M0 300 L120 284 L240 296 L380 280 L520 300 L640 296 L640 400 L0 400Z" fill="${p.mid}"/>
+    <path d="M0 312 C120 304 300 304 440 316 L440 342 C300 352 120 352 0 344Z" fill="${p.water}"/>
+    <g fill="none">${ripples}</g>
+    <g fill="${p.mid}"><rect x="470" y="282" width="22" height="30"/><rect x="496" y="272" width="18" height="40"/><rect x="518" y="286" width="26" height="26"/></g>
+    ${road(p, id, r)}
+    <path d="M0 384 L300 372 L600 380 L900 366 L1200 380 L1600 370 L1600 400 L0 400Z" fill="${p.near}"/>
+    ${riderG(p)}`;
   }
 
-  function mumbai(p, uid) {
-    const deck = `M-40 268 C300 262 600 256 900 254 C1200 252 1400 256 1660 262`;
-    let cables = '';
-    [[620, 120], [1040, 116]].forEach(([x, top]) => {
-      for (let i = 1; i <= 7; i++) { cables += `<line x1="${x}" y1="${top + i * 10}" x2="${x - i * 46}" y2="256" /><line x1="${x}" y1="${top + i * 10}" x2="${x + i * 46}" y2="255" />`; }
-    });
-    let lights = '';
-    for (let i = 0; i < 26; i++) { const t = i / 25, x = 40 + t * 520, y = 312 - Math.sin(t * Math.PI) * 26; lights += `<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="2.6"/>`; }
-    let waves = '';
-    for (let r = 0; r < 4; r++) for (let i = 0; i < 18; i++) { const x = i * 96 + (r % 2) * 48, y = 300 + r * 22; waves += `<path d="M${x} ${y} q12 -7 24 0 t24 0"/>`; }
+  function delhi(p, id) {
+    /* Qutub Minar, India Gate, Aravalli ridge and a highway that bends past them */
+    const r = 'M-30 352 C200 352 340 330 520 330 C700 330 760 360 940 360 C1120 360 1240 328 1400 326 C1500 324 1560 330 1640 334';
+    let bands = '';
+    for (let i = 0; i < 5; i++) bands += `<rect x="${236 + i * 2.2}" y="${110 + i * 38}" width="${44 - i * 4.4}" height="5" fill="${p.line}"/>`;
     return `
-    <circle cx="300" cy="150" r="60" fill="${p.sun}" opacity=".9"/><circle cx="300" cy="150" r="110" fill="${p.glow}"/>
+    ${p.sky !== 'none' ? `<rect width="1600" height="400" fill="${p.sky}"/>` : ''}
+    <circle cx="1240" cy="120" r="56" fill="${p.sun}"/><circle cx="1240" cy="120" r="100" fill="${p.glow}"/>
     ${clouds(p)}
-    <g fill="${p.far}">
-      <rect x="1180" y="120" width="40" height="160"/><rect x="1226" y="90" width="34" height="190"/><rect x="1266" y="140" width="44" height="140"/><rect x="1316" y="70" width="30" height="210"/><rect x="1352" y="110" width="50" height="170"/><rect x="1408" y="150" width="36" height="130"/><rect x="1450" y="96" width="40" height="184"/><rect x="1496" y="130" width="46" height="150"/><rect x="1548" y="160" width="60" height="120"/>
-    </g>
-    <rect x="0" y="270" width="1600" height="140" fill="${p.water}"/>
-    <g stroke="${p.line}" stroke-width="2" fill="none" opacity=".8">${waves}</g>
-    <g stroke="${p.line}" stroke-width="1.6">${cables}</g>
-    <g fill="${p.mid}"><path d="M608 270 L616 110 L624 110 L632 270z"/><path d="M1028 270 L1036 104 L1044 104 L1052 270z"/></g>
-    <path id="${uid}" d="${deck}" fill="none" stroke="${p.mid}" stroke-width="12"/>
-    <path d="${deck}" fill="none" stroke="${p.road}" stroke-width="2" stroke-dasharray="12 10" transform="translate(0 -1)"/>
-    <g fill="${p.light}" opacity=".9">${lights}</g>
-    <path d="M0 330 C140 300 400 296 560 330 L560 410 L0 410Z" fill="${p.near}"/>
-    ${rider(p, deck, 14, uid)}`;
+    <path d="M0 270 C200 240 360 250 520 236 C700 222 860 250 1040 238 C1220 226 1400 246 1600 236 L1600 400 L0 400Z" fill="${p.far}"/>
+    <path d="M232 320 L240 110 L276 110 L284 320Z" fill="${p.hill}"/><path d="M244 110 L252 86 L264 86 L272 110Z" fill="${p.hill}"/>${bands}
+    <g fill="${p.hill}"><rect x="760" y="196" width="190" height="24"/><rect x="772" y="220" width="166" height="100"/><rect x="784" y="186" width="142" height="12"/></g>
+    <path d="M818 320 V262 a37 37 0 0 1 74 0 V320Z" fill="${p.sky === 'none' ? 'rgba(120,10,14,.35)' : p.sky}"/>
+    <path d="M0 330 L1600 330 L1600 400 L0 400Z" fill="${p.mid}"/>
+    <g fill="${p.hill}"><rect x="420" y="276" width="34" height="54"/><rect x="460" y="290" width="26" height="40"/><rect x="1040" y="270" width="40" height="60"/><rect x="1086" y="284" width="30" height="46"/><rect x="1380" y="280" width="44" height="50"/></g>
+    ${road(p, id, r, 14)}
+    <path d="M0 386 L1600 382 L1600 400 L0 400Z" fill="${p.near}"/>
+    ${riderG(p)}`;
   }
 
-  function bangalore(p, uid) {
-    const road = `M-40 336 C300 330 520 318 800 318 C1080 318 1300 330 1660 338`;
+  function bangalore(p, id) {
+    /* Nandi Hills with its hairpin road, Vidhana Soudha and rain-tree canopy */
+    const r = 'M-30 366 C150 366 300 356 420 340 C520 326 560 312 500 300 C440 288 450 276 520 266 C590 256 610 246 550 236 C500 228 510 216 570 206 C620 198 640 188 600 178 C580 172 590 164 630 160';
     const tree = (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s})"><rect x="-4" y="-6" width="8" height="40" fill="${p.near}"/><path d="M-60 -6 C-70 -40 -30 -60 -8 -52 C0 -78 40 -76 46 -50 C72 -54 80 -20 60 -6Z" fill="${p.near}"/></g>`;
-    let grid = '';
-    for (let r = 0; r < 6; r++) for (let c = 0; c < 4; c++) grid += `<rect x="${1262 + c * 18}" y="${132 + r * 22}" width="10" height="12"/>`;
     return `
-    <circle cx="420" cy="170" r="64" fill="${p.sun}" opacity=".9"/><circle cx="420" cy="170" r="116" fill="${p.glow}"/>
+    ${p.sky !== 'none' ? `<rect width="1600" height="400" fill="${p.sky}"/>` : ''}
+    <circle cx="760" cy="120" r="56" fill="${p.sun}"/><circle cx="760" cy="120" r="100" fill="${p.glow}"/>
     ${clouds(p)}
-    <path d="M140 300 C180 200 300 150 420 160 C540 150 640 210 700 300Z" fill="${p.far}"/>
-    <path d="M520 300 C560 240 640 220 700 236 C760 224 820 260 840 300Z" fill="${p.far}"/>
+    <path d="M0 260 C200 236 380 250 560 240 C760 228 960 250 1160 240 C1360 230 1480 244 1600 240 L1600 400 L0 400Z" fill="${p.far}"/>
+    <path d="M300 400 C360 300 440 200 560 150 C620 132 680 140 740 180 C820 236 880 320 920 400Z" fill="${p.hill}"/>
     <g fill="${p.mid}">
-      <rect x="860" y="230" width="300" height="70"/><rect x="900" y="200" width="220" height="30"/><path d="M980 200 a30 30 0 0 1 60 0z"/><rect x="1006" y="152" width="8" height="20"/>
-      <path d="M940 200 l70 -26 l70 26z"/>
-      <rect x="1250" y="120" width="80" height="180"/><rect x="1340" y="160" width="60" height="140"/><rect x="1410" y="100" width="70" height="200"/>
+      <rect x="1060" y="252" width="300" height="80"/><rect x="1100" y="222" width="220" height="30"/><path d="M1180 222 a30 30 0 0 1 60 0z"/><rect x="1206" y="176" width="8" height="18"/>
+      <path d="M1140 222 l70 -26 l70 26z"/>
     </g>
-    <g fill="${p.far}">${grid}</g>
-    <g stroke="${p.line}" stroke-width="2">${[0, 1, 2, 3, 4, 5, 6].map(i => `<line x1="${876 + i * 44}" y1="236" x2="${876 + i * 44}" y2="298"/>`).join('')}</g>
-    <path d="M0 300 L1600 300 L1600 410 L0 410Z" fill="${p.mid}"/>
-    <path id="${uid}" d="${road}" fill="none" stroke="${p.road}" stroke-width="3" stroke-dasharray="10 9"/>
-    ${tree(80, 300, 1.1)}${tree(250, 312, .8)}${tree(720, 306, .9)}${tree(1180, 310, 1)}${tree(1530, 300, 1.15)}
-    <path d="M0 356 L1600 356 L1600 410 L0 410Z" fill="${p.near}"/>
-    ${rider(p, road, 15, uid)}`;
+    <path d="M0 332 L1600 332 L1600 400 L0 400Z" fill="${p.mid}"/>
+    ${road(p, id, r)}
+    ${tree(120, 336, 1)}${tree(980, 338, .9)}${tree(1460, 330, 1.1)}
+    <path d="M0 388 L1600 384 L1600 400 L0 400Z" fill="${p.near}"/>
+    ${riderG(p)}`;
   }
 
   let n = 0;
-  function scene(city, mode = 'dark') {
-    const p = PAL[mode], uid = 'csr' + (++n);
-    const body = { Pune: pune, Mumbai: mumbai, Bangalore: bangalore }[city](p, uid);
-    const svg = `<svg class="cs cs-${mode}" viewBox="0 0 1600 400" preserveAspectRatio="xMidYMax slice" aria-hidden="true">${body}</svg>`;
-    return matchMedia('(prefers-reduced-motion: reduce)').matches ? svg.replace(/<animateMotion[\s\S]*?<\/animateMotion>/g, '') : svg;
+  function scene(city, mode = 'hero') {
+    const p = PAL[mode], id = 'csr' + (++n);
+    const body = { Pune: pune, Delhi: delhi, Bangalore: bangalore }[city](p, id);
+    return `<svg class="cs cs-${mode}" viewBox="0 0 1600 400" preserveAspectRatio="xMidYMax slice" aria-hidden="true" data-road="${id}">${body}</svg>`;
   }
 
-  /* subtle repeating texture per city, as a CSS background */
+  /* Move each rider along its road. Facing flips with direction so the rider is never upside down. */
+  function animate(root) {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    (root || document).querySelectorAll('svg.cs[data-road]').forEach(svg => {
+      if (svg._anim) return; svg._anim = true;
+      const path = svg.querySelector('#' + svg.dataset.road), rider = svg.querySelector('.cs-rider');
+      if (!path || !rider || !path.getTotalLength) return;
+      const L = path.getTotalLength(), speed = 70; let s = 0, last = 0, vis = true;
+      if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => vis = e.isIntersecting).observe(svg);
+      const tick = now => {
+        if (!svg.isConnected) return;
+        const dt = Math.min(64, now - (last || now)); last = now;
+        if (vis) {
+          s = (s + speed * dt / 1000) % L;
+          const a = path.getPointAtLength(s), b = path.getPointAtLength(Math.min(L, s + 2));
+          let ang = Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI;
+          const left = b.x < a.x - .01;
+          if (left) ang -= 180;
+          rider.setAttribute('transform', `translate(${a.x.toFixed(1)} ${a.y.toFixed(1)}) rotate(${ang.toFixed(1)})${left ? ' scale(-1 1)' : ''}`);
+        }
+        requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+  }
+
   const PATTERNS = {
     Pune: `<svg xmlns='http://www.w3.org/2000/svg' width='120' height='60'><path d='M0 50 Q30 20 60 40 T120 30 M0 58 Q30 30 60 50 T120 40' fill='none' stroke='COL' stroke-width='1'/></svg>`,
-    Mumbai: `<svg xmlns='http://www.w3.org/2000/svg' width='60' height='24'><path d='M0 12 q7.5 -8 15 0 t15 0 t15 0 t15 0' fill='none' stroke='COL' stroke-width='1'/></svg>`,
+    Delhi: `<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48'><path d='M8 40 V20 a16 16 0 0 1 32 0 V40' fill='none' stroke='COL' stroke-width='1'/></svg>`,
     Bangalore: `<svg xmlns='http://www.w3.org/2000/svg' width='56' height='56'><path d='M14 30 c0 -10 10 -16 16 -14 c-2 8 -8 14 -16 14z M30 16 l-16 14' fill='none' stroke='COL' stroke-width='1'/></svg>`
   };
   const pattern = (city, col) => `url("data:image/svg+xml,${encodeURIComponent(PATTERNS[city].replace(/COL/g, col))}")`;
@@ -156,10 +173,10 @@
   function apply(city) {
     const r = document.documentElement;
     r.dataset.city = city;
-    r.style.setProperty('--city-pat-dark', pattern(city, 'rgba(255,255,255,0.07)'));
-    r.style.setProperty('--city-pat-light', pattern(city, 'rgba(15,14,14,0.06)'));
+    r.style.setProperty('--city-pat-dark', pattern(city, 'rgba(255,255,255,0.10)'));
+    r.style.setProperty('--city-pat-light', pattern(city, 'rgba(222,34,39,0.07)'));
     document.querySelectorAll('.cityIcon').forEach(e => e.innerHTML = ICONS[city]);
   }
 
-  window.SpeediooCity = { CITY, ICONS, scene, apply };
+  window.SpeediooCity = { CITY, ICONS, scene, apply, animate };
 })();

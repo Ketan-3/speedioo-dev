@@ -1,11 +1,17 @@
 # Speedioo web · front-end build
 
-Static, framework-free front end for the Speedioo used two-wheeler marketplace (Pune, Mumbai, Bangalore).
+Static, framework-free front end for the Speedioo used two-wheeler marketplace (Pune, Delhi, Bangalore).
 Every flow works in the browser today; data is kept in `localStorage` until the backend is connected.
+
+## v0.6 — brand theme, intro, Delhi
+- Real Speedioo logo (from `speedioo-editable.ai`) in header, footer, favicon and `assets/img/speedioo-logo*.svg`; brand red #DE2227.
+- Opening animation (`assets/js/intro.js`): badge rolls in, wordmark sweeps in, tagline. Once per session, skippable, `?intro` replays.
+- Less black: white header, red-duotone hero video, light sections, brand-red closing band, deep wine footer.
+- Cities are now Pune, Delhi, Bangalore. Each scene shows its ride road (Sinhagad hairpins + Lavasa lake, Delhi highway past India Gate and Qutub Minar, Nandi Hills hairpins); riders stay upright.
 
 ## v0.5 (local test build) — what's new
 - **Consumer-first homepage:** new hero ("Your next ride. Your next chapter. The Speedioo way.") with Sell / Explore / Discover CTAs and 8 "I want to…" shortcuts; Why Speedioo pillars; ownership benefits; interactive tools; final lead capture with callback form.
-- **City experiences** (`assets/js/city.js`): Pune (Sahyadri ghats, hill fort), Mumbai (sea link, coast), Bangalore (Nandi Hills, Vidhana Soudha, canopy). Hero landscape, texture, greeting, rides, everyday-riding notes and in-stock picks change with the city.
+- **City experiences** (`assets/js/city.js`): Pune (Sahyadri ghats, hill fort), Delhi (India Gate, Qutub Minar, highway rides), Bangalore (Nandi Hills, Vidhana Soudha, canopy). Hero landscape, texture, greeting, rides, everyday-riding notes and in-stock picks change with the city.
 - **Sell in 28 minutes** (`assets/js/journey.js`): 11-step interactive journey grouped as Before / The 28 minutes / After, with the QR step; story animation now shows the Speedioo QR poster and starts the clock at the doorstep.
 - **Vehicle checkpoints** (`assets/js/checkpoints.js`): clickable hotspots + paperwork checks with Verified / Good / Attention required / Not inspected; sample on Home, per-bike on the detail page.
 - **QR floater:** small QR button on every page; tap to open the QR (`assets/img/speedioo-qr.png`). Replace that file with a higher-resolution export for better scanning.

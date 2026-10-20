@@ -3,23 +3,24 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Speedioo · Buy &amp; Sell Inspected Used Bikes in Pune, Mumbai, Bangalore</title>
-<meta name="description" content="Buy inspected used bikes and scooters at fixed prices, or sell yours from home with a free doorstep inspection and UPI payment in 30 minutes. Pune, Mumbai and Bangalore.">
-<meta name="theme-color" content="#0F0E0E">
+<title>Speedioo · Buy &amp; Sell Inspected Used Bikes in Pune, Delhi, Bangalore</title>
+<meta name="description" content="Buy inspected used bikes and scooters at fixed prices, or sell yours from home with a free doorstep inspection and UPI payment in 30 minutes. Pune, Delhi and Bangalore.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Speedioo · Inspected used bikes. Honest prices. Paid in 30 minutes.">
-<meta property="og:description" content="Buy or sell a used two-wheeler in Pune, Mumbai or Bangalore.">
+<meta property="og:description" content="Buy or sell a used two-wheeler in Pune, Delhi or Bangalore.">
 <meta property="og:image" content="https://images.pexels.com/videos/4606791/pexels-photo-4606791.jpeg?auto=compress&cs=tinysrgb&w=1200">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#DE2227">
+<script>(function(){var f=/[?&]intro\b/.test(location.search),s=false;try{s=sessionStorage.getItem('spd_intro')==='1'}catch(e){}if(f||!s){document.documentElement.classList.add('splash-on');setTimeout(function(){document.documentElement.classList.remove('splash-on')},4500)}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.pexels.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="assets/css/styles.css?v=0.5.0">
+<link rel="stylesheet" href="assets/css/styles.css?v=0.6.0">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"AutoDealer","name":"Speedioo","url":"https://speedioo.com","telephone":"+91-8853232885","email":"customercare@speedioo.com",
  "address":{"@type":"PostalAddress","streetAddress":"Office No. 404, Icon Tower, Baner Road, Baner","addressLocality":"Pune","postalCode":"411045","addressRegion":"MH","addressCountry":"IN"},
- "areaServed":["Pune","Mumbai","Bangalore"]}
+ "areaServed":["Pune","Delhi","Bangalore"]}
 </script>
 <!-- Google Tag Manager / GA4: paste the container snippet here. Events are already pushed to window.dataLayer by assets/js/api.js -->
 </head>
@@ -51,7 +52,7 @@
 <footer>
   <div class="wrap fwrap">
     <div class="fcol fbrand">
-      <a href="#home" class="logo"><span class="mark">S</span><span>speed<b>ioo</b></span></a>
+      <a href="#home" class="logo logo-foot"><span class="mark">S</span><span>speed<b>ioo</b></span></a>
       <p class="fmuted">Inspected used bikes and scooters. Fixed prices, doorstep inspection, paperwork handled.</p>
       <p>Office No. 404, Icon Tower, Baner Road, Baner (opp. KFC), Pune 411045</p>
       <div class="fsocial"><a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a><a href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube</a></div>
@@ -60,7 +61,7 @@
       <a href="#buy">Buy a bike</a><a href="#sell">Sell your bike</a><a href="#blog">Blog &amp; riding guides</a><a href="#about">About us</a><a href="#contact">Contact</a>
     </details>
     <details class="fcol" open><summary><h4>Used bikes in</h4></summary>
-      <a href="#buy" data-act="citylink" data-city="Pune">Pune</a><a href="#buy" data-act="citylink" data-city="Mumbai">Mumbai</a><a href="#buy" data-act="citylink" data-city="Bangalore">Bangalore</a>
+      <a href="#buy" data-act="citylink" data-city="Pune">Pune</a><a href="#buy" data-act="citylink" data-city="Delhi">Delhi</a><a href="#buy" data-act="citylink" data-city="Bangalore">Bangalore</a>
       <a href="#buy" data-act="shop" data-k="brand" data-v="Royal Enfield">Used Royal Enfield</a><a href="#buy" data-act="shop" data-k="type" data-v="Scooter">Used scooters</a>
     </details>
     <details class="fcol" open><summary><h4>Contact</h4></summary>
@@ -83,20 +84,22 @@
   <a class="btn btn-red btn-sm btn-block" href="#sell" data-act="qrpop">On this phone? Start here</a>
 </div>
 <div class="fabs" id="fabs">
-  <button class="fab fab-qr" id="qrFab" data-act="qrpop" aria-expanded="false" aria-controls="qrPop" aria-label="Show QR code to sell your bike"><img src="assets/img/speedioo-qr.png" alt="" width="40" height="54"><span>Scan &amp; sell</span></button>
-  <button class="fab fab-chat" data-act="chat" id="chatFab" aria-label="Chat with Speedioo assistant"></button>
+  <button class="fab fab-qr" id="qrFab" data-tip="Scan & sell" data-act="qrpop" aria-expanded="false" aria-controls="qrPop" aria-label="Show QR code to sell your bike"><img src="assets/img/speedioo-qr.png" alt="" width="40" height="54"><span>Scan &amp; sell</span></button>
+  <button class="fab fab-chat" data-act="chat" id="chatFab" aria-label="Chat with Speedioo assistant" data-tip="Ask Speedioo"></button>
   <a class="fab fab-wa" href="https://wa.me/918853232885" target="_blank" rel="noopener" aria-label="WhatsApp us" id="waFab"></a>
 </div>
 
 <div id="layer"></div>
 <div class="toast" id="toast" hidden role="status"></div>
 
-<script src="assets/js/data.js?v=0.5.0" defer></script>
-<script src="assets/js/api.js?v=0.5.0" defer></script>
-<script src="assets/js/story.js?v=0.5.0" defer></script>
-<script src="assets/js/city.js?v=0.5.0" defer></script>
-<script src="assets/js/journey.js?v=0.5.0" defer></script>
-<script src="assets/js/checkpoints.js?v=0.5.0" defer></script>
-<script src="assets/js/app.js?v=0.5.0" defer></script>
+<script src="assets/js/logo.js?v=0.6.0" defer></script>
+<script src="assets/js/intro.js?v=0.6.0" defer></script>
+<script src="assets/js/data.js?v=0.6.0" defer></script>
+<script src="assets/js/api.js?v=0.6.0" defer></script>
+<script src="assets/js/story.js?v=0.6.0" defer></script>
+<script src="assets/js/city.js?v=0.6.0" defer></script>
+<script src="assets/js/journey.js?v=0.6.0" defer></script>
+<script src="assets/js/checkpoints.js?v=0.6.0" defer></script>
+<script src="assets/js/app.js?v=0.6.0" defer></script>
 </body>
 </html>

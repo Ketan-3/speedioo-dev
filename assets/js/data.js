@@ -34,7 +34,7 @@ const MEDIA = {
   blog: [16330298, 5794270, 27100161, 9481684, 5722508, 32076462]
 };
 
-/* onRoad = current new on-road price (city of listing, Oct 2026: BikeWale, Autocar India, Shriram Finance, CarHP).
+/* onRoad = current new on-road price (city of listing, Oct 2026: BikeWale, Autocar India, Shriram Finance).
    tone = fallback illustration colour if a photo fails to load.
    pos = focal point used when cropping the photo into cards. */
 const BIKES = [
@@ -46,17 +46,17 @@ const BIKES = [
   { id: 6,  brand: 'Royal Enfield', model: 'Classic 350', year: 2024, km: 7107, owners: 1, price: 220000, city: 'Pune', area: 'Baner', type: 'Cruiser', cc: 349, bhp: 20.2, nm: 27, tank: 13, engine: 'Single-cyl, air-oil cooled', gear: '5-speed', abs: 'Dual-channel', tone: '#8F0B0F', reg: 'MH-12', added: 5, score: 8.9, photo: 36429479, pos: '50% 60%', onRoad: 248000 },
   { id: 7,  brand: 'Honda', model: 'Activa 6G', year: 2021, km: 18400, owners: 2, price: 62000, city: 'Pune', area: 'Pimple Saudagar', type: 'Scooter', cc: 109.5, bhp: 7.7, nm: 8.8, tank: 5.3, engine: 'Single-cyl, air cooled', gear: 'CVT automatic', abs: 'CBS', tone: '#D7141A', reg: 'MH-14', added: 7, score: 7.9, photo: 13119036, pos: '50% 55%', onRoad: 95000 },
   { id: 12, brand: 'Honda', model: 'Shine 125', year: 2022, km: 12040, owners: 1, price: 64000, city: 'Pune', area: 'Kharadi', type: 'Commuter', cc: 123.9, bhp: 10.6, nm: 11, tank: 10.5, engine: 'Single-cyl, air cooled', gear: '5-speed', abs: 'CBS', tone: '#1A1717', reg: 'MH-12', added: 8, score: 8.2, photo: 13123543, pos: '50% 60%', onRoad: 102000 },
-  { id: 8,  brand: 'Bajaj', model: 'Pulsar 150', year: 2020, km: 24800, owners: 2, price: 68000, city: 'Mumbai', area: 'Andheri', type: 'Commuter', cc: 149.5, bhp: 13.8, nm: 13.3, tank: 15, engine: 'Single-cyl, air cooled', gear: '5-speed', abs: 'Single-channel', tone: '#1A1717', reg: 'MH-02', added: 2, score: 7.8, photo: 31136865, pos: '50% 60%', onRoad: 138000 },
-  { id: 9,  brand: 'TVS', model: 'Apache RTR 160 4V', year: 2022, km: 14200, owners: 1, price: 98000, city: 'Mumbai', area: 'Thane', type: 'Sports', cc: 159.7, bhp: 17.3, nm: 14.7, tank: 12, engine: 'Single-cyl, oil cooled', gear: '5-speed', abs: 'Single-channel', tone: '#D7141A', reg: 'MH-04', added: 3, score: 8.5, photo: 38138175, pos: '50% 60%', onRoad: 142000 },
+  { id: 8,  brand: 'Bajaj', model: 'Pulsar 150', year: 2020, km: 24800, owners: 2, price: 68000, city: 'Delhi', area: 'Rohini', type: 'Commuter', cc: 149.5, bhp: 13.8, nm: 13.3, tank: 15, engine: 'Single-cyl, air cooled', gear: '5-speed', abs: 'Single-channel', tone: '#1A1717', reg: 'DL-8S', added: 2, score: 7.8, photo: 31136865, pos: '50% 60%', onRoad: 139000 },
+  { id: 9,  brand: 'TVS', model: 'Apache RTR 160 4V', year: 2022, km: 14200, owners: 1, price: 98000, city: 'Delhi', area: 'Dwarka', type: 'Sports', cc: 159.7, bhp: 17.3, nm: 14.7, tank: 12, engine: 'Single-cyl, oil cooled', gear: '5-speed', abs: 'Single-channel', tone: '#D7141A', reg: 'DL-9C', added: 3, score: 8.5, photo: 38138175, pos: '50% 60%', onRoad: 142000 },
   { id: 10, brand: 'Yamaha', model: 'MT-15 V2', year: 2023, km: 8900, owners: 1, price: 145000, city: 'Bangalore', area: 'HSR Layout', type: 'Sports', cc: 155, bhp: 18.1, nm: 14.1, tank: 10, engine: 'Single-cyl, liquid cooled', gear: '6-speed', abs: 'Dual-channel', tone: '#5F5858', reg: 'KA-01', added: 1, score: 9.0, photo: 17821689, pos: '50% 60%', onRoad: 197000 },
   { id: 11, brand: 'Ather', model: '450X', year: 2023, km: 9600, owners: 1, price: 110000, city: 'Bangalore', area: 'Koramangala', type: 'EV', cc: 0, bhp: 8.6, nm: 26, tank: 0, engine: 'Electric motor, 2.9 kWh battery', gear: 'Single-speed', abs: 'CBS', tone: '#1A1717', reg: 'KA-03', added: 2, score: 8.7, photo: 26564330, pos: '50% 55%', onRoad: 158000 },
-  { id: 13, brand: 'Royal Enfield', model: 'Meteor 350', year: 2023, km: 9820, owners: 1, price: 185000, city: 'Mumbai', area: 'Powai', type: 'Cruiser', cc: 349, bhp: 20.2, nm: 27, tank: 15, engine: 'Single-cyl, air-oil cooled', gear: '5-speed', abs: 'Dual-channel', tone: '#1A1717', reg: 'MH-03', added: 1, score: 8.9, photo: 22845706, pos: '50% 60%', onRoad: 235000 },
+  { id: 13, brand: 'Royal Enfield', model: 'Meteor 350', year: 2023, km: 9820, owners: 1, price: 185000, city: 'Delhi', area: 'Laxmi Nagar', type: 'Cruiser', cc: 349, bhp: 20.2, nm: 27, tank: 15, engine: 'Single-cyl, air-oil cooled', gear: '5-speed', abs: 'Dual-channel', tone: '#1A1717', reg: 'DL-7S', added: 1, score: 8.9, photo: 22845706, pos: '50% 60%', onRoad: 229000 },
   { id: 14, brand: 'Royal Enfield', model: 'Classic 350', year: 2022, km: 15400, owners: 1, price: 168000, city: 'Bangalore', area: 'Indiranagar', type: 'Cruiser', cc: 349, bhp: 20.2, nm: 27, tank: 13, engine: 'Single-cyl, air-oil cooled', gear: '5-speed', abs: 'Dual-channel', tone: '#8F0B0F', reg: 'KA-05', added: 4, score: 8.6, photo: 9528459, pos: '50% 60%', onRoad: 267000 }
 ];
 BIKES.forEach(b => { b.name = b.brand + ' ' + b.model; b.slug = (b.name + ' ' + b.year).toLowerCase().replace(/[^a-z0-9]+/g, '-'); });
 
-const CITIES = ['Pune', 'Mumbai', 'Bangalore'];
-const HUBS = { Pune: 'Baner', Mumbai: 'Andheri', Bangalore: 'Koramangala' };
+const CITIES = ['Pune', 'Delhi', 'Bangalore'];
+const HUBS = { Pune: 'Baner', Delhi: 'Delhi', Bangalore: 'Bangalore' };
 const TYPES = ['Commuter', 'Cruiser', 'Sports', 'Scooter', 'EV'];
 const BRANDS_MARQUEE = ['Royal Enfield', 'Honda', 'Bajaj', 'TVS', 'Yamaha', 'Harley-Davidson', 'Ather', 'Hero', 'Suzuki', 'KTM', 'Jawa', 'Triumph'];
 const BUDGETS = [['Under ₹1L', 0, 100000], ['₹1L – 1.5L', 100000, 150000], ['₹1.5L – 2L', 150000, 200000], ['₹2L – 3L', 200000, 300000], ['₹3L +', 300000, 500000]];
@@ -67,7 +67,8 @@ const GUIDES = [
   { t: 'Yamaha MT-15 used buyer guide', c: 'Buying', m: 5 },
   { t: 'TVS Apache RTR: what to check before you buy', c: 'Buying', m: 5 },
   { t: 'Top 10 questions sellers ask us', c: 'Selling', m: 7 },
-  { t: 'Monsoon riding checklist for Pune and Mumbai', c: 'Ownership', m: 4 },
+  { t: 'Monsoon ghat riding checklist for Pune', c: 'Ownership', m: 4 },
+  { t: 'Riding in Delhi’s winter fog: a safety checklist', c: 'Ownership', m: 4 },
   { t: 'Is an EV right for your Bangalore commute?', c: 'Ownership', m: 5 }
 ];
 
