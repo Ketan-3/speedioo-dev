@@ -3,6 +3,17 @@
 Static, framework-free front end for the Speedioo used two-wheeler marketplace (Pune, Delhi, Bangalore).
 Every flow works in the browser today; data is kept in `localStorage` until the backend is connected.
 
+## v0.8 — studio UI, red / black / white
+
+- Home opens on a framed "studio" scene (`assets/js/studio.js`), adapted from the VEYRA interactive scene
+  (github.com/amirmushichge/veyra-interactive-car, MIT, © 2026 Amir Mušić), with a bike instead of a car:
+  - four points: Engine & gearbox and Brakes & suspension (hover to see inside, click to zoom into a detail view
+    with three annotated checks), Paint (five finishes) and Wheels (alloy, wire-spoke, sport).
+  - the bike is SVG, so paint and wheels restyle it live; the piston, crank and gears move in the engine view.
+  - Esc or Back returns; keyboard, touch and reduced-motion are supported.
+- The old hero's finder, goals and CTAs sit in a "Start here" band right below, so every journey is unchanged.
+- Theme is red, black and white only. One typeface, Space Grotesk, at weight 400 for headings; thin lines, 16px frames.
+
 ## v0.7 — ivory, crimson and black; interactive layer
 
 - Site logo is the crimson badge with the white S (header, footer, favicon).

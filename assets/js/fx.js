@@ -30,7 +30,7 @@
   }
   function enhance(scope) {
     if (reduce) return;
-    (scope || document).querySelectorAll('.hero-v5 h1, .sec-head.rv h2').forEach(splitWords);
+    (scope || document).querySelectorAll('.studio h1, .sec-head.rv h2').forEach(splitWords);
   }
 
   /* ---------- page wipe on route change ---------- */
@@ -64,7 +64,7 @@
   /* ---------- hero spotlight (cursor, or a slow drift on touch) ---------- */
   let spotT = 0, pointerInHero = false;
   document.addEventListener('pointermove', e => {
-    const hero = e.target.closest && e.target.closest('.hero-v5');
+    const hero = e.target.closest && e.target.closest('.st-frame');
     pointerInHero = !!hero;
     if (!hero) return;
     const r = hero.getBoundingClientRect();
@@ -73,7 +73,7 @@
   }, { passive: true });
   if (!reduce) {
     const drift = () => {
-      const hero = document.querySelector('.hero-v5');
+      const hero = document.querySelector('.st-frame');
       if (hero && (!fine || !pointerInHero)) {
         spotT += .006;
         hero.style.setProperty('--mx', (68 + Math.sin(spotT) * 18).toFixed(2) + '%');
@@ -121,7 +121,7 @@
   requestAnimationFrame(follow);
 
   /* ---------- magnetic buttons ---------- */
-  const MAG = '.hero-ctas .btn, .sec-head .btn, .fin, .fab, .final-sec .btn-red';
+  const MAG = '.st-ctas .st-btn, .hero-ctas .btn, .sec-head .btn, .fin, .fab, .final-sec .btn-red';
   let magEl = null;
   document.addEventListener('pointermove', e => {
     const el = e.target.closest && e.target.closest(MAG);

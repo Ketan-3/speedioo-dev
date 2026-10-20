@@ -182,25 +182,22 @@ function renderHome() {
   const swap = S.citySwap ? ' swap' : ''; S.citySwap = false;
   const ben = (ic, title, text, cta, attrs) => `<article class="ben"><span class="ben-i">${I[ic]}</span><h3>${title}</h3><p>${text}</p><button class="link-arrow" ${attrs}>${cta} →</button></article>`;
   $('#app').innerHTML = `
-  <section class="hero hero-v5${swap}">
-   <div class="hero-media" aria-hidden="true"><video id="heroVid" muted loop playsinline preload="none"></video><div class="hero-shade"></div></div>
-   <div class="hero-spot" aria-hidden="true"></div>
-   <div class="hero-city" aria-hidden="true">${SpeediooCity.scene(S.city, 'hero')}</div>
-   <div class="wrap hero-in">
-    <div class="hero-copy">
-     <span class="eyebrow on-dark"><span class="live"></span>Speedioo ${S.city} · ${C.short}</span>
-     <h1>${t('h1')}</h1>
+  ${SpeediooStudio.markup({ eyebrow: `Speedioo ${S.city} · ${C.short}`, h1: t('h1'), state: { city: S.city, ...(S.studio || {}) } })}
+  <section class="start${swap}">
+   <div class="wrap start-in">
+    <div class="start-copy">
+     <span class="eyebrow">Start here</span>
+     <h2 class="start-h">Start with what you need.</h2>
      <p class="sub">Buy smarter, sell confidently, and experience a more transparent way to move forward.</p>
      <p class="hero-local">${C.heroLine}</p>
-     <div class="hero-ctas"><a class="btn btn-red" href="#sell">Sell your bike</a><a class="btn btn-ghost-w" href="#buy" data-act="reset-buy">Explore bikes</a><button class="textbtn on-dark disc" data-act="scrollto" data-t="why">Discover Speedioo ↓</button></div>
+     <div class="hero-ctas"><a class="btn btn-red" href="#sell">Sell your bike</a><a class="btn btn-line" href="#buy" data-act="reset-buy">Explore bikes</a><button class="textbtn disc" data-act="scrollto" data-t="why">Discover Speedioo ↓</button></div>
     </div>
     <div class="finder">
      <div class="seg" role="tablist" aria-label="Buy or sell"><button role="tab" class="${S.hero === 'buy' ? 'on' : ''}" data-act="hero" data-v="buy" aria-selected="${S.hero === 'buy'}">${t('iBuy')}</button><button role="tab" class="${S.hero === 'sell' ? 'on' : ''}" data-act="hero" data-v="sell" aria-selected="${S.hero === 'sell'}">${t('iSell')}</button></div>
      <div id="heroPane">${heroPane()}</div>
     </div>
-    <div class="goals"><span class="eyebrow on-dark">I want to…</span><div class="chips">${GOALS.map(([k, l, ic]) => `<button class="chip chip-dark" data-act="goal" data-v="${k}">${ico(ic, 15)}${l}</button>`).join('')}</div></div>
+    <div class="goals"><span class="eyebrow">I want to…</span><div class="chips">${GOALS.map(([k, l, ic]) => `<button class="chip" data-act="goal" data-v="${k}">${ico(ic, 15)}${l}</button>`).join('')}</div></div>
    </div>
-   <button class="vid-ctl" data-act="vidtoggle" aria-label="Pause background video">${I.pause}</button>
   </section>
 
   <section class="sec why" id="why"><div class="wrap">
@@ -339,7 +336,7 @@ function renderHome() {
    <form data-form="waOpt" novalidate class="wa-form"><label class="sr" for="waMob">Mobile number</label><input id="waMob" class="input" inputmode="numeric" maxlength="10" placeholder="Mobile number"><button class="btn btn-red" type="submit">${ico('wa', 18)} Notify me</button></form>
   </div></section>`;
 
-  setupVideo($('#heroVid'), MEDIA.hero);
+  SpeediooStudio.mount($('#studio'), { ...(S.studio || {}), onChange: v => { S.studio = v; } });
   SpeediooJourney.mount($('#journey'));
   SpeediooStory.mount($('#storyAnim'));
   SpeediooCheckpoints.mount($('#cpxHome'), byId(CITY_SAMPLE[S.city]) || inCity[0] || BIKES[0], { sample: true });

@@ -57,8 +57,9 @@
 
   /* hero = over the red hero; light = content panels */
   const PAL = {
-    hero: { sky: 'none', far: '#1C1A19', mid: '#171615', hill: '#252220', near: '#F6F1E7', line: 'rgba(246,241,231,.16)', sun: '#C8102E', glow: 'rgba(200,16,46,.22)', rider: '#F6F1E7', helmet: '#C8102E', road: 'rgba(246,241,231,.10)', mark: 'rgba(246,241,231,.45)', water: '#141312', cloud: 'rgba(246,241,231,.05)', accent: '#C8102E' },
-    light: { sky: '#F1EADE', far: '#E4D9C7', mid: '#D6C8B1', hill: '#C9B89E', near: '#AE9C80', line: '#B5A387', sun: '#C8102E', glow: 'rgba(200,16,46,.12)', rider: '#0B0B0C', helmet: '#C8102E', road: '#FBF8F2', mark: '#AE9C80', water: '#E0D4C0', cloud: '#FBF8F2', accent: '#C8102E' }
+    hero: { sky: 'none', far: '#1A1A1A', mid: '#151515', hill: '#222222', near: '#FFFFFF', line: 'rgba(255,255,255,.16)', sun: '#C8102E', glow: 'rgba(200,16,46,.22)', rider: '#FFFFFF', helmet: '#C8102E', road: 'rgba(255,255,255,.10)', mark: 'rgba(255,255,255,.45)', water: '#121212', cloud: 'rgba(255,255,255,.05)', accent: '#C8102E' },
+    studio: { sky: 'none', far: '#191919', mid: '#141414', hill: '#1E1E1E', near: '#161616', line: 'rgba(255,255,255,.07)', sun: 'rgba(200,16,46,.55)', glow: 'rgba(200,16,46,.10)', rider: '#FFFFFF', helmet: '#C8102E', road: 'rgba(255,255,255,.05)', mark: 'rgba(255,255,255,.18)', water: '#131313', cloud: 'rgba(255,255,255,.03)', accent: '#C8102E' },
+    light: { sky: '#F4F4F4', far: '#E8E8E8', mid: '#DADADA', hill: '#CCCCCC', near: '#B0B0B0', line: '#BDBDBD', sun: '#C8102E', glow: 'rgba(200,16,46,.12)', rider: '#0B0B0C', helmet: '#C8102E', road: '#FFFFFF', mark: '#B0B0B0', water: '#E2E2E2', cloud: '#FFFFFF', accent: '#C8102E' }
   };
 
   const riderG = p => `<g class="cs-rider" transform="translate(-100 -100)"><g transform="translate(-14 -24)">
@@ -173,7 +174,7 @@
   function apply(city) {
     const r = document.documentElement;
     r.dataset.city = city;
-    r.style.setProperty('--city-pat-dark', pattern(city, 'rgba(246,241,231,0.06)'));
+    r.style.setProperty('--city-pat-dark', pattern(city, 'rgba(255,255,255,0.06)'));
     r.style.setProperty('--city-pat-light', pattern(city, 'rgba(200,16,46,0.06)'));
     document.querySelectorAll('.cityIcon').forEach(e => e.innerHTML = ICONS[city]);
   }
