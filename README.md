@@ -3,6 +3,15 @@
 Static, framework-free front end for the Speedioo used two-wheeler marketplace (Pune, Delhi, Bangalore).
 Every flow works in the browser today; data is kept in `localStorage` until the backend is connected.
 
+## v0.7 — ivory, crimson and black; interactive layer
+
+- Site logo is the crimson badge with the white S (header, footer, favicon).
+- Opening screen is the round-tyre SPEEDIOO animation (no signature line). Once per session; `?intro` replays.
+- Palette: ivory `#F6F1E7`, crimson `#C8102E`, deep black `#0B0B0C`. Display face: Barlow Condensed italic.
+- `assets/js/fx.js`: custom cursor with labels (View / Drag / Ride / Inspect), magnetic buttons, 3D tilt cards,
+  hero spotlight, word-by-word heading reveals, scroll-skewed marquee, crimson page wipe, drag-to-scroll rails.
+  Touch devices and reduced-motion users get the calm version.
+
 ## v0.6 — brand theme, intro, Delhi
 - SPEEDIOO wordmark with tyre O's (from `speedioo-logo.html`) in header, footer, favicon and `assets/img/speedioo-logo*.svg`; drawn by `buildLogo()` in `assets/js/logo.js`. Brand red #DE2227.
 - Opening animation (`assets/js/intro.js`), ported from the animated logo: tyres roll in with brake sparks, letters slam in, spark plugs fire. Once per session, skippable, `?intro` replays.

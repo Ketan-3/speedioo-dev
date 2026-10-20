@@ -57,8 +57,8 @@
 
   /* hero = over the red hero; light = content panels */
   const PAL = {
-    hero: { sky: 'none', far: 'rgba(255,255,255,.10)', mid: 'rgba(255,255,255,.16)', hill: 'rgba(255,255,255,.22)', near: '#FFFAF7', line: 'rgba(255,255,255,.35)', sun: '#FFE7DF', glow: 'rgba(255,231,223,.22)', rider: '#FFFFFF', helmet: '#FFFFFF', road: 'rgba(255,255,255,.28)', mark: 'rgba(255,255,255,.75)', water: 'rgba(255,255,255,.14)', cloud: 'rgba(255,255,255,.14)', accent: '#FFFFFF' },
-    light: { sky: '#FFF4EF', far: '#F3DCD6', mid: '#E8C5BD', hill: '#DDB0A6', near: '#C98E82', line: '#C98E82', sun: '#DE2227', glow: 'rgba(222,34,39,.14)', rider: '#221C1C', helmet: '#DE2227', road: '#FFFFFF', mark: '#C98E82', water: '#F6D8D0', cloud: '#FFFFFF', accent: '#DE2227' }
+    hero: { sky: 'none', far: '#1C1A19', mid: '#171615', hill: '#252220', near: '#F6F1E7', line: 'rgba(246,241,231,.16)', sun: '#C8102E', glow: 'rgba(200,16,46,.22)', rider: '#F6F1E7', helmet: '#C8102E', road: 'rgba(246,241,231,.10)', mark: 'rgba(246,241,231,.45)', water: '#141312', cloud: 'rgba(246,241,231,.05)', accent: '#C8102E' },
+    light: { sky: '#F1EADE', far: '#E4D9C7', mid: '#D6C8B1', hill: '#C9B89E', near: '#AE9C80', line: '#B5A387', sun: '#C8102E', glow: 'rgba(200,16,46,.12)', rider: '#0B0B0C', helmet: '#C8102E', road: '#FBF8F2', mark: '#AE9C80', water: '#E0D4C0', cloud: '#FBF8F2', accent: '#C8102E' }
   };
 
   const riderG = p => `<g class="cs-rider" transform="translate(-100 -100)"><g transform="translate(-14 -24)">
@@ -101,7 +101,7 @@
     <path d="M0 270 C200 240 360 250 520 236 C700 222 860 250 1040 238 C1220 226 1400 246 1600 236 L1600 400 L0 400Z" fill="${p.far}"/>
     <path d="M232 320 L240 110 L276 110 L284 320Z" fill="${p.hill}"/><path d="M244 110 L252 86 L264 86 L272 110Z" fill="${p.hill}"/>${bands}
     <g fill="${p.hill}"><rect x="760" y="196" width="190" height="24"/><rect x="772" y="220" width="166" height="100"/><rect x="784" y="186" width="142" height="12"/></g>
-    <path d="M818 320 V262 a37 37 0 0 1 74 0 V320Z" fill="${p.sky === 'none' ? 'rgba(120,10,14,.35)' : p.sky}"/>
+    <path d="M818 320 V262 a37 37 0 0 1 74 0 V320Z" fill="${p.sky === 'none' ? '#0B0B0C' : p.sky}"/>
     <path d="M0 330 L1600 330 L1600 400 L0 400Z" fill="${p.mid}"/>
     <g fill="${p.hill}"><rect x="420" y="276" width="34" height="54"/><rect x="460" y="290" width="26" height="40"/><rect x="1040" y="270" width="40" height="60"/><rect x="1086" y="284" width="30" height="46"/><rect x="1380" y="280" width="44" height="50"/></g>
     ${road(p, id, r, 14)}
@@ -173,8 +173,8 @@
   function apply(city) {
     const r = document.documentElement;
     r.dataset.city = city;
-    r.style.setProperty('--city-pat-dark', pattern(city, 'rgba(255,255,255,0.10)'));
-    r.style.setProperty('--city-pat-light', pattern(city, 'rgba(222,34,39,0.07)'));
+    r.style.setProperty('--city-pat-dark', pattern(city, 'rgba(246,241,231,0.06)'));
+    r.style.setProperty('--city-pat-light', pattern(city, 'rgba(200,16,46,0.06)'));
     document.querySelectorAll('.cityIcon').forEach(e => e.innerHTML = ICONS[city]);
   }
 

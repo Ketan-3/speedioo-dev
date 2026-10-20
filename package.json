@@ -1,10 +1,10 @@
 {
   "name": "speedioo-web",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "private": true,
   "description": "Speedioo used two-wheeler marketplace: front-end build (static, Vercel-ready).",
   "scripts": {
     "dev": "npx --yes serve -l 3000 .",
-    "check": "node --check assets/js/data.js && node --check assets/js/api.js && node --check assets/js/logo.js && node --check assets/js/intro.js && node --check assets/js/story.js && node --check assets/js/city.js && node --check assets/js/journey.js && node --check assets/js/checkpoints.js && node --check assets/js/app.js"
+    "check": "node --check assets/js/data.js && node --check assets/js/api.js && node --check assets/js/logo.js && node --check assets/js/intro.js && node --check assets/js/story.js && node --check assets/js/city.js && node --check assets/js/journey.js && node --check assets/js/checkpoints.js && node --check assets/js/app.js && node --check assets/js/fx.js"
   }
 }

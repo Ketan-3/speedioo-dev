@@ -43,7 +43,7 @@ const I = {
   camera: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 7h4l2-3h4l2 3h4v13H4z"/><circle cx="12" cy="13" r="4"/></svg>',
   star: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.7 5.8 6.3.7-4.7 4.3 1.3 6.2L12 17l-5.6 3 1.3-6.2L3 9.5l6.3-.7z"/></svg>'
 };
-const logoSVG = () => window.buildLogo ? buildLogo({ cls: 'site-logo' }) : '<span class="logo-txt">SPEEDIOO</span>';
+const logoSVG = () => window.buildBadge ? buildBadge({ cls: 'site-logo' }) : '<span class="logo-txt">Speedioo</span>';
 const ico = (n, s = 18) => I[n].replace('<svg', `<svg width="${s}" height="${s}" aria-hidden="true"`);
 
 /* ---------- state ---------- */
@@ -93,7 +93,7 @@ function sceneImg(id, alt, w = 900, cls = '') { return `<img class="scene ${cls}
 
 function card(b, o = {}) {
   const fav = S.shortlist.has(b.id);
-  return `<article class="card" data-act="open" data-id="${b.id}" tabindex="0" aria-label="${esc(b.name)}, ${inr(b.price)}">
+  return `<article class="card" data-cursor="View" data-act="open" data-id="${b.id}" tabindex="0" aria-label="${esc(b.name)}, ${inr(b.price)}">
   <div class="card-ph">${photo(b)}<span class="badge">${I.shield}Inspected</span>${b.added <= 2 ? '<span class="badge new">New</span>' : ''}
    <div class="card-tools"><button class="tool" data-act="qv" data-id="${b.id}" aria-label="Quick view ${esc(b.name)}">${I.eye}</button><button class="tool fav-t ${fav ? 'on' : ''}" data-act="fav" data-id="${b.id}" aria-label="Shortlist ${esc(b.name)}" aria-pressed="${fav}">${I.heart}</button></div></div>
   <div class="card-body">
@@ -166,7 +166,7 @@ function collList(k) {
 }
 function collRail() {
   const { list, all } = collList(S.coll || 'new');
-  return `${all ? `<p class="coll-note">None in ${S.city} right now. Showing all cities.</p>` : ''}<div class="rail" id="freshRail">${list.map(b => card(b, { city: all })).join('')}</div>`;
+  return `${all ? `<p class="coll-note">None in ${S.city} right now. Showing all cities.</p>` : ''}<div class="rail" id="freshRail" data-cursor="Drag">${list.map(b => card(b, { city: all })).join('')}</div>`;
 }
 function resaleCalc() {
   const o = $('#rsOut'); if (!o) return;
@@ -184,6 +184,7 @@ function renderHome() {
   $('#app').innerHTML = `
   <section class="hero hero-v5${swap}">
    <div class="hero-media" aria-hidden="true"><video id="heroVid" muted loop playsinline preload="none"></video><div class="hero-shade"></div></div>
+   <div class="hero-spot" aria-hidden="true"></div>
    <div class="hero-city" aria-hidden="true">${SpeediooCity.scene(S.city, 'hero')}</div>
    <div class="wrap hero-in">
     <div class="hero-copy">
@@ -219,13 +220,13 @@ function renderHome() {
 
   <section class="sec jr-sec" id="sell28"><div class="wrap">
    <div class="sec-head rv"><div><span class="eyebrow on-dark">Sell your bike in 28 minutes</span><h2>From a QR scan to SOLD</h2></div><a class="btn btn-red" href="#sell">Sell my bike</a></div>
-   <div id="journey" class="rv jr-light"></div>
-   <div class="jr-watch rv"><div><h3>Watch a 28-minute sale</h3><p>Twenty seconds, from the QR scan to SOLD.</p></div><div id="storyAnim"></div></div>
+   <div id="journey" class="rv"></div>
+   <div class="jr-watch rv"><div><h3>Watch a 28-minute sale</h3><p>Twenty seconds, from the QR scan to SOLD.</p></div><div id="storyAnim" data-cursor="Play"></div></div>
   </div></section>
 
   <section class="sec cpx-sec" id="checkpoints"><div class="wrap">
    <div class="sec-head rv"><div><span class="eyebrow">Vehicle checkpoints</span><h2>See exactly what we checked</h2><p class="sec-sub">Tap any point on the bike to see what our inspector checked, what they found and whether it needs attention.</p></div><a class="link-arrow" href="#buy" data-act="reset-buy">Bikes with full reports →</a></div>
-   <div id="cpxHome" class="cpx rv"></div>
+   <div id="cpxHome" class="cpx rv" data-cursor-zone="Inspect"></div>
   </div></section>
 
   <section class="marquee" aria-label="Brands we buy and sell"><div class="marquee-track">${[...BRANDS_MARQUEE, ...BRANDS_MARQUEE].map((b, i) => `<button data-act="shop" data-k="brand" data-v="${b}" ${i >= BRANDS_MARQUEE.length ? 'aria-hidden="true" tabindex="-1"' : ''}>${b}</button>`).join('<i>✦</i>')}</div></section>
@@ -259,7 +260,7 @@ function renderHome() {
   <section class="sec city-sec${swap}" id="city"><div class="wrap">
    <div class="sec-head rv"><div><span class="eyebrow">Made for your city</span><h2>${C.title}</h2></div>
     <div class="seg city-tabs" role="tablist" aria-label="Choose city">${CITIES.map(c => `<button role="tab" class="${c === S.city ? 'on' : ''}" aria-selected="${c === S.city}" data-act="setcity" data-v="${c}" data-keep="city"><span class="ci">${SpeediooCity.ICONS[c]}</span>${c}</button>`).join('')}</div></div>
-   <div class="city-art">${SpeediooCity.scene(S.city, 'light')}<span class="city-greet">${C.greet}</span></div>
+   <div class="city-art" data-cursor="Ride">${SpeediooCity.scene(S.city, 'light')}<span class="city-greet">${C.greet}</span></div>
    <div class="city-grid">
     <div class="city-info">
      <p class="city-intro">${C.intro}</p>
@@ -628,7 +629,7 @@ function renderSell() {
    </div></div></section>
    <div class="wrap">
    <section class="sec"><div class="sec-head rv"><div><span class="eyebrow">Watch it happen</span><h2>A 28-minute sale, in 20 seconds</h2></div></div><div id="storyAnim" class="rv"></div></section>
-   <section class="sec" style="padding-top:0"><div class="sec-head rv"><div><span class="eyebrow">How selling works</span><h2>From a QR scan to SOLD</h2></div></div><div id="journey" class="rv jr-light"></div></section>
+   <section class="sec" style="padding-top:0"><div class="sec-head rv"><div><span class="eyebrow">How selling works</span><h2>From a QR scan to SOLD</h2></div></div><div id="journey" class="rv"></div></section>
    <section class="sec two" style="padding-top:0">
     <div class="panel rv"><span class="eyebrow">Documents checklist</span><ul class="doclist" id="docList">${['RC (original)', 'Valid insurance', 'PUC', 'Aadhaar / PAN', 'NOC if a loan was taken'].map((d, i) => `<li><label><input type="checkbox" data-doc="${i}" ${DB.get('docs', [])[i] ? 'checked' : ''}> ${d}</label></li>`).join('')}</ul><span class="hint">Tick what you have ready. We'll remind you about the rest.</span></div>
     <div class="panel rv"><span class="eyebrow">Seller FAQ &amp; guides</span>${HELP.slice(1, 4).map(h => `<details class="faq"><summary>${h.t}</summary><p>${h.a}</p></details>`).join('')}
