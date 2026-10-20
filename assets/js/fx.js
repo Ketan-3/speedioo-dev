@@ -1,5 +1,5 @@
-/* Interaction layer: custom cursor with labels, magnetic buttons, hero spotlight, kinetic headings,
-   scroll-velocity marquee, 3D tilt cards and a crimson page wipe.
+/* Interaction layer: magnetic buttons, hero spotlight, kinetic headings,
+   scroll-velocity marquee, 3D tilt cards and a SPEEDIOO logo screen on page change.
    Everything is delegated from document, so it works after every route render.
    Touch devices and reduced-motion users get the calm version. */
 (function () {
@@ -30,17 +30,20 @@
   }
   function enhance(scope) {
     if (reduce) return;
-    (scope || document).querySelectorAll('.studio h1, .sec-head.rv h2').forEach(splitWords);
+    (scope || document).querySelectorAll('.hero-v5 h1, .sec-head.rv h2').forEach(splitWords);
   }
 
-  /* ---------- page wipe on route change ---------- */
-  const wipe = document.createElement('div'); wipe.className = 'wipe'; wipe.setAttribute('aria-hidden', 'true');
-  document.body.appendChild(wipe);
+  /* ---------- page change: the SPEEDIOO logo screen from the opening, briefly ---------- */
+  const pl = document.createElement('div'); pl.className = 'pageload'; pl.setAttribute('aria-hidden', 'true');
+  pl.innerHTML = '<div class="sp-wall"></div><div class="pl-stage">' + (window.buildWordmark ? buildWordmark({ cls: 'sp-logo pl-logo' }) : '<strong>SPEEDIOO</strong>') + '</div>';
+  document.body.appendChild(pl);
+  let plT;
   addEventListener('hashchange', () => {
-    if (reduce) return;
     const h = location.hash.slice(1);
-    if (['why', 'checkpoints', 'tools', 'city', 'benefits', 'reviews', 'team', 'contact', 'story'].includes(h)) return;
-    wipe.classList.remove('go'); void wipe.offsetWidth; wipe.classList.add('go');
+    if (['why', 'checkpoints', 'discover', 'sell28', 'tools', 'city', 'benefits', 'reviews', 'team', 'contact', 'story'].includes(h)) return;
+    if (document.documentElement.classList.contains('splash-on')) return;
+    clearTimeout(plT); pl.classList.add('on');
+    plT = setTimeout(() => pl.classList.remove('on'), reduce ? 250 : 620);
   });
 
   /* re-run enhancements whenever the app renders a page */
@@ -64,7 +67,7 @@
   /* ---------- hero spotlight (cursor, or a slow drift on touch) ---------- */
   let spotT = 0, pointerInHero = false;
   document.addEventListener('pointermove', e => {
-    const hero = e.target.closest && e.target.closest('.st-frame');
+    const hero = e.target.closest && e.target.closest('.hero-v5');
     pointerInHero = !!hero;
     if (!hero) return;
     const r = hero.getBoundingClientRect();
@@ -73,7 +76,7 @@
   }, { passive: true });
   if (!reduce) {
     const drift = () => {
-      const hero = document.querySelector('.st-frame');
+      const hero = document.querySelector('.hero-v5');
       if (hero && (!fine || !pointerInHero)) {
         spotT += .006;
         hero.style.setProperty('--mx', (68 + Math.sin(spotT) * 18).toFixed(2) + '%');
@@ -86,42 +89,8 @@
 
   if (!fine || reduce) return;
 
-  /* ---------- custom cursor ---------- */
-  root.classList.add('has-cursor');
-  const dot = document.createElement('div'), ring = document.createElement('div');
-  dot.className = 'cur-dot'; ring.className = 'cur-ring'; ring.innerHTML = '<span></span>';
-  dot.setAttribute('aria-hidden', 'true'); ring.setAttribute('aria-hidden', 'true');
-  document.body.append(dot, ring);
-  const label = ring.querySelector('span');
-  let mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my, scale = 1;
-  document.addEventListener('pointermove', e => {
-    mx = e.clientX; my = e.clientY; root.classList.remove('cur-hidden');
-    const t = e.target;
-    if (!t || !t.closest) return;
-    const lab = t.closest('[data-cursor]');
-    const zone = t.closest('[data-cursor-zone]');
-    const clickable = t.closest('a,button,[data-act],label,select,summary,[role=button]');
-    const typing = t.closest('input,textarea,select');
-    let text = lab ? lab.dataset.cursor : '';
-    if (!text && zone && t.closest('.cpx-hot,.cpx-chip')) text = zone.dataset.cursorZone;
-    ring.classList.toggle('label', !!text && !typing);
-    ring.classList.toggle('hover', !text && !!clickable && !typing);
-    label.textContent = text;
-    dot.style.opacity = typing ? '0' : '1'; ring.style.opacity = typing ? '0' : '1';
-  }, { passive: true });
-  document.addEventListener('pointerdown', () => { scale = .82; });
-  document.addEventListener('pointerup', () => { scale = 1; });
-  document.addEventListener('mouseleave', () => root.classList.add('cur-hidden'));
-  const follow = () => {
-    rx += (mx - rx) * .18; ry += (my - ry) * .18;
-    dot.style.transform = `translate(${mx}px,${my}px)`;
-    ring.style.transform = `translate(${rx.toFixed(1)}px,${ry.toFixed(1)}px) scale(${scale})`;
-    requestAnimationFrame(follow);
-  };
-  requestAnimationFrame(follow);
-
   /* ---------- magnetic buttons ---------- */
-  const MAG = '.st-ctas .st-btn, .hero-ctas .btn, .sec-head .btn, .fin, .fab, .final-sec .btn-red';
+  const MAG = '.hero-ctas .btn, .sec-head .btn, .fin, .fab, .final-sec .btn-red';
   let magEl = null;
   document.addEventListener('pointermove', e => {
     const el = e.target.closest && e.target.closest(MAG);

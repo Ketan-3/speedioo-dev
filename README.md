@@ -3,6 +3,15 @@
 Static, framework-free front end for the Speedioo used two-wheeler marketplace (Pune, Delhi, Bangalore).
 Every flow works in the browser today; data is kept in `localStorage` until the backend is connected.
 
+## v0.9 — minimal
+
+- Home is short: video hero with the Buy/Sell finder, three numbers, inspected bikes, the 28-minute sale video,
+  the inspection scene, and one "What would you like to do?" block with a callback form and service links.
+- The interactive bike inspection (engine and front end, hover to look inside, click for details) is on the home page
+  and inside every bike's Inspection report, above that bike's own checkpoint results.
+- Header shows the badge plus the animated SPEEDIOO wordmark. Page changes show the SPEEDIOO logo screen.
+- Normal cursor (custom cursor removed). Favicon set: SVG, ICO, PNG and apple-touch icon of the badge.
+
 ## v0.8 — studio UI, red / black / white
 
 - Home opens on a framed "studio" scene (`assets/js/studio.js`), adapted from the VEYRA interactive scene

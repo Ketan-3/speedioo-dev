@@ -1856,6 +1856,62 @@ footer{background:var(--black)}
 .sell-top,.sell-bg{background:var(--black)}
 .cur-ring span{font:500 13px/1 var(--font);letter-spacing:-.01em;text-transform:none;color:#fff}
 
+
+/* one weight for headings, like the reference: hierarchy from size and spacing only */
+h1,h2{font-weight:400!important;letter-spacing:-.035em!important}
+h3,h4{font-weight:400!important;letter-spacing:-.02em!important}
+.fin.fin-form{background:#fff;color:var(--ink);border-color:#fff}
+/* page change: logo screen (replaces the plain red wipe) */
+.wipe{display:none}
+.pageload{position:fixed;inset:0;z-index:999;display:grid;place-items:center;pointer-events:none;opacity:0;visibility:hidden;transition:opacity .28s ease,visibility 0s .28s}
+.pageload.on{opacity:1;visibility:visible;transition:opacity .14s ease}
+.pl-stage{position:relative;z-index:1;width:min(70vw,520px);filter:drop-shadow(0 4px 5px rgba(60,0,0,.55));transform:scale(.96);transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.pageload.on .pl-stage{transform:none}
+.pl-logo .spin{animation:wheelSpin .7s linear infinite}
+.pl-logo .plug{display:none}
+@media (prefers-reduced-motion:reduce){.pl-logo .spin{animation:none}}
+
+/* =========================================================
+   v0.9 · minimal home
+   ========================================================= */
+.hero-min .wrap.hero-in{min-height:min(80vh,700px);padding-block:56px 150px;align-items:center}
+.hero-min h1{text-transform:none;font-size:clamp(44px,5.6vw,84px);line-height:.92;max-width:13ch}
+.hero-min .sub{font-size:18px;line-height:1.45;max-width:38ch;color:#D6D6D6}
+.hero-min .finder{box-shadow:0 30px 70px rgba(0,0,0,.45)}
+.btn-white{background:#fff;color:var(--red);border:1px solid #fff}.btn-white:hover{background:var(--black);color:#fff;border-color:var(--black)}
+
+.min-stats{background:#fff;border-bottom:1px solid var(--line)}
+.stats-min{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;padding-block:28px}
+.stats-min div{display:grid;gap:4px}
+.stats-min strong{font-size:clamp(28px,3vw,40px);font-weight:400;letter-spacing:-.04em;line-height:1}
+.stats-min div:first-child strong{color:var(--red)}
+.stats-min span{font-size:14px;color:var(--muted)}
+
+.min-sell #storyAnim{max-width:980px;margin-inline:auto}
+.sec-head h2{margin-bottom:0}
+
+.final-min-in{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:40px;align-items:center}
+.final-min h2{color:#fff;margin:0 0 24px}
+.fm-ctas{display:flex;flex-wrap:wrap;gap:10px}
+.fm-links{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:28px;padding-top:20px;border-top:1px solid rgba(255,255,255,.3)}
+.fm-links button{background:none;border:0;padding:6px 0;color:#fff;font:inherit;font-size:14px;cursor:pointer;opacity:.85;border-bottom:1px solid transparent}
+.fm-links button:hover{opacity:1;border-bottom-color:#fff}
+.final-min .fin-form{display:grid;gap:10px;padding:22px}
+.final-min .fin-form strong{font-size:22px}
+
+@media (max-width:900px){
+  .hero-min .wrap.hero-in{min-height:0;padding-block:28px 110px;gap:22px}
+  .hero-min h1{font-size:clamp(38px,10.5vw,54px)}
+  .hero-min .sub{font-size:16px}
+  .hero-min .hero-ctas{display:none}
+  .stats-min{gap:12px;padding-block:20px}
+  .stats-min strong{font-size:24px}
+  .stats-min span{font-size:12px;line-height:1.3}
+  .final-min-in{grid-template-columns:minmax(0,1fr);gap:28px}
+  .fm-links{gap:4px 16px}
+}
+
+/* inspection scene (studio.js), used on home and bike pages */
 /* ---------- studio (home) ---------- */
 .studio{--g:clamp(20px,4vw,64px);--pw:max(min(100% - 2 * var(--g), (100svh - 72px - 300px) * 1.7768, 1280px), min(100% - 2 * var(--g), 760px));
   position:relative;background:var(--black);color:#fff;padding:26px 0 0;overflow:hidden;letter-spacing:-.03em;isolation:isolate}
@@ -2042,33 +2098,39 @@ html.splash-on .studio h1 .w>span{animation-play-state:paused}
 @media (max-width:480px){.ap-menu{width:288px;padding:12px 16px 14px}.st-notes h3{font-size:15px}.st-notes p{font-size:13px}}
 @media (prefers-reduced-motion:reduce){.st-bike{transform:none!important}.studio *{animation:none!important}}
 
-/* start band: the old hero's finder, goals and CTAs, unchanged in function */
-.start{background:#fff;color:var(--ink);border-bottom:1px solid var(--line)}
-.start-in{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:28px 48px;align-items:center;padding-block:44px 40px}
-.start-copy{display:grid;gap:14px}
-.start .sub{font-size:20px;line-height:1.35;letter-spacing:-.025em;color:var(--ink);margin:0;max-width:30ch}
-.start .hero-local{color:var(--muted);font-weight:400;margin:0}
-.start .hero-local::before{background:var(--red)}
-.start .textbtn{color:var(--ink)}
-.start .finder{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:none;animation:none}
-.start .fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
-.start .fcell:nth-child(2n){border-right:0}
-.start .fcell{border-bottom:1px solid var(--line)}
-.start .fgrid .btn{grid-column:1/-1}
-.start .qp{flex-wrap:wrap}
-.start .goals{grid-column:1/-1}
-.start .goals .chip svg{color:var(--red)}
-@media (max-width:900px){.start-in{grid-template-columns:minmax(0,1fr);padding-block:32px}.start .sub{font-size:18px}}
-
 .chip-wheel{border-radius:50%;background:radial-gradient(circle,#4A4A4A 0%,#2A2A2A 70%)}
-.start-in{align-items:start}
-.start-h{font-size:clamp(30px,3.2vw,46px);margin:0;max-width:16ch}
 .st-copy h2{font-size:clamp(30px,2.6vw,44px)}
-/* one weight for headings, like the reference: hierarchy from size and spacing only */
-h1,h2{font-weight:400!important;letter-spacing:-.035em!important}
-h3,h4{font-weight:400!important;letter-spacing:-.02em!important}
-.studio h1{letter-spacing:-.04em!important}
-.fin.fin-form{background:#fff;color:var(--ink);border-color:#fff}
 .st-copy h2{font-size:clamp(28px,2.4vw,40px);margin-bottom:16px}
 .st-sysdesc{margin-bottom:16px}
 .st-parts button{min-height:44px;padding:11px 0}
+.studio-embed{--pw:100%;position:relative;padding:0;background:var(--black);color:#fff;border-radius:16px;overflow:hidden}
+.studio-embed .st-plane{width:100%}
+.studio-embed .st-frame{border-radius:0;box-shadow:none}
+.studio-embed .st-back{position:absolute;left:16px;top:16px;bottom:auto;z-index:6}
+.studio-embed .st-hint{position:absolute;left:18px;bottom:14px;margin:0;font-size:13px;color:#BDBDBD;z-index:2;pointer-events:none;transition:opacity .3s}
+.studio-embed:not(.phase-overview) .st-hint{opacity:0}
+.studio-embed .st-copy{right:26px}
+.studio-embed .st-copy-cta{display:none}
+@media (max-width:1100px),(max-height:780px){.studio-embed .st-copy{width:auto;padding:22px 22px 24px;right:auto}}
+@media (max-width:900px){.studio-embed .st-back{position:absolute;margin:0;left:10px;top:10px;min-height:40px;padding:8px 12px}.studio-embed .st-copy{padding:20px 18px 22px}.studio-embed .st-hint{font-size:12px;left:12px;bottom:10px}}
+.insp .studio-embed{margin:4px 0 16px}
+#cpxBike .cpx-stage{display:none}
+.hero-min h1 em{font-style:normal}
+@media (max-width:900px){.hero-min .qp{display:none}}
+#cpxBike .cpx-grid{grid-template-columns:minmax(0,1fr)}
+/* header wordmark beside the badge */
+.logo-pair{display:inline-flex;align-items:center;gap:10px;color:var(--red);--logo-tread:#FFFFFF;text-decoration:none}
+.hdr-word{height:22px;width:auto}
+.hdr-word .ch{animation:hwIn .5s cubic-bezier(.2,.8,.2,1) both}
+.hdr-word .ch:nth-child(2){animation-delay:.05s}.hdr-word .ch:nth-child(3){animation-delay:.1s}.hdr-word .ch:nth-child(4){animation-delay:.15s}.hdr-word .ch:nth-child(5){animation-delay:.2s}.hdr-word .ch:nth-child(6){animation-delay:.25s}
+.hdr-word .wheel{animation:hwRoll 1.1s cubic-bezier(.15,.75,.25,1) both}
+.hdr-word .spin{animation:wheelSpin 1.1s cubic-bezier(.15,.75,.25,1) both}
+.logo-pair:hover .hdr-word .spin{animation:wheelSpin .8s cubic-bezier(.2,.8,.3,1)}
+.hdr-word .plug{display:none}
+@keyframes hwIn{from{opacity:0;transform:translateX(-14px) skewX(-14deg)}to{opacity:1;transform:none}}
+@keyframes hwRoll{from{transform:translateX(-60px);opacity:0}to{transform:none;opacity:1}}
+html.splash-on .hdr-word *{animation-play-state:paused}
+@media (max-width:900px){.hdr-word{height:16px}.logo-pair{gap:8px}}
+@media (max-width:360px){.hdr-word{display:none}}
+@media (prefers-reduced-motion:reduce){.hdr-word *{animation:none!important}}
+.pageload{background:#c8101a}

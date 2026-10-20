@@ -182,172 +182,71 @@ function renderHome() {
   const swap = S.citySwap ? ' swap' : ''; S.citySwap = false;
   const ben = (ic, title, text, cta, attrs) => `<article class="ben"><span class="ben-i">${I[ic]}</span><h3>${title}</h3><p>${text}</p><button class="link-arrow" ${attrs}>${cta} →</button></article>`;
   $('#app').innerHTML = `
-  ${SpeediooStudio.markup({ eyebrow: `Speedioo ${S.city} · ${C.short}`, h1: t('h1'), state: { city: S.city, ...(S.studio || {}) } })}
-  <section class="start${swap}">
-   <div class="wrap start-in">
-    <div class="start-copy">
-     <span class="eyebrow">Start here</span>
-     <h2 class="start-h">Start with what you need.</h2>
-     <p class="sub">Buy smarter, sell confidently, and experience a more transparent way to move forward.</p>
-     <p class="hero-local">${C.heroLine}</p>
-     <div class="hero-ctas"><a class="btn btn-red" href="#sell">Sell your bike</a><a class="btn btn-line" href="#buy" data-act="reset-buy">Explore bikes</a><button class="textbtn disc" data-act="scrollto" data-t="why">Discover Speedioo ↓</button></div>
+  <section class="hero hero-v5 hero-min${swap}">
+   <div class="hero-media" aria-hidden="true"><video id="heroVid" muted loop playsinline preload="none"></video><div class="hero-shade"></div></div>
+   <div class="hero-spot" aria-hidden="true"></div>
+   <div class="hero-city" aria-hidden="true">${SpeediooCity.scene(S.city, 'hero')}</div>
+   <div class="wrap hero-in">
+    <div class="hero-copy">
+     <span class="eyebrow on-dark"><span class="live"></span>Speedioo ${S.city} · ${C.short}</span>
+     <h1>${t('h1')}</h1>
+     <p class="sub">Inspected bikes, fixed prices, and a doorstep sale that pays by UPI.</p>
+     <div class="hero-ctas"><a class="btn btn-red" href="#sell">Sell your bike</a><a class="btn btn-ghost-w" href="#buy" data-act="reset-buy">Explore bikes</a></div>
     </div>
     <div class="finder">
      <div class="seg" role="tablist" aria-label="Buy or sell"><button role="tab" class="${S.hero === 'buy' ? 'on' : ''}" data-act="hero" data-v="buy" aria-selected="${S.hero === 'buy'}">${t('iBuy')}</button><button role="tab" class="${S.hero === 'sell' ? 'on' : ''}" data-act="hero" data-v="sell" aria-selected="${S.hero === 'sell'}">${t('iSell')}</button></div>
      <div id="heroPane">${heroPane()}</div>
     </div>
-    <div class="goals"><span class="eyebrow">I want to…</span><div class="chips">${GOALS.map(([k, l, ic]) => `<button class="chip" data-act="goal" data-v="${k}">${ico(ic, 15)}${l}</button>`).join('')}</div></div>
    </div>
+   <button class="vid-ctl" data-act="vidtoggle" aria-label="Pause background video">${I.pause}</button>
   </section>
 
-  <section class="sec why" id="why"><div class="wrap">
-   <div class="sec-head rv"><div><span class="eyebrow">Why Speedioo</span><h2>Trust, transparency and ownership in every ride</h2></div></div>
-   <div class="pillars rv">
-    <article class="pillar"><span class="pi">${I.shield}</span><h3>Trust</h3><p>Every bike is inspected before it is listed, and every promise is written down.</p><ul><li>Inspection report on every listing</li><li>Documents verified before sale</li><li>6-month warranty on bikes you buy</li></ul><button class="link-arrow" data-act="scrollto" data-t="checkpoints">Our inspection standard →</button></article>
-    <article class="pillar"><span class="pi">${I.eye}</span><h3>Transparency</h3><p>See what we checked, what we found and how every price is set.</p><ul><li>Listed price, estimate and final offer clearly labelled</li><li>Every deduction explained</li><li>Live status for your sale and RC transfer</li></ul><button class="link-arrow" data-act="pricing">How pricing works →</button></article>
-    <article class="pillar"><span class="pi">${I.home}</span><h3>Ownership</h3><p>We stay with you after the sale, from paperwork to insurance and warranty.</p><ul><li>RC transfer handled and tracked</li><li>Insurance and extended warranty help</li><li>A real person on call and WhatsApp</li></ul><button class="link-arrow" data-act="scrollto" data-t="benefits">Ownership benefits →</button></article>
-   </div>
-   <div class="stats stats-row rv">
-    <div><strong data-count="28" data-suf=" min">28 min</strong><span>Doorstep sale, inspection to UPI</span></div>
-    <div><strong data-count="60" data-suf=" sec">60 sec</strong><span>To see your estimated price</span></div>
-    <div><strong data-count="0" data-pre="₹">₹0</strong><span>Inspection fee, at your doorstep</span></div>
-    <div><strong data-count="6" data-suf=" months">6 months</strong><span>Standard warranty on bikes you buy</span></div>
-   </div>
+  <section class="min-stats" id="why" aria-label="Speedioo in numbers"><div class="wrap stats-min">
+   <div><strong>28 min</strong><span>Doorstep sale, inspection to UPI</span></div>
+   <div><strong>₹0</strong><span>Inspection fee</span></div>
+   <div><strong>6 months</strong><span>Warranty on bikes you buy</span></div>
   </div></section>
 
-  <section class="sec jr-sec" id="sell28"><div class="wrap">
-   <div class="sec-head rv"><div><span class="eyebrow on-dark">Sell your bike in 28 minutes</span><h2>From a QR scan to SOLD</h2></div><a class="btn btn-red" href="#sell">Sell my bike</a></div>
-   <div id="journey" class="rv"></div>
-   <div class="jr-watch rv"><div><h3>Watch a 28-minute sale</h3><p>Twenty seconds, from the QR scan to SOLD.</p></div><div id="storyAnim" data-cursor="Play"></div></div>
-  </div></section>
-
-  <section class="sec cpx-sec" id="checkpoints"><div class="wrap">
-   <div class="sec-head rv"><div><span class="eyebrow">Vehicle checkpoints</span><h2>See exactly what we checked</h2><p class="sec-sub">Tap any point on the bike to see what our inspector checked, what they found and whether it needs attention.</p></div><a class="link-arrow" href="#buy" data-act="reset-buy">Bikes with full reports →</a></div>
-   <div id="cpxHome" class="cpx rv" data-cursor-zone="Inspect"></div>
-  </div></section>
-
-  <section class="marquee" aria-label="Brands we buy and sell"><div class="marquee-track">${[...BRANDS_MARQUEE, ...BRANDS_MARQUEE].map((b, i) => `<button data-act="shop" data-k="brand" data-v="${b}" ${i >= BRANDS_MARQUEE.length ? 'aria-hidden="true" tabindex="-1"' : ''}>${b}</button>`).join('<i>✦</i>')}</div></section>
-
-  <section class="sec sec-alt" id="discover"><div class="wrap">
-   <div class="sec-head rv"><div><span class="eyebrow">Discover bikes with confidence</span><h2>Curated in ${S.city}</h2><p class="sec-sub">Inspected, fixed-price and covered by a 6-month warranty.</p></div>
+  <section class="sec" id="discover"><div class="wrap">
+   <div class="sec-head rv"><div><h2>Inspected bikes in ${S.city}</h2></div>
     <div class="rail-ctl"><button class="tool" data-act="rail" data-d="-1" aria-label="Scroll left">${I.left}</button><button class="tool" data-act="rail" data-d="1" aria-label="Scroll right">${I.right}</button><a class="link-arrow" href="#buy" data-act="reset-buy">View all ${inCity.length} →</a></div></div>
    <div class="tabs" role="tablist">${COLLECTIONS.map(([k, l]) => `<button role="tab" class="${(S.coll || 'new') === k ? 'on' : ''}" data-act="coll" data-v="${k}">${l}</button>`).join('')}</div>
    <div id="collRail">${collRail()}</div>
-   <div class="browse"><span class="eyebrow">Browse by</span><div class="chips scroll">${BUDGETS.map((b, i) => `<button class="chip" data-act="shop" data-k="budget" data-v="${i}">${b[0]}</button>`).join('')}${TYPES.map(ty => `<button class="chip" data-act="shop" data-k="type" data-v="${ty}">${ty}</button>`).join('')}</div></div>
   </div></section>
 
-  <section class="sec how-sec"><div class="wrap">
-   <div class="sec-head rv"><div><span class="eyebrow on-dark">How buying works</span><h2>Four stops from start to done</h2></div>
-    <div class="seg seg-dark" role="tablist"><button role="tab" class="${S.how === 'buy' ? 'on' : ''}" data-act="how" data-v="buy">Buying</button><button role="tab" class="${S.how === 'sell' ? 'on' : ''}" data-act="how" data-v="sell">Selling</button></div></div>
-   <div class="how-grid rv"><div class="gauge-box">${gaugeSVG()}</div><ol class="how-steps" id="howSteps"></ol></div>
+  <section class="sec jr-sec min-sell" id="sell28"><div class="wrap">
+   <div class="sec-head rv"><div><h2>Sold in 28 minutes</h2><p class="sec-sub">From a QR scan to money in your account. Watch it in twenty seconds.</p></div><a class="btn btn-red" href="#sell">Sell my bike</a></div>
+   <div id="storyAnim" class="rv" data-cursor="Play"></div>
   </div></section>
 
-  <section class="sec" id="benefits"><div class="wrap">
-   <div class="sec-head rv"><div><span class="eyebrow">Ownership benefits</span><h2>We stay with you after the sale</h2></div></div>
-   <div class="bens rv">
-    ${ben('shield', 'Standard 6-month warranty', 'Every bike bought from Speedioo comes with a 6-month warranty.', 'What’s covered', 'data-act="warranty"')}
-    ${ben('card', 'EMI calculator', 'Estimate your monthly payment from price, down payment, rate and tenure.', 'Check my EMI', 'data-act="emi"')}
-    ${ben('gift', 'Extended warranty', 'Extend your cover beyond the standard six months.', 'Explore options', 'data-act="enquiry" data-k="extended_warranty"')}
-    ${ben('doc', 'Insurance assistance', 'New policy, renewal or a claim: we help with the paperwork.', 'Get insurance help', 'data-act="enquiry" data-k="insurance"')}
-    ${ben('route', 'RC transfer & documents', 'We file the ownership transfer and you can track every stage.', 'Track RC transfer', 'data-act="rc"')}
-    ${ben('home', 'Doorstep inspection', 'Book a free slot at home or at our hub, and reschedule any time.', 'Book an inspection', 'data-act="go" data-v="sell"')}
-   </div>
+  <section class="sec cpx-sec" id="checkpoints"><div class="wrap">
+   <div class="sec-head rv"><div><h2>See exactly what we checked</h2><p class="sec-sub">Look inside the engine and the front end. Every listed bike comes with its own report.</p></div><a class="link-arrow" href="#buy" data-act="reset-buy">Bikes with full reports →</a></div>
+   <div class="rv">${SpeediooStudio.markup({ variant: 'embed', id: 'inspHome' })}</div>
   </div></section>
 
-  <section class="sec city-sec${swap}" id="city"><div class="wrap">
-   <div class="sec-head rv"><div><span class="eyebrow">Made for your city</span><h2>${C.title}</h2></div>
-    <div class="seg city-tabs" role="tablist" aria-label="Choose city">${CITIES.map(c => `<button role="tab" class="${c === S.city ? 'on' : ''}" aria-selected="${c === S.city}" data-act="setcity" data-v="${c}" data-keep="city"><span class="ci">${SpeediooCity.ICONS[c]}</span>${c}</button>`).join('')}</div></div>
-   <div class="city-art" data-cursor="Ride">${SpeediooCity.scene(S.city, 'light')}<span class="city-greet">${C.greet}</span></div>
-   <div class="city-grid">
-    <div class="city-info">
-     <p class="city-intro">${C.intro}</p>
-     <h3>Weekend rides</h3>
-     <ol class="rides">${C.rides.map(([n, d]) => `<li><strong>${n}</strong><span>${d}</span></li>`).join('')}</ol>
-    </div>
-    <div class="city-info">
-     <h3>Everyday riding</h3>
-     <p>${C.everyday}</p>
-     <div class="chips">${C.picks.filter(([ty]) => inCity.some(b => b.type === ty)).map(([ty, l]) => `<button class="chip" data-act="shop" data-k="type" data-v="${ty}">${l} · ${inCity.filter(b => b.type === ty).length} in stock</button>`).join('')}</div>
-     <div class="city-meta">
-      <div><span class="eyebrow">Your hub</span><p>${phTxt(C.hub)}</p></div>
-      <div><span class="eyebrow">Local guide</span><a class="link-arrow" href="#blog">${C.guide} →</a></div>
-      ${C.lang !== 'en' && S.lang !== C.lang ? `<div><span class="eyebrow">Language</span><button class="chip" data-act="langpick" data-v="${C.lang}">${C.lang === 'mr' ? 'मराठीत वाचा' : 'हिंदी में पढ़ें'}</button></div>` : ''}
-     </div>
+  <section class="sec final-sec final-min"><div class="wrap final-min-in">
+   <div class="rv">
+    <h2>What would you like to do?</h2>
+    <div class="fm-ctas"><a class="btn btn-white" href="#sell">Sell my bike</a><a class="btn btn-ghost-w" href="#buy" data-act="reset-buy">Buy a bike</a></div>
+    <div class="fm-links" aria-label="More from Speedioo">
+     <button data-act="warranty">Warranty</button><button data-act="emi">EMI</button><button data-act="enquiry" data-k="insurance">Insurance</button><button data-act="enquiry" data-k="extended_warranty">Extended warranty</button><button data-act="rc">Track RC transfer</button><button data-act="cmppick">Compare</button><button data-act="pricing">How pricing works</button>
     </div>
    </div>
-  </div></section>
-
-  <section class="sec sec-alt"><div class="wrap">
-   <div class="sec-head rv"><div><span class="eyebrow">Real customer experiences</span><h2>What riders say</h2></div><a class="link-arrow" href="#reviews">All reviews →</a></div>
-   <div class="rating-bar rv"><strong>★ <span class="ph">[4.x]</span></strong><span class="muted">from <span class="ph">[N]</span> Google reviews</span></div>
-   <div class="revs rv">${REVIEWS.slice(0, 4).map(revCard).join('')}</div>
-  </div></section>
-
-  <section class="sec" id="tools"><div class="wrap">
-   <div class="sec-head rv"><div><span class="eyebrow">Interactive tools</span><h2>Useful even if you’re just looking</h2></div></div>
-   <div class="tools rv">
-    <div class="tool-card tool-resale">
-     <h3>${ico('rupee', 20)} What’s my bike worth?</h3>
-     <div class="rs-form">
-      <div class="field"><label for="rsBrand">Brand</label><select class="input" id="rsBrand">${Object.keys(BRAND_REF).map(b => `<option ${b === 'Royal Enfield' ? 'selected' : ''}>${b}</option>`).join('')}</select></div>
-      <div class="field"><label for="rsYear">Year</label><select class="input" id="rsYear">${[...Array(15)].map((_, i) => 2026 - i).map(y => `<option ${y === 2022 ? 'selected' : ''}>${y}</option>`).join('')}</select></div>
-     </div>
-     <div class="field"><span class="lab">KM driven</span><div class="chips" id="rsKm">${['<10k', '10–25k', '25–50k', '50k+'].map(k => `<button class="chip ${k === (S.rsKm || '10–25k') ? 'on' : ''}" data-act="rskm" data-v="${k}">${k}</button>`).join('')}</div></div>
-     <div class="rs-out" id="rsOut" aria-live="polite"></div>
-     <a class="btn btn-red" href="#sell">Get my exact quote</a>
-    </div>
-    <button class="tool-card" data-act="emi">${I.card}<strong>EMI calculator</strong><span>Price, down payment, rate and tenure</span></button>
-    <button class="tool-card" data-act="cmppick">${I.eye}<strong>Compare bikes</strong><span>Up to three, side by side</span></button>
-    <button class="tool-card" data-act="scrollto" data-t="checkpoints">${I.shield}<strong>Inspection report explorer</strong><span>Tap through every checkpoint</span></button>
-    <button class="tool-card" data-act="rc">${I.route}<strong>Track your sale or RC transfer</strong><span>Live status by number plate</span></button>
-    <a class="tool-card" href="#sell">${I.home}<strong>Book an inspection</strong><span>Free, at home or our hub</span></a>
-    <button class="tool-card" data-act="warranty">${I.doc}<strong>Warranty explainer</strong><span>What the 6-month cover includes</span></button>
-   </div>
-  </div></section>
-
-  <section class="sec final-sec"><div class="wrap">
-   <div class="sec-head rv"><div><span class="eyebrow on-dark">Ready when you are</span><h2>What would you like to do?</h2></div></div>
-   <div class="final-grid rv">
-    <a class="fin" href="#sell">${I.tag}<strong>Sell my bike</strong><span>Estimate in 60 seconds</span></a>
-    <a class="fin" href="#buy" data-act="reset-buy">${I.bike}<strong>Buy a bike</strong><span>${inCity.length} inspected bikes in ${S.city}</span></a>
-    <a class="fin" href="#sell">${I.home}<strong>Book an inspection</strong><span>Free, at home or at our hub</span></a>
-    <form class="fin fin-form" data-form="callback" novalidate>
-     <strong>Talk to our team</strong>
-     <label class="sr" for="cbName">Name</label><input class="input" id="cbName" placeholder="Your name" autocomplete="name" value="${esc(S.user?.name || '')}">
-     <label class="sr" for="cbMob">Mobile number</label><input class="input" id="cbMob" placeholder="Mobile number" inputmode="numeric" maxlength="10" autocomplete="tel" value="${esc(S.user?.mobile || '')}">
-     <label class="sr" for="cbTopic">Topic</label><select class="input" id="cbTopic"><option>Selling my bike</option><option>Buying a bike</option><option>Finance or EMI</option><option>Insurance or warranty</option><option>Something else</option></select>
-     <label class="consent"><input type="checkbox" id="cbCons" checked> Call me about this request.</label>
-     <span class="err" id="eCb" hidden>Enter your name and a 10-digit mobile number.</span>
-     <button class="btn btn-red btn-block" type="submit">Request a callback</button>
-     <span class="fine">We use your number only for this request.</span>
-    </form>
-   </div>
-  </div></section>
-
-  <section class="sec"><div class="wrap two">
-   <div class="panel about-teaser rv">${sceneImg(MEDIA.blog[2], 'Rider leaning into a mountain curve', 900)}<div><span class="eyebrow">About Speedioo</span><h2 style="font-size:var(--fs-xl)">Making used two-wheelers simple, honest and fast.</h2>
-    <p class="muted">We take full responsibility for paperwork and for selling each vehicle to the right buyer, so neither side is left with legal loose ends.</p>
-    <a class="link-arrow" href="#team">Meet our team →</a></div></div>
-   <div class="panel rv"><span class="eyebrow">FAQ</span>${HELP.slice(0, 4).map(h => `<details class="faq"><summary>${h.t}</summary><p>${h.a}</p></details>`).join('')}</div>
-  </div></section>
-
-  <section class="wa-band"><div class="wrap rv">
-   <div><h2>Price drops and new arrivals, on WhatsApp</h2><p class="fmuted">One message a week. Stop any time. The Speedioo app is coming soon.</p></div>
-   <form data-form="waOpt" novalidate class="wa-form"><label class="sr" for="waMob">Mobile number</label><input id="waMob" class="input" inputmode="numeric" maxlength="10" placeholder="Mobile number"><button class="btn btn-red" type="submit">${ico('wa', 18)} Notify me</button></form>
+   <form class="fin fin-form rv" data-form="callback" novalidate>
+    <strong>Talk to our team</strong>
+    <label class="sr" for="cbName">Name</label><input class="input" id="cbName" placeholder="Your name" autocomplete="name" value="${esc(S.user?.name || '')}">
+    <label class="sr" for="cbMob">Mobile number</label><input class="input" id="cbMob" placeholder="Mobile number" inputmode="numeric" maxlength="10" autocomplete="tel" value="${esc(S.user?.mobile || '')}">
+    <label class="sr" for="cbTopic">Topic</label><select class="input" id="cbTopic"><option>Selling my bike</option><option>Buying a bike</option><option>Finance or EMI</option><option>Insurance or warranty</option><option>Something else</option></select>
+    <label class="consent"><input type="checkbox" id="cbCons" checked> Call me about this request.</label>
+    <span class="err" id="eCb" hidden>Enter your name and a 10-digit mobile number.</span>
+    <button class="btn btn-red btn-block" type="submit">Request a callback</button>
+   </form>
   </div></section>`;
 
-  SpeediooStudio.mount($('#studio'), { ...(S.studio || {}), onChange: v => { S.studio = v; } });
-  SpeediooJourney.mount($('#journey'));
+  setupVideo($('#heroVid'), MEDIA.hero);
   SpeediooStory.mount($('#storyAnim'));
-  SpeediooCheckpoints.mount($('#cpxHome'), byId(CITY_SAMPLE[S.city]) || inCity[0] || BIKES[0], { sample: true });
-  resaleCalc();
+  SpeediooStudio.mount($('#inspHome'));
   SpeediooCity.animate($('#app'));
-  drawHow();
-  const box = $('.gauge-box');
-  if (box && 'IntersectionObserver' in window && !reduceMotion) {
-    let vis = false; new IntersectionObserver(([e]) => vis = e.isIntersecting, { threshold: .4 }).observe(box);
-    every(() => { if (vis && !S.howPinned) { S.howStep = (S.howStep + 1) % 4; drawHow(); } }, 1700);
-  }
 }
 
 /* ---------- explainers, enquiries, pickers ---------- */
@@ -556,6 +455,7 @@ function renderDetail(id) {
 
    <section class="vsec" id="v-report"><h2><span class="n">3</span>Inspection report</h2>
     <div class="insp"><div class="insp-head"><span class="muted" style="font-size:var(--fs-sm)">Checked at our ${HUBS[b.city]} hub by <span class="ph">[inspector]</span></span><span class="score"><span class="score-bar" style="--s:${b.score * 10}%"></span>${b.score}/10</span></div>
+     ${SpeediooStudio.markup({ variant: 'embed', id: 'inspBike' })}
      <div class="cpx" id="cpxBike"></div>
      <div class="insp-links"><button data-act="lightbox">See inspection photos</button><button data-act="toast" data-msg="We'll share the full report on WhatsApp">Download full report (PDF)</button><button data-act="chatask" data-q="Explain the inspection report for ${esc(b.name)}">Explain this report in plain words</button></div></div></section>
 
@@ -604,6 +504,7 @@ function renderDetail(id) {
   const place = () => { const m = isMobile(); $('#dDecide').innerHTML = m ? '' : decide; $('#mDecide').innerHTML = m ? decide : ''; };
   place(); S._place = place;
   SpeediooCheckpoints.mount($('#cpxBike'), b);
+  SpeediooStudio.mount($('#inspBike'));
   setLD({ '@context': 'https://schema.org', '@type': 'Motorcycle', name: b.name, brand: { '@type': 'Brand', name: b.brand }, model: b.model, vehicleModelDate: String(b.year), mileageFromOdometer: { '@type': 'QuantitativeValue', value: b.km, unitCode: 'KMT' }, image: PEXELS_IMG(b.photo, 1200), offers: { '@type': 'Offer', price: b.price, priceCurrency: 'INR', availability: 'https://schema.org/InStock', areaServed: b.city } });
   track('view_item', { item_id: b.id, item_name: b.name, price: b.price, currency: 'INR' });
 }
@@ -1233,6 +1134,8 @@ $('#burger').innerHTML = I.menu; $$('.sIcon').forEach(s => s.outerHTML = I.searc
 $('#bn1').innerHTML = I.home + 'Home'; $('#bn2').innerHTML = I.bike + 'Buy'; $('#bn3').innerHTML = I.tag + 'Sell'; $('#bn4').innerHTML = I.phone + 'Call'; $('#bn5').innerHTML = I.wa + 'WhatsApp';
 $('#chatFab').innerHTML = I.chat + '<span>Ask Speedioo</span>'; $('#waFab').innerHTML = I.wa;
 $$('.logo').forEach(l => l.innerHTML = logoSVG());
+/* header: badge + the animated SPEEDIOO wordmark (tyres roll in once, spin on hover) */
+$$('.hdr .logo').forEach(l => { if (window.buildWordmark) { l.innerHTML = logoSVG() + buildWordmark({ cls: 'sg-logo hdr-word' }); l.classList.add('logo-pair'); } });
 SpeediooCity.apply(S.city);
 if (S.fromQR) track('qr_landing', { medium: (location.search.match(/utm_medium=([^&]+)/) || [])[1] || '' });
 $$('.cityName').forEach(e => e.textContent = S.city);

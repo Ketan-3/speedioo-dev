@@ -225,11 +225,30 @@
   const arrowL = '<svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M15 9H3M8 4L3 9l5 5" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>';
   const wheelChip = id => `<svg viewBox="-150 -150 300 300" aria-hidden="true"><g class="bk w-${id}"><g class="wheel"><circle r="131" fill="none" stroke="#151515" stroke-width="38"/><g class="spin">${rimAlloy()}${rimWire()}${rimSport()}<circle class="lip lip-dark" r="107" fill="none" stroke="#161616" stroke-width="9"/><circle class="lip lip-chrome" r="107" fill="none" stroke="#CFCFCF" stroke-width="9"/><circle r="21" fill="#1d1d1d" stroke="#444" stroke-width="2"/></g></g></g></svg>`;
 
-  function markup({ eyebrow, h1, state = {} }) {
+  function markup({ eyebrow, h1, state = {}, variant = 'full', id = 'studio' }) {
+    const embed = variant === 'embed';
     const paint = PAINT.find(p => p.id === state.paint) || PAINT[0], wheelId = state.wheel || 'alloy';
     const hs = ['engine', 'chassis'].map(id => { const [x, y] = plane(...SYS[id].at); return `<button class="hs" type="button" data-hs="${id}" style="left:${r1(x)}%;top:${r1(y)}%" aria-label="${SYS[id].short}"><span class="hs-ring">${plus}</span><span class="hs-label">${SYS[id].label}${arrowUR}</span></button>`; }).join('');
-    const ap = ['paint', 'wheels'].map(id => { const [x, y] = plane(...APPEAR[id].at); return `<div class="hs-app" data-mode="${id}" style="--ax:${r1(x)}%;--ay:${r1(y)}%"><button class="hs" type="button" data-ap="${id}" aria-expanded="false" aria-controls="ap-${id}" aria-label="${APPEAR[id].aria}"><span class="hs-ring">${plus}</span><span class="hs-label">${APPEAR[id].label}</span></button><span class="menu-bridge" aria-hidden="true"></span><div class="ap-menu ${id}" id="ap-${id}" role="group" aria-label="${APPEAR[id].aria}" hidden></div></div>`; }).join('');
-    const details = Object.keys(SYS).map(id => `<div class="st-detail" data-sys="${id}">${bikeSVG('sd' + id, { vb: SYS[id].vb.join(' '), scaled: false, cls: `detail x-${id}`, paint, wheelId })}</div>`).join('');
+    const ap = embed ? '' : ['paint', 'wheels'].map(id => { const [x, y] = plane(...APPEAR[id].at); return `<div class="hs-app" data-mode="${id}" style="--ax:${r1(x)}%;--ay:${r1(y)}%"><button class="hs" type="button" data-ap="${id}" aria-expanded="false" aria-controls="ap-${id}" aria-label="${APPEAR[id].aria}"><span class="hs-ring">${plus}</span><span class="hs-label">${APPEAR[id].label}</span></button><span class="menu-bridge" aria-hidden="true"></span><div class="ap-menu ${id}" id="ap-${id}" role="group" aria-label="${APPEAR[id].aria}" hidden></div></div>`; }).join('');
+    const details = Object.keys(SYS).map(sid => `<div class="st-detail" data-sys="${sid}">${bikeSVG(id + 'd' + sid, { vb: SYS[sid].vb.join(' '), scaled: false, cls: `detail x-${sid}`, paint, wheelId })}</div>`).join('');
+    const backBtn = `<button class="st-back" type="button" hidden>${arrowL}<span>Back to bike</span><kbd>Esc</kbd></button>`;
+    if (embed) return `<div class="studio studio-embed phase-overview" id="${id}" aria-label="Look inside the bike">
+      <div class="st-stage">
+        <div class="st-plane">
+          <div class="st-frame">
+            <div class="st-bike">${bikeSVG(id + 'b', { paint, wheelId })}</div>
+            ${details}
+          </div>
+          ${hs}
+          <div class="st-annos"></div>
+          ${backBtn}
+          <p class="st-hint">Hover or tap a point to look inside</p>
+        </div>
+        <aside class="st-copy" aria-hidden="true"></aside>
+        <div class="st-status" aria-hidden="true"></div>
+      </div>
+      <p class="sr" role="status" aria-live="polite"></p>
+    </div>`;
     return `<section class="studio phase-overview" id="studio" aria-label="Explore a Speedioo bike">
       <div class="st-top">
         <div class="st-intro">
@@ -266,7 +285,7 @@
   }
 
   /* ---------- behaviour ---------- */
-  let ctl = null;
+  const ctls = [];
   function mount(sec, opts = {}) {
     if (!sec) return;
     const st = { phase: 'overview', sel: 'engine', hovered: null, mode: null, pinned: false, closing: false, anno: null, paint: opts.paint || 'crimson', wheel: opts.wheel || 'alloy', lock: false, req: 0 };
@@ -294,7 +313,7 @@
       live.textContent = busy ? `${p === 'entering' ? 'Opening' : 'Closing'} ${s.label}` : p === 'detail' ? `${s.label} view. Press Escape to return.` : '';
       copy.setAttribute('aria-hidden', p !== 'detail');
       copy.classList.toggle('shown', p === 'detail');
-      $('.st-base-r').textContent = p === 'overview' ? 'Explore the bike. Then find yours.' : 'Illustration. Every listed bike has its own report.';
+      if ($('.st-base-r')) $('.st-base-r').textContent = p === 'overview' ? 'Explore the bike. Then find yours.' : 'Illustration. Every listed bike has its own report.';
     }
     function renderCopy() {
       const s = SYS[st.sel];
@@ -440,10 +459,10 @@
     }
     const size = () => { const r = planeEl.getBoundingClientRect(); sec.style.setProperty('--pwpx', r.width + 'px'); sec.style.setProperty('--phpx', r.height + 'px'); place(r.width < 700 ? TIGHT : FULL); };
     size(); if ('ResizeObserver' in window) new ResizeObserver(size).observe(planeEl); else addEventListener('resize', size);
-    ctl = { sec, escape: () => { if (st.mode) closeMode(); else returnToBike(); } };
+    ctls.push({ sec, escape: () => { if (st.mode) closeMode(); else returnToBike(); } });
     setPhase('overview'); syncAppearance();
   }
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && ctl && ctl.sec.isConnected) ctl.escape(); });
+  document.addEventListener('keydown', e => { if (e.key !== 'Escape') return; for (let i = ctls.length - 1; i >= 0; i--) { if (!ctls[i].sec.isConnected) ctls.splice(i, 1); else ctls[i].escape(); } });
 
   window.SpeediooStudio = { markup, mount, SYS, PAINT, WHEELS };
 })();
