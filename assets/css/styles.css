@@ -2118,19 +2118,67 @@ html.splash-on .studio h1 .w>span{animation-play-state:paused}
 .hero-min h1 em{font-style:normal}
 @media (max-width:900px){.hero-min .qp{display:none}}
 #cpxBike .cpx-grid{grid-template-columns:minmax(0,1fr)}
-/* header wordmark beside the badge */
-.logo-pair{display:inline-flex;align-items:center;gap:10px;color:var(--red);--logo-tread:#FFFFFF;text-decoration:none}
-.hdr-word{height:22px;width:auto}
-.hdr-word .ch{animation:hwIn .5s cubic-bezier(.2,.8,.2,1) both}
-.hdr-word .ch:nth-child(2){animation-delay:.05s}.hdr-word .ch:nth-child(3){animation-delay:.1s}.hdr-word .ch:nth-child(4){animation-delay:.15s}.hdr-word .ch:nth-child(5){animation-delay:.2s}.hdr-word .ch:nth-child(6){animation-delay:.25s}
-.hdr-word .wheel{animation:hwRoll 1.1s cubic-bezier(.15,.75,.25,1) both}
-.hdr-word .spin{animation:wheelSpin 1.1s cubic-bezier(.15,.75,.25,1) both}
-.logo-pair:hover .hdr-word .spin{animation:wheelSpin .8s cubic-bezier(.2,.8,.3,1)}
-.hdr-word .plug{display:none}
-@keyframes hwIn{from{opacity:0;transform:translateX(-14px) skewX(-14deg)}to{opacity:1;transform:none}}
-@keyframes hwRoll{from{transform:translateX(-60px);opacity:0}to{transform:none;opacity:1}}
-html.splash-on .hdr-word *{animation-play-state:paused}
-@media (max-width:900px){.hdr-word{height:16px}.logo-pair{gap:8px}}
-@media (max-width:360px){.hdr-word{display:none}}
-@media (prefers-reduced-motion:reduce){.hdr-word *{animation:none!important}}
 .pageload{background:#c8101a}
+
+/* =========================================================
+   v0.9.1 · header from speedioo-web: black, compact, tyre O's
+   ========================================================= */
+.hdr{background:var(--black);color:#fff;border-bottom:0;-webkit-backdrop-filter:none;backdrop-filter:none}
+.hdr .icon-btn{background:transparent;border:1.5px solid #3a3636;color:#fff;border-radius:10px}
+.hdr .icon-btn:hover{border-color:#fff}
+.hdr .city-btn{background:transparent;border:1.5px solid #3a3636;color:#fff;border-radius:999px}
+.hdr .city-btn:hover{border-color:#fff}
+.hdr .cityIcon{display:none}
+.hdr .search-trigger{background:#fff;border:0;border-radius:10px;color:var(--muted)}
+.hdr-nav a{color:#fff}
+.logo-wm{display:flex;align-items:center;gap:8px;flex:none;text-decoration:none;color:#fff;font:italic 700 23px/1 "Inter",var(--font);letter-spacing:-.02em}
+.logo-wm .mark{display:block;width:30px;height:30px}
+.logo-wm .mark .badge-logo{width:30px;height:30px}
+.logo-wm:hover .badge-logo{animation:none}
+.wm{display:inline-flex;align-items:baseline;white-space:nowrap}
+.wm b{color:var(--red);font-weight:inherit}
+.tyres{display:inline-flex;gap:.04em;margin-left:.03em;position:relative;color:var(--red)}
+.tyre{width:.7em;height:.7em;display:block;align-self:center;transform-origin:50% 50%;position:relative;top:.09em}
+.logo-wm:hover .tyre{animation:tyreSpin .7s cubic-bezier(.2,.8,.3,1)}
+.logo-wm:hover .tyre+.tyre{animation-delay:.06s}
+@keyframes tyreSpin{to{transform:rotate(-360deg)}}
+.logo-wm.intro .tyre{animation:tyreIn 1.25s cubic-bezier(.2,.85,.25,1) both}
+.logo-wm.intro .tyre+.tyre{animation-delay:.14s}
+.logo-wm.intro .tyres::after{content:"";position:absolute;top:58%;left:0;height:2px;width:140px;background:linear-gradient(90deg,var(--red),rgba(200,16,46,0));animation:streak 1.3s cubic-bezier(.2,.85,.25,1) both;pointer-events:none}
+.logo-wm.intro .wm{animation:nudge .35s 1.05s both}
+.logo-wm.intro .mark{animation:markPop .45s 1.1s both}
+@keyframes tyreIn{0%{transform:translateX(min(80vw,1100px)) rotate(1440deg);opacity:0}8%{opacity:1}82%{transform:translateX(-.08em) rotate(-12deg)}100%{transform:none}}
+@keyframes streak{0%{transform:translateX(min(80vw,1100px));opacity:0}15%{opacity:1}85%{opacity:.6}100%{transform:translateX(0);opacity:0;width:0}}
+@keyframes nudge{40%{transform:translateX(-3px)}}
+@keyframes markPop{50%{transform:scale(1.15) rotate(-6deg)}}
+@media (max-width:900px){.logo-wm{font-size:21px}.logo-wm .mark,.logo-wm .mark .badge-logo{width:28px;height:28px}}
+@media (prefers-reduced-motion:reduce){.logo-wm .tyre,.logo-wm .tyres::after,.logo-wm .wm,.logo-wm .mark{animation:none!important}}
+
+/* all-checkpoint highlights */
+.bk .hls .hlp{opacity:0;transition:opacity .4s}
+.bk.hl-on .bike>g:not(.hls),.bk.hl-on .bike>ellipse{opacity:.26;transition:opacity .5s}
+.bk.hl-drive .hlp-drive,.bk.hl-body .hlp-body,.bk.hl-seat .hlp-seat,.bk.hl-tyres .hlp-tyres,.bk.hl-elec .hlp-elec,.bk.hl-battery .hlp-battery,.bk.hl-odo .hlp-odo,.bk.hl-accident .hlp-accident,.bk.hl-service .hlp-service,.bk.hl-docs .hlp-docs{opacity:1;filter:drop-shadow(0 0 6px rgba(232,52,76,.85))}
+.st-chips{display:flex;flex-wrap:wrap;gap:6px;padding:14px 16px 16px;border-top:1px solid rgba(255,255,255,.12)}
+.st-chip{border:1px solid rgba(255,255,255,.22);background:transparent;color:#E6E6E6;border-radius:999px;padding:7px 12px;font:inherit;font-size:13px;line-height:1.2;cursor:pointer;transition:background .18s,color .18s,border-color .18s;white-space:nowrap}
+.st-chip:hover{border-color:#fff;color:#fff}
+.st-chip.on{background:#fff;color:var(--black);border-color:#fff}
+.studio-embed .hs-ring{width:22px;height:22px}
+.studio-embed .hs-ring svg{width:11px;height:11px}
+@media (max-width:900px){
+  .st-chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding:12px}
+  .st-chips::-webkit-scrollbar{display:none}
+  .studio-embed .hs{width:36px;height:36px}
+  .studio-embed .hs-ring{width:18px;height:18px;box-shadow:0 0 0 3px rgba(200,16,46,.4),0 3px 10px rgba(0,0,0,.4)}
+  .studio-embed .hs-ring svg{width:9px;height:9px}
+  .studio-embed .hs-ring::after{inset:-4px}
+}
+.logo-wm .mark{display:block!important;background:none;border-radius:50%;width:30px;height:30px}
+.logo-wm>.wm{display:inline-flex!important}
+.logo-wm{color:#fff}
+.logo-wm .wm b{color:var(--red)}
+@media (max-width:900px){.logo-wm .mark{width:28px;height:28px}}
+@media (min-width:1101px) and (min-height:781px){.studio-embed .st-copy{top:16px;right:16px;max-height:calc(var(--phpx,560px) - 32px);background:rgba(11,11,12,.86);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:20px 22px}}
+/* hero: plain video under a steady shade (cursor spotlight removed) */
+.hero-spot{display:none}
+.hero-min .hero-shade{background:linear-gradient(90deg,rgba(11,11,12,.86) 0%,rgba(11,11,12,.62) 45%,rgba(11,11,12,.28) 100%),linear-gradient(0deg,rgba(11,11,12,.75),rgba(11,11,12,0) 45%)}
+@media (max-width:900px){.hero-min .hero-shade{background:linear-gradient(180deg,rgba(11,11,12,.55),rgba(11,11,12,.9) 60%)}}

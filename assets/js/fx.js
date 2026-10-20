@@ -1,4 +1,4 @@
-/* Interaction layer: magnetic buttons, hero spotlight, kinetic headings,
+/* Interaction layer: magnetic buttons, kinetic headings,
    scroll-velocity marquee, 3D tilt cards and a SPEEDIOO logo screen on page change.
    Everything is delegated from document, so it works after every route render.
    Touch devices and reduced-motion users get the calm version. */
@@ -62,29 +62,6 @@
       requestAnimationFrame(loop);
     };
     requestAnimationFrame(loop);
-  }
-
-  /* ---------- hero spotlight (cursor, or a slow drift on touch) ---------- */
-  let spotT = 0, pointerInHero = false;
-  document.addEventListener('pointermove', e => {
-    const hero = e.target.closest && e.target.closest('.hero-v5');
-    pointerInHero = !!hero;
-    if (!hero) return;
-    const r = hero.getBoundingClientRect();
-    hero.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(2) + '%');
-    hero.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100).toFixed(2) + '%');
-  }, { passive: true });
-  if (!reduce) {
-    const drift = () => {
-      const hero = document.querySelector('.hero-v5');
-      if (hero && (!fine || !pointerInHero)) {
-        spotT += .006;
-        hero.style.setProperty('--mx', (68 + Math.sin(spotT) * 18).toFixed(2) + '%');
-        hero.style.setProperty('--my', (42 + Math.cos(spotT * 1.3) * 14).toFixed(2) + '%');
-      }
-      requestAnimationFrame(drift);
-    };
-    requestAnimationFrame(drift);
   }
 
   if (!fine || reduce) return;

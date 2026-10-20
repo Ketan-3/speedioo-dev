@@ -10,29 +10,164 @@
   const inBox = (x, y, vb) => [(x - vb[0]) / vb[2] * 100, (y - vb[1]) / vb[3] * 100];
   const r1 = n => Math.round(n * 10) / 10;
 
+  /* every checkpoint we inspect; ids match checkpoints.js so a bike page can show that bike's result */
   const SYS = {
     engine: {
-      index: '01', label: 'Engine & gearbox', short: 'Look inside the engine', category: 'Powertrain inspection',
+      label: 'Engine & mechanical', short: 'Look inside the engine', category: 'Engine inspection', x: 'x-engine',
       title: 'Heard, felt,\nthen passed.',
-      description: 'Our inspector cold-starts every bike, listens to the engine at idle and under load, and rides it through every gear before it is listed.',
-      benefit: 'What we find is written into the bike’s inspection report, so you see it before you visit.',
-      at: [900, 446], vb: [630, 330, 640, 360.2],
+      description: 'We cold-start every bike, listen at idle and under load, and check each part that keeps the engine healthy.',
+      benefit: 'What we find is written into the bike’s report, so you see it before you visit.',
+      at: [900, 446], vb: [630, 318, 640, 360.2],
       points: [
-        { label: 'Cylinder & piston', text: 'Compression, blow-by and exhaust smoke are checked from a cold start.', at: [902, 430] },
-        { label: 'Crank & clutch', text: 'We listen for knocks and test the clutch for slip and drag.', at: [880, 585] },
-        { label: 'Gearbox', text: 'Every gear is selected on the test ride, with no false neutrals or jumps.', at: [780, 560] },
+        { label: 'Spark plug', text: 'Electrode wear and colour show how cleanly the engine burns fuel.', at: [941, 341] },
+        { label: 'Valves & cam chain', text: 'Tappet noise and cam-chain rattle are checked from a cold start.', at: [900, 352] },
+        { label: 'Cylinder & piston', text: 'Compression, blow-by and exhaust smoke tell us the bore and rings are healthy.', at: [902, 432] },
+        { label: 'Fuel & throttle body', text: 'Smooth idle and clean throttle response, with no fuel smell or leaks.', at: [835, 372] },
+        { label: 'Connecting rod', text: 'We listen for knocking under load that points to bearing wear.', at: [877, 498] },
+        { label: 'Crankshaft', text: 'Vibration and noise at different revs are checked against what the model should feel like.', at: [855, 556] },
+        { label: 'Clutch', text: 'Free play, bite point and slip are checked by hand and on the ride.', at: [915, 600] },
+        { label: 'Gearbox', text: 'Every gear is selected on the test ride, with no false neutrals or jumps.', at: [778, 556] },
+        { label: 'Engine oil & sump', text: 'Oil level, colour and leaks from the sump and gaskets.', at: [852, 650] },
       ],
     },
-    chassis: {
-      index: '02', label: 'Brakes & suspension', short: 'Look inside the front end', category: 'Chassis inspection',
+    drive: {
+      label: 'Gearbox, clutch & chain', short: 'Check the drive', category: 'Drive inspection', x: 'hl-drive',
+      title: 'Power, cleanly\nto the wheel.',
+      description: 'The chain carries every bit of power to the rear wheel, so we measure its wear along with the sprockets and clutch.',
+      benefit: 'A worn chain or sprocket is flagged with an estimate of when it needs replacing.',
+      at: [690, 612], vb: [398, 413, 700, 394],
+      points: [
+        { label: 'Chain slack & lubrication', text: 'Slack is measured and the chain is cleaned and lubed if needed.', at: [640, 612] },
+        { label: 'Rear sprocket', text: 'Teeth are checked for hooking and wear.', at: [474, 650] },
+        { label: 'Front sprocket', text: 'Checked behind the cover for wear and play.', at: [762, 598] },
+        { label: 'Clutch play & bite point', text: 'Lever free play and the bite point are set to spec.', at: [905, 586] },
+      ],
+    },
+    body: {
+      label: 'Body panels & paint', short: 'Check body and paint', category: 'Body inspection', x: 'hl-body',
+      title: 'Every panel,\nin daylight.',
+      description: 'Panels are checked under good light for dents, scratches, rust and repaint, and every fastener is tested.',
+      benefit: 'Cosmetic marks are photographed and listed, so nothing is a surprise.',
+      at: [948, 318], vb: [576, 147, 900, 506.6],
+      points: [
+        { label: 'Fuel tank', text: 'Dents, scratches and rust inside the filler neck.', at: [960, 300] },
+        { label: 'Side panels', text: 'Cracks, broken tabs and loose fasteners.', at: [805, 410] },
+        { label: 'Tail section', text: 'Paint match and alignment with the seat.', at: [610, 360] },
+        { label: 'Mirrors', text: 'Glass, stems and mounting threads.', at: [982, 186] },
+      ],
+    },
+    seat: {
+      label: 'Seat, grips & controls', short: 'Check seat and controls', category: 'Rider controls', x: 'hl-seat',
+      title: 'Everything your\nhands and feet touch.',
+      description: 'Controls are checked for wear, play and smooth action, and the seat for tears and soft foam.',
+      benefit: 'Worn grips or levers are noted, with what it costs to fix them.',
+      at: [700, 345], vb: [466, 167, 900, 506.6],
+      points: [
+        { label: 'Seat cover & foam', text: 'Tears, stitching and foam support.', at: [700, 345] },
+        { label: 'Grips & levers', text: 'Grip wear, lever play and return action.', at: [968, 238] },
+        { label: 'Footpegs', text: 'Rubbers, springs and mounting.', at: [760, 635] },
+      ],
+    },
+    tyres: {
+      label: 'Tyres & wheels', short: 'Check tyres and wheels', category: 'Tyres & wheels', x: 'hl-tyres',
+      title: 'Grip you can\nmeasure.',
+      description: 'Tread depth is measured on both tyres, the sidewalls checked for cracks, and the wheels spun for run-out.',
+      benefit: 'You see the tread left in the report, so you know when the next tyre is due.',
+      at: [520, 650], vb: [290, 470, 640, 360.2],
+      points: [
+        { label: 'Tread depth', text: 'Measured front and rear.', at: [415, 755] },
+        { label: 'Sidewalls', text: 'Cracks, bulges and cuts.', at: [520, 512] },
+        { label: 'Rim & run-out', text: 'Dents and wobble while the wheel spins.', at: [613, 703] },
+        { label: 'Tyre age', text: 'Read from the manufacturing code on the sidewall.', at: [392, 590] },
+      ],
+    },
+    brakes: {
+      label: 'Brakes & suspension', short: 'Look inside the front end', category: 'Brakes & suspension', x: 'x-chassis',
       title: 'Stops straight.\nRides true.',
-      description: 'The front end carries most of the braking and steering load, so we check it closely, then confirm the frame is straight and accident-free.',
+      description: 'The front end carries most of the braking and steering load, so we check it closely, then the rear brake and shock.',
       benefit: 'Anything that needs attention is listed in the report, so the price reflects the bike’s real condition.',
       at: [1108, 478], vb: [944, 372, 780, 439],
       points: [
-        { label: 'Fork seals & travel', text: 'Seals are checked for oil leaks and the forks for smooth, full travel.', at: [1100, 450] },
-        { label: 'Disc & pads', text: 'Disc thickness and pad wear are measured, and the brakes tested on the ride.', at: [1232, 612] },
-        { label: 'Tyre tread & age', text: 'Tread depth and the tyre’s manufacturing date are recorded.', at: [1300, 726] },
+        { label: 'Fork seals', text: 'Seals are checked for oil leaks.', at: [1100, 450] },
+        { label: 'Fork spring & damper', text: 'Smooth, full travel with no knocks or bouncing.', at: [1134, 545] },
+        { label: 'Caliper & pads', text: 'Pad thickness is measured and the caliper checked for sticking.', at: [1122, 592] },
+        { label: 'Brake disc', text: 'Disc thickness and warping, and ABS warning light on the console.', at: [1232, 612] },
+        { label: 'Wheel bearing & axle', text: 'Play and noise when the wheel spins.', at: [1170, 650] },
+      ],
+    },
+    elec: {
+      label: 'Electricals', short: 'Check the electricals', category: 'Electrical inspection', x: 'hl-elec',
+      title: 'Lights, horn,\nevery switch.',
+      description: 'Every light, switch and warning lamp is tested, and the wiring checked for cuts and non-standard joins.',
+      benefit: 'Electrical faults are rare after our check, and anything we find is listed.',
+      at: [478, 330], vb: [856, 123, 700, 394],
+      points: [
+        { label: 'Headlight & DRL', text: 'High and low beam, and the daytime ring.', at: [1108, 320] },
+        { label: 'Instrument console', text: 'All warning lamps light up and go out.', at: [1045, 245] },
+        { label: 'Switches & horn', text: 'Indicators, horn, starter and kill switch.', at: [972, 240] },
+        { label: 'Tail light & wiring', text: 'Brake light on both levers, and the loom checked for damage.' },
+      ],
+    },
+    battery: {
+      label: 'Battery', short: 'Check the battery', category: 'Battery inspection', x: 'hl-battery',
+      title: 'Starts first\ntime.',
+      description: 'The battery is tested at rest and while cranking, and the charging output checked with the engine running.',
+      benefit: 'For electric scooters we read battery health from the manufacturer’s diagnostic.',
+      at: [812, 415], vb: [580, 235, 640, 360.2],
+      points: [
+        { label: 'Terminals', text: 'Corrosion and tightness.', at: [796, 392] },
+        { label: 'Voltage & cranking', text: 'Measured at rest and while starting.', at: [812, 416] },
+        { label: 'Charging output', text: 'Checked with the engine running.' },
+      ],
+    },
+    odo: {
+      label: 'Odometer & history', short: 'Check odometer and history', category: 'History check', x: 'hl-odo',
+      title: 'The kilometres\nare real.',
+      description: 'We match the odometer to service records and ownership history, so the reading tells the truth.',
+      benefit: 'The verified reading is what we list.',
+      at: [1045, 245], vb: [865, 105, 500, 281.4],
+      points: [
+        { label: 'Odometer reading', text: 'Read and photographed.', at: [1045, 245] },
+        { label: 'Matches service records', text: 'Compared with stamps and invoices.' },
+        { label: 'Ownership history', text: 'Number of owners from the RC.' },
+      ],
+    },
+    accident: {
+      label: 'Accident & damage check', short: 'Check for accident damage', category: 'Frame inspection', x: 'hl-accident',
+      title: 'Straight frame,\nno hidden repairs.',
+      description: 'We check the frame, fork and swingarm for bends, fresh welds and repaint that hide a past accident.',
+      benefit: 'Bikes with frame damage are not listed.',
+      at: [1052, 345], vb: [440, 170, 880, 495.3],
+      points: [
+        { label: 'Frame & welds', text: 'Bends, cracks and fresh welds.', at: [862, 410] },
+        { label: 'Steering head & fork alignment', text: 'The bike tracks straight with hands off.', at: [1052, 345] },
+        { label: 'Swingarm', text: 'Alignment and pivot play.', at: [650, 625] },
+        { label: 'Insurance claim history', text: 'Past claims are checked where available.' },
+      ],
+    },
+    service: {
+      label: 'Service records', short: 'Check service records', category: 'Paperwork', x: 'hl-service',
+      title: 'Looked after,\non paper.',
+      description: 'We check the service booklet or invoices, the last service date and any pending recalls.',
+      benefit: 'If records are missing, the report says so.',
+      at: null, vb: [630, 318, 640, 360.2],
+      points: [
+        { label: 'Service booklet or invoices', text: 'Stamps and invoices from authorised or known workshops.' },
+        { label: 'Last service date', text: 'And whether the next service is due.' },
+        { label: 'Pending recalls', text: 'Checked with the manufacturer.' },
+      ],
+    },
+    docs: {
+      label: 'RC & documents', short: 'Check RC and documents', category: 'Paperwork', x: 'hl-docs',
+      title: 'Clean papers,\nready to transfer.',
+      description: 'We verify the original RC, insurance and PUC, and check for loans and pending challans before listing.',
+      benefit: 'We handle the RC transfer after the sale, and you can track it.',
+      at: [465, 436], vb: [249, 267, 600, 337.7],
+      points: [
+        { label: 'Number plate & RC', text: 'Plate, chassis and engine numbers match the RC.', at: [465, 436] },
+        { label: 'Insurance & PUC', text: 'Valid and in the owner’s name.' },
+        { label: 'Loan / hypothecation', text: 'Cleared, with the bank’s NOC if needed.' },
+        { label: 'Challans', text: 'No pending traffic fines.' },
       ],
     },
   };
@@ -157,6 +292,9 @@
             <circle class="spark" cx="0" cy="-208" r="5" fill="#fff" filter="url(#${k}-glow)"/>
             <line class="rod" x1="0" y1="0" x2="0" y2="-110" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
             <g class="pist" transform="translate(0 -110)"><rect x="-34" y="-28" width="68" height="46" rx="4" fill="rgba(200,16,46,.28)" stroke="#E8344C" stroke-width="2.5"/><path d="M-34 -18 H34 M-34 -10 H34" stroke="#fff" stroke-width="1.5"/><circle r="5" fill="#fff"/></g>
+            <path d="M-14 -236 V-206 M14 -236 V-206" stroke="#fff" stroke-width="3"/><path d="M-22 -206 H-6 M6 -206 H22" stroke="#E8344C" stroke-width="4"/>
+            <line x1="-46" y1="-6" x2="-46" y2="-228" stroke="#E8344C" stroke-width="3" stroke-dasharray="4 3"/>
+            <g transform="translate(-92 -168) rotate(-22)"><rect x="-24" y="-14" width="48" height="28" rx="6" fill="rgba(255,255,255,.08)" stroke="#fff" stroke-width="2"/><circle r="7" fill="none" stroke="#E8344C" stroke-width="2"/></g>
             <g class="crank"><circle r="38" fill="none" stroke="#fff" stroke-width="2"/><path d="M-36 10 A37 37 0 0 0 36 10 Z" fill="rgba(255,255,255,.14)" stroke="#fff" stroke-width="1.5"/><circle cy="-26" r="7" fill="#E8344C"/><circle r="5" fill="#fff"/></g>
           </g>
         </g>
@@ -167,6 +305,7 @@
           <circle class="gear g3" cx="905" cy="586" r="40" stroke="#E8344C" stroke-width="6" stroke-dasharray="5 4"/>
           <circle cx="905" cy="586" r="31" stroke="#fff" stroke-width="1.5"/><circle cx="905" cy="586" r="23" stroke="#fff" stroke-width="1.5"/><circle cx="905" cy="586" r="15" stroke="#fff" stroke-width="1.5"/>
           <circle class="gear g2" cx="762" cy="598" r="20" stroke="#E8344C" stroke-width="5" stroke-dasharray="3.5 3.5"/>
+          <path d="M806 638 L896 632 L886 652 L814 656 Z" fill="rgba(200,16,46,.35)" stroke="#fff" stroke-width="1.5"/>
         </g>
       </g>
       <g class="rest">
@@ -215,6 +354,18 @@
         <path d="M1000 236 L986 196" stroke="#2A2A2A" stroke-width="4"/><ellipse cx="982" cy="186" rx="20" ry="11" fill="#1A1A1A" stroke="#444" stroke-width="1.5"/>
         <rect x="1028" y="236" width="34" height="18" rx="4" fill="#161616" stroke="#C8102E" stroke-width="1.5" transform="rotate(-12 1045 245)"/>
       </g>
+      <g class="hls" fill="none" stroke="#E8344C" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+        <g class="hlp hlp-drive"><path d="M762 575 L520 604 M762 617 L520 696" stroke-width="7"/><circle cx="520" cy="650" r="46" stroke-dasharray="6 4" stroke-width="6"/><circle cx="762" cy="598" r="20" stroke-dasharray="4 3" stroke-width="5"/><circle cx="905" cy="586" r="44"/></g>
+        <g class="hlp hlp-body" fill="rgba(200,16,46,.18)"><path d="M830 330 C850 285 910 262 975 266 C1016 268 1042 286 1052 312 L1060 350 C1042 372 1010 392 970 400 L870 404 C850 392 836 368 830 330 Z"/><path d="M842 364 L700 374 C640 370 560 346 470 318 L482 342 C560 374 640 394 722 400 L822 398 Z"/><path d="M762 382 L842 372 L854 424 L792 444 Z"/><path d="M1102 514 C1150 488 1216 492 1254 520 L1248 532 C1212 508 1156 506 1110 526 Z"/><ellipse cx="982" cy="186" rx="20" ry="11"/></g>
+        <g class="hlp hlp-seat" fill="rgba(200,16,46,.18)"><path d="M836 326 C800 338 742 348 690 350 C640 348 600 336 570 326 L584 354 C650 374 760 374 842 364 Z"/><path d="M1036 252 L1000 236 L972 240" stroke-width="9"/><rect x="956" y="232" width="26" height="14" rx="6"/><rect x="738" y="630" width="44" height="10" rx="5"/></g>
+        <g class="hlp hlp-tyres"><circle cx="520" cy="650" r="131" stroke-width="38" stroke="rgba(232,52,76,.45)"/><circle cx="1170" cy="650" r="131" stroke-width="38" stroke="rgba(232,52,76,.45)"/><circle cx="520" cy="650" r="107"/><circle cx="1170" cy="650" r="107"/></g>
+        <g class="hlp hlp-elec"><circle cx="1108" cy="320" r="40" fill="rgba(200,16,46,.2)"/><path d="M470 318 L492 322 L486 338 L470 334 Z" fill="rgba(200,16,46,.6)"/><rect x="1028" y="236" width="34" height="18" rx="4" transform="rotate(-12 1045 245)"/><path d="M1040 256 C990 300 880 336 760 352 C660 362 560 344 492 330" stroke-dasharray="6 5" stroke-width="2.5"/></g>
+        <g class="hlp hlp-battery"><rect x="784" y="392" width="56" height="48" rx="6" fill="rgba(200,16,46,.25)"/><path d="M794 392 v-8 h10 v8 M820 392 v-8 h10 v8" fill="#E8344C"/><path d="M800 414 h10 M823 414 h12 M829 408 v12" stroke="#fff" stroke-width="3"/></g>
+        <g class="hlp hlp-odo"><rect x="1024" y="230" width="42" height="26" rx="5" fill="rgba(200,16,46,.25)" transform="rotate(-12 1045 245)"/><path d="M1032 248 l4 -14 M1040 247 l4 -14 M1048 245 l4 -14" stroke="#fff" stroke-width="2" transform="rotate(-12 1045 245)"/></g>
+        <g class="hlp hlp-accident"><path d="M1050 332 L862 410 L772 470 L765 590 M1056 372 L940 462 L862 410 M940 462 L772 470 M800 420 L560 346 M772 470 L612 362" stroke-width="6"/><path d="M770 570 L520 636 L520 664 L772 604 Z"/><path d="M1035 262 L1170 650" stroke-width="3" stroke-dasharray="8 6"/></g>
+        <g class="hlp hlp-service" fill="rgba(200,16,46,.18)"><path d="M744 478 L936 468 C962 500 966 548 946 588 C922 628 862 644 800 640 L752 628 C732 590 730 520 744 478 Z"/><path d="M806 638 L896 632 L886 652 L814 656 Z" fill="rgba(200,16,46,.5)"/></g>
+        <g class="hlp hlp-docs"><rect x="438" y="420" width="54" height="32" rx="3" transform="rotate(-8 465 436)" fill="rgba(200,16,46,.2)"/><rect x="1040" y="338" width="24" height="12" rx="2" transform="rotate(21 1052 344)"/></g>
+      </g>
     </g></svg>`;
   }
 
@@ -228,9 +379,10 @@
   function markup({ eyebrow, h1, state = {}, variant = 'full', id = 'studio' }) {
     const embed = variant === 'embed';
     const paint = PAINT.find(p => p.id === state.paint) || PAINT[0], wheelId = state.wheel || 'alloy';
-    const hs = ['engine', 'chassis'].map(id => { const [x, y] = plane(...SYS[id].at); return `<button class="hs" type="button" data-hs="${id}" style="left:${r1(x)}%;top:${r1(y)}%" aria-label="${SYS[id].short}"><span class="hs-ring">${plus}</span><span class="hs-label">${SYS[id].label}${arrowUR}</span></button>`; }).join('');
+    const hs = Object.keys(SYS).filter(k => SYS[k].at).map(id => { const [x, y] = plane(...SYS[id].at); return `<button class="hs" type="button" data-hs="${id}" style="left:${r1(x)}%;top:${r1(y)}%" aria-label="${SYS[id].short}"><span class="hs-ring">${plus}</span><span class="hs-label">${SYS[id].label}${arrowUR}</span></button>`; }).join('');
     const ap = embed ? '' : ['paint', 'wheels'].map(id => { const [x, y] = plane(...APPEAR[id].at); return `<div class="hs-app" data-mode="${id}" style="--ax:${r1(x)}%;--ay:${r1(y)}%"><button class="hs" type="button" data-ap="${id}" aria-expanded="false" aria-controls="ap-${id}" aria-label="${APPEAR[id].aria}"><span class="hs-ring">${plus}</span><span class="hs-label">${APPEAR[id].label}</span></button><span class="menu-bridge" aria-hidden="true"></span><div class="ap-menu ${id}" id="ap-${id}" role="group" aria-label="${APPEAR[id].aria}" hidden></div></div>`; }).join('');
-    const details = Object.keys(SYS).map(sid => `<div class="st-detail" data-sys="${sid}">${bikeSVG(id + 'd' + sid, { vb: SYS[sid].vb.join(' '), scaled: false, cls: `detail x-${sid}`, paint, wheelId })}</div>`).join('');
+    const details = '<div class="st-detail"></div>';
+    const chips = `<div class="st-chips" aria-label="Everything we inspect">${Object.keys(SYS).map(k => `<button type="button" class="st-chip" data-ch="${k}">${SYS[k].label}</button>`).join('')}</div>`;
     const backBtn = `<button class="st-back" type="button" hidden>${arrowL}<span>Back to bike</span><kbd>Esc</kbd></button>`;
     if (embed) return `<div class="studio studio-embed phase-overview" id="${id}" aria-label="Look inside the bike">
       <div class="st-stage">
@@ -242,8 +394,9 @@
           ${hs}
           <div class="st-annos"></div>
           ${backBtn}
-          <p class="st-hint">Hover or tap a point to look inside</p>
+          <p class="st-hint">${Object.keys(SYS).length} checks on every bike. Hover or tap a point to look inside.</p>
         </div>
+        ${chips}
         <aside class="st-copy" aria-hidden="true"></aside>
         <div class="st-status" aria-hidden="true"></div>
       </div>
@@ -295,10 +448,12 @@
     const later = (name, fn, ms) => { clearTimeout(timers[name]); timers[name] = setTimeout(fn, ms); };
     const emit = (n, p) => { if (typeof track === 'function') track(n, p); };
 
+    const MODES = [...new Set(Object.values(SYS).map(v => v.x))];
     function setHover(id) {
       st.hovered = id;
-      bike.classList.toggle('x-engine', id === 'engine');
-      bike.classList.toggle('x-chassis', id === 'chassis');
+      bike.classList.remove('hl-on', ...MODES);
+      if (id) { const x = SYS[id].x; bike.classList.add(x); if (x.startsWith('hl-')) bike.classList.add('hl-on'); }
+      $$('.st-chip').forEach(c => c.classList.toggle('on', c.dataset.ch === id));
       engineLoop();
     }
     function setPhase(p) {
@@ -321,7 +476,7 @@
         <div class="st-copy-parts"><div class="st-parts">${s.points.map((p, i) => `<button type="button" data-part="${i}" aria-expanded="false"><span class="st-row"><small>0${i + 1}</small>${p.label}${plus}</span><span class="st-ptext" hidden>${p.text}</span></button>`).join('')}</div>
         <div class="st-benefit"><span>For the buyer</span><p>${s.benefit}</p></div>
         <a class="st-btn st-btn-red st-copy-cta" href="#buy" data-act="reset-buy">See inspected bikes</a></div>`;
-      $('.st-annos').innerHTML = s.points.map((p, i) => { const [x, y] = inBox(...p.at, s.vb); return `<button class="anno" type="button" data-part="${i}" style="left:${r1(x)}%;top:${r1(y)}%" aria-label="${p.label}" aria-expanded="false"><span>0${i + 1}</span><span class="anno-label">${p.label}</span></button>`; }).join('');
+      $('.st-annos').innerHTML = s.points.map((p, i) => { if (!p.at) return ''; const [x, y] = inBox(...p.at, s.vb); return `<button class="anno" type="button" data-part="${i}" style="left:${r1(x)}%;top:${r1(y)}%" aria-label="${p.label}" aria-expanded="false"><span>0${i + 1}</span><span class="anno-label">${p.label}</span></button>`; }).join('');
     }
     function setAnno(i) {
       st.anno = st.anno === i ? null : i;
@@ -331,20 +486,28 @@
       if (st.mode || st.lock || (!returning && st.phase !== 'overview')) return;
       st.lock = true; const token = ++st.req;
       st.sel = id; st.anno = null;
-      const [fx, fy] = at(...SYS[id].at);
+      const [fx, fy] = at(...(SYS[id].at || [CX, CY]));
       planeEl.style.setProperty('--fx', fx + '%'); planeEl.style.setProperty('--fy', fy + '%');
-      if (!returning) { renderCopy(); setHover(id); emit('studio_open', { system: id }); } else setHover(null);
+      const det = $('.st-detail');
+      if (!returning) {
+        const x = SYS[id].x, p = PAINT.find(o => o.id === st.paint) || PAINT[0];
+        det.dataset.sys = id;
+        det.innerHTML = bikeSVG(sec.id + 'd', { vb: SYS[id].vb.join(' '), scaled: false, cls: `detail ${x}${x.startsWith('hl-') ? ' hl-on' : ''}`, paint: p, wheelId: st.wheel });
+        renderCopy(); setHover(id); emit('studio_open', { system: id });
+        if (opts.onOpen) opts.onOpen(id);
+      } else setHover(null);
       setPhase(returning ? 'returning' : 'entering');
       later('reveal', () => {
         if (st.req !== token) return;
-        $$('.st-detail').forEach(d => d.classList.toggle('shown', !returning && d.dataset.sys === id));
+        det.classList.toggle('shown', !returning);
         engineLoop();
       }, reduce ? 0 : 350);
       later('finish', () => {
         if (st.req !== token) return;
         if (!returning) setHover(null);
         setPhase(returning ? 'overview' : 'detail'); st.lock = false; engineLoop();
-        setTimeout(() => (returning ? $(`[data-hs="${id}"]`) : back).focus({ preventScroll: true }), 0);
+        setTimeout(() => (returning ? ($(`[data-hs="${id}"]`) || $(`[data-ch="${id}"]`)) : back)?.focus({ preventScroll: true }), 0);
+        if (!returning) $$('.st-chip').forEach(c => c.classList.toggle('on', c.dataset.ch === id));
       }, reduce ? 0 : 1250);
     }
     const returnToBike = () => { if (st.phase === 'detail') transition(st.sel, true); };
@@ -420,6 +583,15 @@
       w.querySelector('.ap-menu').addEventListener('click', e => {
         const o = e.target.closest('[data-opt]'); if (o) return choose(o.dataset.opt);
         if (e.target.closest('.ap-close')) closeMode();
+      });
+    });
+    $$('.st-chip').forEach(c => {
+      const id = c.dataset.ch;
+      c.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse' && st.phase === 'overview') setHover(id); });
+      c.addEventListener('pointerleave', () => { if (st.phase === 'overview') setHover(null); });
+      c.addEventListener('click', () => {
+        if (st.phase === 'detail' && st.sel !== id) { transition(st.sel, true); setTimeout(() => transition(id), reduce ? 20 : 1300); }
+        else if (st.phase === 'overview') transition(id);
       });
     });
     back.addEventListener('click', returnToBike);

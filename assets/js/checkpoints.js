@@ -90,6 +90,7 @@
      </div>
      <div class="cpx-list" role="tablist" aria-label="All checkpoints">${POINTS.map(p => `<button role="tab" class="cpx-chip" data-cp="${p.id}"><span class="dot cp-${res[p.id].s}"></span>${p.label}</button>`).join('')}</div>`;
     const panel = root.querySelector('.cpx-panel');
+    root.addEventListener('cp:show', e => { if (POINTS.some(p => p.id === e.detail)) show(e.detail, true); });
     function show(id, user) {
       cur = id; const p = POINTS.find(x => x.id === id), r = res[id];
       root.querySelectorAll('[data-cp]').forEach(el => { el.classList.toggle('on', el.dataset.cp === id); if (el.classList.contains('cpx-chip')) el.setAttribute('aria-selected', el.dataset.cp === id); });

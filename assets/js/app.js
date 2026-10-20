@@ -184,7 +184,6 @@ function renderHome() {
   $('#app').innerHTML = `
   <section class="hero hero-v5 hero-min${swap}">
    <div class="hero-media" aria-hidden="true"><video id="heroVid" muted loop playsinline preload="none"></video><div class="hero-shade"></div></div>
-   <div class="hero-spot" aria-hidden="true"></div>
    <div class="hero-city" aria-hidden="true">${SpeediooCity.scene(S.city, 'hero')}</div>
    <div class="wrap hero-in">
     <div class="hero-copy">
@@ -208,10 +207,9 @@ function renderHome() {
   </div></section>
 
   <section class="sec" id="discover"><div class="wrap">
-   <div class="sec-head rv"><div><h2>Inspected bikes in ${S.city}</h2></div>
-    <div class="rail-ctl"><button class="tool" data-act="rail" data-d="-1" aria-label="Scroll left">${I.left}</button><button class="tool" data-act="rail" data-d="1" aria-label="Scroll right">${I.right}</button><a class="link-arrow" href="#buy" data-act="reset-buy">View all ${inCity.length} →</a></div></div>
-   <div class="tabs" role="tablist">${COLLECTIONS.map(([k, l]) => `<button role="tab" class="${(S.coll || 'new') === k ? 'on' : ''}" data-act="coll" data-v="${k}">${l}</button>`).join('')}</div>
-   <div id="collRail">${collRail()}</div>
+   <div class="sec-head rv"><div><span class="eyebrow">Find your ride</span><h2>Shop by</h2></div><a class="link-arrow" href="#buy" data-act="reset-buy">View all ${inCity.length} in ${S.city} →</a></div>
+   <div class="tabs" role="tablist">${['budget', 'brand', 'body type'].map(k => `<button role="tab" class="${S.shop === k ? 'on' : ''}" data-act="shoptab" data-v="${k}">${k[0].toUpperCase() + k.slice(1)}</button>`).join('')}</div>
+   <div id="shopTiles" class="rv">${shopTiles()}</div>
   </div></section>
 
   <section class="sec jr-sec min-sell" id="sell28"><div class="wrap">
@@ -220,8 +218,31 @@ function renderHome() {
   </div></section>
 
   <section class="sec cpx-sec" id="checkpoints"><div class="wrap">
-   <div class="sec-head rv"><div><h2>See exactly what we checked</h2><p class="sec-sub">Look inside the engine and the front end. Every listed bike comes with its own report.</p></div><a class="link-arrow" href="#buy" data-act="reset-buy">Bikes with full reports →</a></div>
+   <div class="sec-head rv"><div><h2>See exactly what we checked</h2><p class="sec-sub">Twelve checks on every bike, from the spark plug to the RC. Every listed bike comes with its own report.</p></div><a class="link-arrow" href="#buy" data-act="reset-buy">Bikes with full reports →</a></div>
    <div class="rv">${SpeediooStudio.markup({ variant: 'embed', id: 'inspHome' })}</div>
+  </div></section>
+
+  <section class="sec city-sec${swap}" id="city"><div class="wrap">
+   <div class="sec-head rv"><div><span class="eyebrow">Made for your city</span><h2>${C.title}</h2></div>
+    <div class="seg city-tabs" role="tablist" aria-label="Choose city">${CITIES.map(c => `<button role="tab" class="${c === S.city ? 'on' : ''}" aria-selected="${c === S.city}" data-act="setcity" data-v="${c}" data-keep="city"><span class="ci">${SpeediooCity.ICONS[c]}</span>${c}</button>`).join('')}</div></div>
+   <div class="city-art" data-cursor="Ride">${SpeediooCity.scene(S.city, 'light')}<span class="city-greet">${C.greet}</span></div>
+   <div class="city-grid">
+    <div class="city-info">
+     <p class="city-intro">${C.intro}</p>
+     <h3>Weekend rides</h3>
+     <ol class="rides">${C.rides.map(([n, d]) => `<li><strong>${n}</strong><span>${d}</span></li>`).join('')}</ol>
+    </div>
+    <div class="city-info">
+     <h3>Everyday riding</h3>
+     <p>${C.everyday}</p>
+     <div class="chips">${C.picks.filter(([ty]) => inCity.some(b => b.type === ty)).map(([ty, l]) => `<button class="chip" data-act="shop" data-k="type" data-v="${ty}">${l} · ${inCity.filter(b => b.type === ty).length} in stock</button>`).join('')}</div>
+     <div class="city-meta">
+      <div><span class="eyebrow">Your hub</span><p>${phTxt(C.hub)}</p></div>
+      <div><span class="eyebrow">Local guide</span><a class="link-arrow" href="#blog">${C.guide} →</a></div>
+      ${C.lang !== 'en' && S.lang !== C.lang ? `<div><span class="eyebrow">Language</span><button class="chip" data-act="langpick" data-v="${C.lang}">${C.lang === 'mr' ? 'मराठीत वाचा' : 'हिंदी में पढ़ें'}</button></div>` : ''}
+     </div>
+    </div>
+   </div>
   </div></section>
 
   <section class="sec final-sec final-min"><div class="wrap final-min-in">
@@ -504,7 +525,7 @@ function renderDetail(id) {
   const place = () => { const m = isMobile(); $('#dDecide').innerHTML = m ? '' : decide; $('#mDecide').innerHTML = m ? decide : ''; };
   place(); S._place = place;
   SpeediooCheckpoints.mount($('#cpxBike'), b);
-  SpeediooStudio.mount($('#inspBike'));
+  SpeediooStudio.mount($('#inspBike'), { onOpen: id => $('#cpxBike')?.dispatchEvent(new CustomEvent('cp:show', { detail: id })) });
   setLD({ '@context': 'https://schema.org', '@type': 'Motorcycle', name: b.name, brand: { '@type': 'Brand', name: b.brand }, model: b.model, vehicleModelDate: String(b.year), mileageFromOdometer: { '@type': 'QuantitativeValue', value: b.km, unitCode: 'KMT' }, image: PEXELS_IMG(b.photo, 1200), offers: { '@type': 'Offer', price: b.price, priceCurrency: 'INR', availability: 'https://schema.org/InStock', areaServed: b.city } });
   track('view_item', { item_id: b.id, item_name: b.name, price: b.price, currency: 'INR' });
 }
@@ -1134,8 +1155,19 @@ $('#burger').innerHTML = I.menu; $$('.sIcon').forEach(s => s.outerHTML = I.searc
 $('#bn1').innerHTML = I.home + 'Home'; $('#bn2').innerHTML = I.bike + 'Buy'; $('#bn3').innerHTML = I.tag + 'Sell'; $('#bn4').innerHTML = I.phone + 'Call'; $('#bn5').innerHTML = I.wa + 'WhatsApp';
 $('#chatFab').innerHTML = I.chat + '<span>Ask Speedioo</span>'; $('#waFab').innerHTML = I.wa;
 $$('.logo').forEach(l => l.innerHTML = logoSVG());
-/* header: badge + the animated SPEEDIOO wordmark (tyres roll in once, spin on hover) */
-$$('.hdr .logo').forEach(l => { if (window.buildWordmark) { l.innerHTML = logoSVG() + buildWordmark({ cls: 'sg-logo hdr-word' }); l.classList.add('logo-pair'); } });
+/* header: badge + "speedi" with two tyre O's that spin on hover and roll in once (as on speedioo-web) */
+const TYRE = '<svg class="tyre" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.6" fill="none" stroke="currentColor" stroke-width="3.6" stroke-dasharray="5.4 1.1"/><path d="M12 6.2V17.8M7 9.1l10 5.8M17 9.1l-10 5.8" stroke="currentColor" stroke-width="1.2"/><circle cx="12" cy="12" r="2.4" fill="currentColor"/></svg>';
+$$('.hdr .logo').forEach(l => { l.innerHTML = `<span class="mark">${logoSVG()}</span><span class="wm">speed<b>i</b><span class="tyres">${TYRE}${TYRE}</span></span>`; l.classList.add('logo-wm'); });
+(() => {
+  const l = $('#hdr .logo'); if (!l || reduceMotion) return;
+  const force = /[?&]intro\b/.test(location.search);
+  if (!force && DB.get('logoIntro', 0)) return;
+  const play = () => { l.classList.add('intro'); setTimeout(() => l.classList.remove('intro'), 2200); DB.set('logoIntro', 1); };
+  const root = document.documentElement;
+  if (!root.classList.contains('splash-on')) return play();
+  const mo = new MutationObserver(() => { if (!root.classList.contains('splash-on')) { mo.disconnect(); setTimeout(play, 300); } });
+  mo.observe(root, { attributes: true, attributeFilter: ['class'] });
+})();
 SpeediooCity.apply(S.city);
 if (S.fromQR) track('qr_landing', { medium: (location.search.match(/utm_medium=([^&]+)/) || [])[1] || '' });
 $$('.cityName').forEach(e => e.textContent = S.city);

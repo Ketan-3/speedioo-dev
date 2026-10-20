@@ -16,6 +16,7 @@
       rides: [
         ['Sinhagad Fort', 'Hairpin bends up the ghat road to the hill fort, with breakfast at the top.'],
         ['Lavasa via Temghar', 'Curving lakeside roads and misty valleys west of the city.'],
+        ['Mulshi Dam', 'Monsoon waterfalls and a quiet backwater road past Pirangut.'],
         ['Lonavala and Khandala', 'Ghat views on the old Mumbai–Pune highway. The Expressway is closed to two-wheelers.']
       ],
       everyday: 'Short city trips suit light commuters and scooters. Ghat weekends reward 350cc torque and strong brakes.',

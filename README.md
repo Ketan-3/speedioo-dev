@@ -3,6 +3,15 @@
 Static, framework-free front end for the Speedioo used two-wheeler marketplace (Pune, Delhi, Bangalore).
 Every flow works in the browser today; data is kept in `localStorage` until the backend is connected.
 
+## v0.9.3
+
+- Header is the clean black one from speedioo-web: badge + "speedi" with two tyre O's that spin on hover and roll in once on first visit.
+- Inspection scene covers all 12 checkpoints (hotspots on the bike plus a chip row). The engine close-up marks spark plug,
+  valves & cam chain, cylinder & piston, fuel/throttle body, connecting rod, crankshaft, clutch, gearbox and oil sump.
+  On a bike page, opening a component also shows that bike's own result below.
+- Home: "Shop by" (budget, brand, body type) replaces the bike rail; the city section with weekday and weekend rides is back.
+- Hero cursor spotlight removed; the video sits under a steady shade.
+
 ## v0.9 — minimal
 
 - Home is short: video hero with the Buy/Sell finder, three numbers, inspected bikes, the 28-minute sale video,
