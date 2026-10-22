@@ -52,7 +52,7 @@ const saveData = !!(navigator.connection && navigator.connection.saveData);
 const defF = () => ({ minPrice: 0, maxPrice: 500000, brands: [], minYear: 0, maxKm: 0, types: [], owners: [], sort: 'new' });
 const blankSell = () => ({ step: 1, reg: '', noReg: false, brand: '', model: '', year: '', km: '', owners: '', cond: {}, photos: [], name: '', mobile: '', otp: false, verified: false, est: null, date: '', slot: '', where: 'Home', done: false, leadId: '' });
 const S = {
-  city: DB.get('city', 'Pune'), lang: DB.get('lang', 'en'), shortlist: new Set(DB.get('sl', [])), compare: [], f: defF(), hero: 'buy', shop: 'budget', how: 'buy', coll: 'new', rsKm: '10–25k', fromQR: /[?&]utm_source=qr\b/.test(location.search), howStep: 0,
+  city: DB.get('city', 'Pune'), lang: DB.get('lang', 'en'), shortlist: new Set(DB.get('sl', [])), compare: [], f: defF(), hero: 'buy', shop: 'body type', how: 'buy', coll: 'new', rsKm: '10–25k', fromQR: /[?&]utm_source=qr\b/.test(location.search), howStep: 0,
   user: DB.get('user', null), qv: { list: [], i: 0, ph: 0 }, gal: 0,
   sell: Object.assign(blankSell(), DB.get('sellDraft', {}), { photos: [] })
 };
@@ -190,7 +190,8 @@ function renderHome() {
      <span class="eyebrow on-dark"><span class="live"></span>Speedioo ${S.city} · ${C.short}</span>
      <h1>${t('h1')}</h1>
      <p class="sub">Inspected bikes, fixed prices, and a doorstep sale that pays by UPI.</p>
-     <div class="hero-ctas"><a class="btn btn-red" href="#sell">Sell your bike</a><a class="btn btn-ghost-w" href="#buy" data-act="reset-buy">Explore bikes</a></div>
+     <div class="hero-ctas"><a class="btn btn-red btn-shine" href="#sell">Sell your bike</a><a class="btn btn-ghost-w" href="#buy" data-act="reset-buy">Explore bikes</a></div>
+     <ul class="hero-trust" aria-label="What you get"><li>Free inspection</li><li>Fixed price</li><li>UPI in 30 min</li></ul>
     </div>
     <div class="finder">
      <div class="seg" role="tablist" aria-label="Buy or sell"><button role="tab" class="${S.hero === 'buy' ? 'on' : ''}" data-act="hero" data-v="buy" aria-selected="${S.hero === 'buy'}">${t('iBuy')}</button><button role="tab" class="${S.hero === 'sell' ? 'on' : ''}" data-act="hero" data-v="sell" aria-selected="${S.hero === 'sell'}">${t('iSell')}</button></div>
@@ -200,16 +201,32 @@ function renderHome() {
    <button class="vid-ctl" data-act="vidtoggle" aria-label="Pause background video">${I.pause}</button>
   </section>
 
-  <section class="min-stats" id="why" aria-label="Speedioo in numbers"><div class="wrap stats-min">
-   <div><strong>28 min</strong><span>Doorstep sale, inspection to UPI</span></div>
-   <div><strong>₹0</strong><span>Inspection fee</span></div>
-   <div><strong>6 months</strong><span>Warranty on bikes you buy</span></div>
+  <section class="min-stats p-stats" id="why" aria-label="Speedioo in numbers"><div class="wrap">
+   <div class="stats-min rv">
+    <div><strong><span data-count="28">28</span><small> min</small></strong><span>Doorstep sale, inspection to UPI</span></div>
+    <div><strong><span data-count="12">12</span><small> checks</small></strong><span>On every bike, engine to RC</span></div>
+    <div><strong>₹<span data-count="0">0</span></strong><span>Inspection fee</span></div>
+    <div><strong><span data-count="6">6</span><small> months</small></strong><span>Warranty on bikes you buy</span></div>
+   </div>
+   <div class="brand-row rv" aria-label="Shop by brand"><span class="eyebrow on-dark">Inspected bikes from</span><div class="brand-list">${[...new Set(BIKES.map(b => b.brand))].map(br => `<button data-act="shop" data-k="brand" data-v="${br}">${br}</button>`).join('')}</div></div>
   </div></section>
 
   <section class="sec" id="discover"><div class="wrap">
    <div class="sec-head rv"><div><span class="eyebrow">Find your ride</span><h2>Shop by</h2></div><a class="link-arrow" href="#buy" data-act="reset-buy">View all ${inCity.length} in ${S.city} →</a></div>
-   <div class="tabs" role="tablist">${['budget', 'brand', 'body type'].map(k => `<button role="tab" class="${S.shop === k ? 'on' : ''}" data-act="shoptab" data-v="${k}">${k[0].toUpperCase() + k.slice(1)}</button>`).join('')}</div>
+   <div class="tabs p-tabs" role="tablist">${['body type', 'budget', 'brand'].map(k => `<button role="tab" class="${S.shop === k ? 'on' : ''}" aria-selected="${S.shop === k}" data-act="shoptab" data-v="${k}">${k[0].toUpperCase() + k.slice(1)}</button>`).join('')}</div>
    <div id="shopTiles" class="rv">${shopTiles()}</div>
+  </div></section>
+
+  <section class="sec promise-sec" id="promise"><div class="wrap">
+   <div class="sec-head rv"><div><span class="eyebrow">Why riders choose us</span><h2>The Speedioo promise</h2><p class="sec-sub">Six things we do on every bike, whether you are buying or selling.</p></div></div>
+   <div class="promise rv" data-stagger>
+    <article class="pr pr-lg"><span class="pr-i">${I.tag}</span><h3>Fixed price, no haggling</h3><p>The price on a listing is the price you pay. Selling? Your offer is fixed after the free inspection, with every deduction shown.</p><button class="link-arrow" data-act="pricing">How pricing works →</button></article>
+    <article class="pr"><span class="pr-i">${I.bolt}</span><h3>Paid by UPI in 30 minutes</h3><p>Accept the offer, e-sign, and the money is in your account before we leave.</p></article>
+    <article class="pr"><span class="pr-i">${I.shield}</span><h3>12-point inspection</h3><p>Every listed bike carries its own report, from spark plug to RC.</p><button class="link-arrow" data-act="scrollsec" data-t="checkpoints">See the checks →</button></article>
+    <article class="pr"><span class="pr-i">${I.star}</span><h3>6-month warranty</h3><p>Standard cover on every bike you buy from us.</p><button class="link-arrow" data-act="warranty">What’s covered →</button></article>
+    <article class="pr"><span class="pr-i">${I.doc}</span><h3>RC transfer handled</h3><p>We file the paperwork and you track it live.</p><button class="link-arrow" data-act="rc">Track an RC →</button></article>
+    <article class="pr"><span class="pr-i">${I.home}</span><h3>Free test ride at home</h3><p>Pick a slot and we bring the bike to you.</p><a class="link-arrow" href="#buy" data-act="reset-buy">Choose a bike →</a></article>
+   </div>
   </div></section>
 
   <section class="sec jr-sec min-sell" id="sell28"><div class="wrap">
@@ -939,7 +956,8 @@ const A = {
   story: el => { const v = $('#storyVid'); if (!v.querySelector('source')) MEDIA.story.sources.forEach(s => { const x = document.createElement('source'); x.src = s; x.type = 'video/mp4'; v.appendChild(x); }); v.controls = true; v.muted = false; v.play().catch(() => toast('Video could not start')); el.hidden = true; track('video_start', { video_title: 'rider_story' }); },
   playmodal: el => openVideo(el.dataset.v, 'Rider story'),
   walk: (el, e) => { e.stopPropagation(); openVideo('ride', 'Sample walk-around video'); },
-  shoptab: el => { S.shop = el.dataset.v; $$('[data-act=shoptab]').forEach(b => b.classList.toggle('on', b === el)); $('#shopTiles').innerHTML = shopTiles(); },
+  scrollsec: el => scrollToId(el.dataset.t),
+  shoptab: el => { S.shop = el.dataset.v; $$('[data-act=shoptab]').forEach(b => { b.classList.toggle('on', b === el); b.setAttribute('aria-selected', b === el); }); $('#shopTiles').innerHTML = shopTiles(); },
   shop: (el, e) => { e.preventDefault(); const f = defF(), k = el.dataset.k, v = el.dataset.v; if (k === 'budget') { f.minPrice = BUDGETS[v][1]; f.maxPrice = BUDGETS[v][2]; } if (k === 'brand') f.brands = [v]; if (k === 'type') f.types = [v]; if (k === 'km') f.maxKm = +v; if (k === 'year') f.minYear = +v; S.f = f; go('buy'); },
   'reset-buy': (el, e) => { S.f = defF(); if (location.hash === '#buy') { e.preventDefault(); route(); } },
   rail: el => { const r = $('#freshRail'); r && r.scrollBy({ left: +el.dataset.d * r.clientWidth * .8, behavior: reduceMotion ? 'auto' : 'smooth' }); },

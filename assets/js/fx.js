@@ -40,10 +40,10 @@
   let plT;
   addEventListener('hashchange', () => {
     const h = location.hash.slice(1);
-    if (['why', 'checkpoints', 'discover', 'sell28', 'tools', 'city', 'benefits', 'reviews', 'team', 'contact', 'story'].includes(h)) return;
+    if (['why', 'checkpoints', 'discover', 'sell28', 'tools', 'city', 'benefits', 'reviews', 'team', 'contact', 'story', 'promise'].includes(h)) return;
     if (document.documentElement.classList.contains('splash-on')) return;
     clearTimeout(plT); pl.classList.add('on');
-    plT = setTimeout(() => pl.classList.remove('on'), reduce ? 250 : 620);
+    plT = setTimeout(() => pl.classList.remove('on'), reduce ? 200 : 480);
   });
 
   /* re-run enhancements whenever the app renders a page */
@@ -65,32 +65,6 @@
   }
 
   if (!fine || reduce) return;
-
-  /* ---------- magnetic buttons ---------- */
-  const MAG = '.hero-ctas .btn, .sec-head .btn, .fin, .fab, .final-sec .btn-red';
-  let magEl = null;
-  document.addEventListener('pointermove', e => {
-    const el = e.target.closest && e.target.closest(MAG);
-    if (magEl && magEl !== el) { magEl.style.transform = ''; magEl = null; }
-    if (!el) return;
-    magEl = el; el.classList.add('mag');
-    const r = el.getBoundingClientRect(), dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
-    el.style.transform = `translate(${(dx * .22).toFixed(1)}px,${(dy * .3).toFixed(1)}px)`;
-  }, { passive: true });
-
-  /* ---------- 3D tilt cards ---------- */
-  const TILT = '.card, .pillar, .ben, .tool-card:not(.tool-resale), .fin:not(.fin-form), .post, .rev';
-  let tiltEl = null;
-  document.addEventListener('pointermove', e => {
-    const el = e.target.closest && e.target.closest(TILT);
-    if (tiltEl && tiltEl !== el) { tiltEl.style.removeProperty('--rx'); tiltEl.style.removeProperty('--ry'); tiltEl.classList.remove('tilting'); tiltEl = null; }
-    if (!el || el.closest('.rail.dragging')) return;
-    tiltEl = el; el.classList.add('tilt', 'tilting');
-    const r = el.getBoundingClientRect(), px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
-    el.style.setProperty('--ry', ((px - .5) * 8).toFixed(2) + 'deg');
-    el.style.setProperty('--rx', ((.5 - py) * 8).toFixed(2) + 'deg');
-    el.style.setProperty('--px', (px * 100).toFixed(1) + '%'); el.style.setProperty('--py', (py * 100).toFixed(1) + '%');
-  }, { passive: true });
 
   /* ---------- drag-to-scroll rails (desktop) ---------- */
   let drag = null;

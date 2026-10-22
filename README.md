@@ -3,6 +3,21 @@
 Static, framework-free front end for the Speedioo used two-wheeler marketplace (Pune, Delhi, Bangalore).
 Every flow works in the browser today; data is kept in `localStorage` until the backend is connected.
 
+## v1.0 — premium
+
+- Hero keeps the full-bleed video, now a motorcycle drag race (Yamaha R1 launch, Gavin Fregona, Pexels) with two fallbacks.
+  Headline words blur in, glass "live" city pill, shine on the main button, and three trust ticks under the buttons.
+- Numbers band continues the black hero: 28 min, 12 checks, ₹0 inspection fee, 6 months warranty (count up on scroll),
+  plus a one-tap brand row.
+- "Shop by" opens on body type as a bento grid; budget and brand tiles restyled. Tabs and Buy/Sell switches use a sliding
+  indicator with spring easing.
+- New "Speedioo promise" bento before the closing call to action: fixed price, UPI in 30 minutes, 12-point inspection,
+  6-month warranty, RC transfer, test ride at home. Each links to its detail.
+- `assets/js/motion.js`: Motion-style primitives on the Web Animations API (spring easing, blur-fade reveals with stagger,
+  staggered listing results, modal and bottom-sheet entrance). No library download. Reduced-motion users get static states.
+- Inter for reading and controls, Space Grotesk for headings. Softer layered shadows, 20–28px radii, larger section spacing.
+- Removed the 3D tilt and magnetic buttons; page-change logo screen is shorter (0.48 s).
+
 ## v0.9.3
 
 - Header is the clean black one from speedioo-web: badge + "speedi" with two tyre O's that spin on hover and roll in once on first visit.
@@ -112,4 +127,4 @@ Analytics: paste the GTM / GA4 snippet in `index.html`; events already pushed in
 - **SEO:** hash routes are fine for a front-end build. For indexable city/brand/model pages, move to Next.js (SSR/SSG) when the API is live.
 
 ## Media credits
-Hero video: Pexels #4606791. Rider story: Anastasia Shuraeva (Pexels #9606662). Walk-around sample: Pavel Danilyuk (Pexels #5052415). Bike and scene photos: Pexels photo IDs listed in `assets/js/data.js`.
+Hero video: Gavin Fregona (Pexels #32191741, fallback #32034080, then #4606791). Rider story: Anastasia Shuraeva (Pexels #9606662). Walk-around sample: Pavel Danilyuk (Pexels #5052415). Bike and scene photos: Pexels photo IDs listed in `assets/js/data.js`.

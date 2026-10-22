@@ -10,14 +10,15 @@ const PEXELS_VIDEO_POSTER = (id, w = 1600) =>
 
 const MEDIA = {
   hero: {
-    poster: PEXELS_VIDEO_POSTER(4606791),
+    // Motorcycle drag racing, Yamaha R1 launch. Video: Gavin Fregona, Pexels (pexels.com/video/32191741)
+    poster: 'https://images.pexels.com/videos/32191741/bikes-32191741.jpeg?auto=compress&cs=tinysrgb&w=1600',
     // The browser tries each source in order and falls back to the next if one is missing.
     sources: [
-      'https://videos.pexels.com/video-files/4606791/4606791-hd_1920_1080_24fps.mp4',
-      'https://videos.pexels.com/video-files/4606791/4606791-uhd_2560_1440_24fps.mp4',
-      'https://videos.pexels.com/video-files/5052415/5052415-hd_1920_1080_30fps.mp4'
+      'https://videos.pexels.com/video-files/32191741/13728524_2560_1440_30fps.mp4',
+      'https://videos.pexels.com/video-files/32034080/13654804_2560_1440_30fps.mp4',
+      'https://videos.pexels.com/video-files/4606791/4606791-hd_1920_1080_24fps.mp4'
     ],
-    credit: 'Video: Pexels'
+    credit: 'Video: Gavin Fregona, Pexels'
   },
   story: {
     poster: 'https://images.pexels.com/videos/9606662/biker-city-girl-on-a-bike-motorcycle-9606662.jpeg?auto=compress&cs=tinysrgb&w=1260',
